@@ -1,6 +1,8 @@
-from flask import Flask,render_template,request,url_for
+from flask import Flask, render_template, request , url_for
 
 app = Flask(__name__)
+
+
 
 def header_div():
     logo_url=url_for('static', filename='logo.png')
@@ -17,10 +19,13 @@ def first():
     header=header_div()
     return render_template("home.html",header_div=header)
 
+
+
 @app.route("/HSC_2026")
 def hscmark():
     header=header_div()
     return render_template("hscmarkpg.html",header_div=header)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
