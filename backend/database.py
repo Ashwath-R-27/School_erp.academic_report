@@ -10,7 +10,7 @@ from sqlalchemy.orm import (
 
 DB_HOST = os.getenv("DB_HOST", "localhost")
 
-DATABASE_URL = f"postgresql+psycopg://svgv:svgv@{DB_HOST}:5432/postgres"
+DATABASE_URL = f"postgresql+psycopg2://svgv:svgv@{DB_HOST}:5432/postgres"
 
 
 # postgresql+psycopg://user:password@host:port/dbname

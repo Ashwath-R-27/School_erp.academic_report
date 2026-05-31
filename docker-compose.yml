@@ -5,8 +5,34 @@ services:
     image: "postgres:17-alpine"
     ports:
       - 5432:5432
-
     environment:
       POSTGRES_USER: svgv
       POSTGRES_PASSWORD: svgv
       POSTGRES_DB: postgres
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/code
+    environment:
+      - ENV=development
+      - DB_HOST=database
+    depends_on:
+      - database
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./frontend:/code
+    environment:
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend

@@ -39,5 +39,5 @@ CREATE TABLE hsc_result_bio (
     bio integer,
     maths integer,
     total integer GENERATED ALWAYS AS (lang + eng + phy + chem + bio + maths) STORED,
-    cut_off real
+    cut_off real GENERATED ALWAYS AS (phy + chem + )
 );
