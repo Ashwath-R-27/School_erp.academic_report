@@ -100,7 +100,7 @@ a:focus{
     font-size: clamp(10px, 4vw, 17px);
 }
 
-#hse_button, #sslc_button, #result_button{
+#hse_button, #sslc_button, #result_button, #login-btn{
     padding: 10px;
     font-weight: bold;
     background-color: rgb(13, 148, 136);
@@ -120,7 +120,7 @@ a:focus{
     margin: 20px 0;
 }
 
-#hse_button:hover, #sslc_button:hover, #result_button:hover{
+#hse_button:hover, #sslc_button:hover, #result_button:hover, #login-btn:hover{
     transform: translateY(-3px) scale(1.01);
     box-shadow: 0px 0px 10px 8px rgba(10, 255, 173, 0.281);
 }

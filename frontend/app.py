@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request , url_for
+from flask import Flask, render_template, request , url_for, redirect
 from db import get_db
 
 app = Flask(__name__)
@@ -30,6 +30,20 @@ def hscgroups():
 
 @app.route("/")
 def first():
+    return redirect (url_for('loginpg'))
+
+@app.route("/login")
+def loginpg():
+    header=header_div()
+    return render_template("login.html",header_div=header)
+
+@app.route("/register")
+def registerpg():
+    header=header_div()
+    return render_template("register.html",header_div=header)
+
+@app.route("/home")
+def home():
     header=header_div()
     return render_template("home.html",header_div=header)
 
