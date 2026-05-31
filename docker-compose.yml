@@ -10,21 +10,3 @@ services:
       POSTGRES_USER: svgv
       POSTGRES_PASSWORD: svgv
       POSTGRES_DB: postgres
-
-  backend:
-    build: .
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./app:/code/app
-    environment:
-      - ENV=development
-    restart: always
-
-  frontend:
-    build: ./frontend
-    ports:
-      - "5000:5000"
-    environment:
-      - ENV=development
-    restart: always
