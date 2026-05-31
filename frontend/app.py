@@ -41,8 +41,6 @@ def home():
     header=header_div()
     return render_template("home.html",header_div=header)
 
-
-
 @app.route("/HSC_2026")
 def hscmark():
     header=header_div()
