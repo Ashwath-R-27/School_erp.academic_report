@@ -1,9 +1,10 @@
 *{
     --color--primary: #215e23;
-    --color--pg: rgb(255, 240, 233);
-    --color--border: rgb(66, 15, 15);
+    --color--pg: rgb(255, 255, 245);
+    --color--border: rgb(116, 116, 116);
+    --color--tableheader: #215e23;
     scrollbar-width: thin;
-    scrollbar-color: var(--color--border) rgb(221, 215, 212);
+    scrollbar-color: var(--color--primary) rgb(221, 215, 212);
 }
 
 body{
@@ -21,6 +22,16 @@ body{
 .grp_container{
     margin-top: 30px;
     text-align: center;
+}
+
+#cls{
+    margin-top: 20px;
+    text-align: center;
+    font-size: clamp(12px,4vw,19px);
+    font-weight: bold;
+    background: #881337;
+    color: white;
+    padding: 7px 0;
 }
 
 #grp_header{
@@ -57,7 +68,7 @@ body{
 }
 
 .table-container table th{
-    background-color: maroon;
+    background-color: var(--color--tableheader);
     color: white;
     height: 50px;
 }
