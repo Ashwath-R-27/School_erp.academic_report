@@ -11,16 +11,15 @@
     {{ header_div | safe }}
     <div class="content">{% for i in range(0,length) %}
         <div class="grp_container">
-            <div id="grp_header">{{ groups[i][0] }}</div>
+            <div id="grp_header">{{ groups[i].name }}</div>
             <div class="table-box">
                 <div class="table-container">
                     <table>
                         <thead>
-                            <tr><th>RANK</th><th>CLASS</th><th>NAME</th><th>LANG</th><th>ENG</th><th>{{ grpheads[i][0] }}</th><th>{{ grpheads[i][1] }}</th><th>{{ grpheads[i][2] }}</th><th>{{ grpheads[i][3] }}</th><th>TOTAL</th><th>CUT OFF</th></tr>
+                            <tr><th>RANK</th><th>CLASS</th><th>NAME</th><th>LANG</th><th>ENG</th><th>{{ groups[1].sub1 }}</th><th>{{ groups[1].sub2 }}</th><th>{{ groups[1].sub3 }}</th><th>{{ groups[1].sub4 }}</th><th>TOTAL</th><th>CUT OFF</th></tr>
                         </thead>
-                        <tbody>{% if records[i] %}{% for j in records[i] %}
-                            <tr><td>{{j[0]}}</td><td>{{ j[2] }}</td><td>{{ j[3] }}</td><td>{{ j[4] }}</td><td>{{ j[5] }}</td><td>{{ j[6] }}</td><td>{{ j[7] }}</td><td>{{ j[8] }}</td><td>{{ j[9] }}</td><td>{{ j[10] }}</td><td>{{ j[11] }}</td></tr>{% endfor %}{% else %}
-                            <tr><td colspan="11">No Data available</td></tr>{% endif %}
+                        <tbody>{% for j in range(len2) %}{% if records[j].group==groups[i].code %}
+                            <tr><td>{{ records[j].rank }}</td><td>{{ records[j].class }}</td><td>{{ records[j].name }}</td><td>{{ records[j].lang }}</td><td>{{ records[j].eng }}</td><td>{{ records[j].sub1 }}</td><td>{{ records[j].sub2 }}</td><td>{{ records[j].sub3 }}</td><td>{{ records[j].sub4 }}</td><td>{{ records[j].total }}</td><td>{{ records[j].cutoff }}</td></tr>{% endif %}{% endfor %}
                         </tbody>
                     </table>
                 </div>

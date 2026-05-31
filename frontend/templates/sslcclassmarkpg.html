@@ -18,9 +18,8 @@
                         <thead>
                             <tr><th>RANK</th><th>CLASS</th><th>NAME</th><th>TAMIL</th><th>ENGLISH</th><th>MATHS</th><th>SCIENCE</th><th>SOCIAL</th><th>TOTAL</th></tr>
                         </thead>
-                        <tbody>{% if records[i] %}{% for j in records[i] %}
-                            <tr><td>{{ j[0] }}</td><td>{{ j[2] }}</td><td>{{ j[3] }}</td><td>{{ j[4] }}</td><td>{{ j[5] }}</td><td>{{ j[6] }}</td><td>{{ j[7] }}</td><td>{{ j[8] }}</td><td>{{ j[9] }}</td></tr>{% endfor %}{% else %}
-                            <tr><td colspan="11">No Data available</td></tr>{% endif %}
+                        <tbody>{% for j in range(len2) %}{% if records[j].class==cls[i] %}
+                            <tr><td>{{ records[j].rank }}</td><td>{{ records[j].class }}</td><td>{{ records[j].name }}</td><td>{{ records[j].tamil }}</td><td>{{ records[j].english }}</td><td>{{ records[j].maths }}</td><td>{{ records[j].science }}</td><td>{{ records[j].social }}</td><td>{{ records[j].total }}</td></tr>{% endif %}{% endfor %}
                         </tbody>
                     </table>
                 </div>
