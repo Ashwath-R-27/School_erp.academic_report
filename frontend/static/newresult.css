@@ -61,7 +61,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 28px;
-    padding-top: 24px;
 }
 
 .container_1 > hr {
