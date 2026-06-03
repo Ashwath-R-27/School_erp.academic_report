@@ -19,15 +19,15 @@ form=`<div id="content-header">HSE(+2) EXAMINATION MARCH 2026 <br> STUDENT DETAI
                     <div class="field-wrap">
                         <select name='sec' required>
                             <option value="" disabled selected hidden></option>
-                            <option value="A1">X - A1</option>
-                            <option value="A">X - A</option>
-                            <option value="B">X - B</option>
-                            <option value="C">X - C</option>
-                            <option value="D">X - D</option>
-                            <option value="E">X - E</option>
-                            <option value="F">X - F</option>
-                            <option value="G1">X - G1</option>
-                            <option value="G2">X - G2</option>
+                            <option value="A1">XII - A1</option>
+                            <option value="A">XII - A</option>
+                            <option value="B">XII - B</option>
+                            <option value="C">XII - C</option>
+                            <option value="D">XII - D</option>
+                            <option value="E">XII - E</option>
+                            <option value="F">XII - F</option>
+                            <option value="G1">XII - G1</option>
+                            <option value="G2">XII - G2</option>
                         </select>
                         <label>Select Class</label>
                     </div>
