@@ -235,7 +235,7 @@ body {
     text-align: center;
     font-size: clamp(10px, 3.5vw, 15px);
     font-weight: 500;
-    padding: 0 12px;
+    padding: 0 8px;
 }
 
 .top_scorers_table table th {
