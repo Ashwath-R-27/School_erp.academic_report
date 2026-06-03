@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='inputstyles.css') }}">
+    <style>
+        .content{
+            flex: 0;
+        }
+    </style>
+    <title>Student Details</title>
+</head>
+<body>
+    {{ header_div | safe }}
+    <div class="content" id="form"></div>{% if key=='hsc' %}
+    <script src="{{ url_for('static',filename='hscstudform.js') }}"></script>{% elif key=='sslc' %}
+    <script src="{{ url_for('static',filename='sslcstudform.js') }}"></script>{% else %}
+    <div id="content-header">This form is not yet opened</div>{% endif %}
+</body>
+</html>

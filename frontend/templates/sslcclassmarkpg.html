@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSLC Results</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='markpg.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='newmarkpgstyle.css') }}">
 </head>
 <body>
     {{ header_div | safe }}
     <div class="content">{% for i in range(0,length) %}
+        <div id="cls">X - {{ cls[i] }}</div>
         <div class="grp_container">
-            <div id="cls">X - {{ cls[i] }}</div>
             <div class="table-box">
                 <div class="table-container">
                     <table>

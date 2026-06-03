@@ -767,5 +767,15 @@ def sslcclassmark():
     )
 
 
+@app.route("/HSC_2026/StudForm")
+def hscstudformpg():
+    header=header_div()
+    return render_template('studform.html',header_div=header,key='hsc')
+
+@app.route("/SSLC_2026/StudForm")
+def sslcstudformpg():
+    header=header_div()
+    return render_template('studform.html',header_div=header,key='sslc')
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
