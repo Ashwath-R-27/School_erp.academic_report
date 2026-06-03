@@ -1,5 +1,5 @@
 
-CREATE TABLE sslc_result (
+CREATE TABLE sslc (
     reg_no integer PRIMARY KEY,
     class varchar(1),
     first_name varchar(15),
@@ -12,32 +12,21 @@ CREATE TABLE sslc_result (
     total integer GENERATED ALWAYS AS (tamil + english + maths + science + social) STORED,
 );
 
-CREATE TABLE hsc_result_cs (
+CREATE TABLE hsc (
     reg_no integer PRIMARY KEY,
-    class varchar(1),
-    first_name varchar(15),
-    last_name varchar(15),
-    lang integer,
-    eng integer,
-    phy integer,
-    chem integer,
-    csc integer,
-    maths integer,
-    total integer GENERATED ALWAYS AS (lang + eng + phy + chem + csc + maths) STORED,
-    cut_off real
-);
-
-CREATE TABLE hsc_result_bio (
-    reg_no integer PRIMARY KEY,
-    class varchar(1),
-    first_name varchar(15),
-    last_name varchar(15),
-    lang integer,
-    eng integer,
-    phy integer,
-    chem integer,
-    bio integer,
-    maths integer,
-    total integer GENERATED ALWAYS AS (lang + eng + phy + chem + bio + maths) STORED,
-    cut_off real GENERATED ALWAYS AS (phy + chem + )
+    class varchar NOT NULL,
+    name varchar NOT NULL,
+    group_name varchar,
+    lang integer NOT NULL,
+    eng integer NOT NULL,
+    sn1 varchar NOT NULL,
+    sn2 varchar NOT NULL,
+    sn3 varchar NOT NULL,
+    sn4 varchar,
+    sm1 integer NOT NULL,
+    sm2 integer NOT NULL,
+    sm3 integer NOT NULL,
+    sm4 integer,
+    total integer GENERATED AS (lang + eng + sm1 + sm2 + sm3 + sm4) STORED,
+    cut_off real,
 );
