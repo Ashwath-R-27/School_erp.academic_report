@@ -1,3 +1,62 @@
-import database
+from fastapi import Depends, FastAPI, status
+from sqlmodel import Session
 
-database.run_database_operations()
+from .database import get_session
+from .models import HSC, SSLC
+
+app = FastAPI(title="School Result Organizing Microservice")
+
+
+# --- AUTH ENDPOINT ---
+@app.post("/api/login")
+def login():
+    # TODO: Implement login verification logic
+    return {"message": "Login successful stub"}
+
+
+# --- SSLC ENDPOINTS ---
+@app.get("/sslc/classwise")
+def get_sslc_classwise(class_name: str, session: Session = Depends(get_session)):
+    # TODO: Get students filtered by class
+    pass
+
+
+@app.get("/sslc/toppers")
+def get_sslc_toppers(limit: int = 10, session: Session = Depends(get_session)):
+    # TODO: Get overall top students based on total marks
+    pass
+
+
+@app.get("/sslc/subject/toppers")
+def get_sslc_subject_toppers(
+    subject: str, limit: int = 5, session: Session = Depends(get_session)
+):
+    # TODO: Get subject-specific toppers
+    pass
+
+
+# --- HSC ENDPOINTS ---
+@app.get("/hsc/groupwise")
+def get_hsc_groupwise(group_name: str, session: Session = Depends(get_session)):
+    # TODO: Get students filtered by academic group split
+    pass
+
+
+@app.get("/hsc/classwise")
+def get_hsc_classwise(class_name: str, session: Session = Depends(get_session)):
+    # TODO: Get students filtered by class
+    pass
+
+
+@app.get("/hsc/toppers")
+def get_hsc_toppers(limit: int = 10, session: Session = Depends(get_session)):
+    # TODO: Get overall top students based on total marks or cut-off
+    pass
+
+
+@app.get("/hsc/subject/toppers")
+def get_hsc_subject_toppers(
+    subject: str, limit: int = 5, session: Session = Depends(get_session)
+):
+    # TODO: Get subject-specific toppers
+    pass
