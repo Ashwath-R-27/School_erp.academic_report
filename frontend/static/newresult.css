@@ -68,7 +68,6 @@ body {
     display: none;
 }
 
-/* ── Result heading ─────────────────────────────── */
 #result_container_head {
     text-align: center;
     font-family: 'Playfair Display', serif;
@@ -98,7 +97,6 @@ body {
     border-radius: 2px;
 }
 
-/* ── Students appeared ──────────────────────────── */
 .stud_appeared {
     display: grid;
     place-items: center;
@@ -154,7 +152,6 @@ body {
     flex-shrink: 0;
 }
 
-/* ── Section containers ─────────────────────────── */
 .top_scorers,
 .top_marks,
 .comp_container {
@@ -172,7 +169,6 @@ body {
     box-shadow: var(--shadow-md);
 }
 
-/* ── Section headers ────────────────────────────── */
 #top_scorers_header,
 #top_marks_header,
 #comp_header {
@@ -198,7 +194,6 @@ body {
     background: linear-gradient(135deg, #0d3b12 0%, #1a5c20 100%);
 }
 
-/* ── Tables ─────────────────────────────────────── */
 .top_scorers_table,
 .top_marks_table {
     padding: 20px;
@@ -303,7 +298,6 @@ body {
     color: var(--teal);
 }
 
-/* ── View Marks button ──────────────────────────── */
 .top_scorers_table table td button {
     padding: 7px 14px;
     font-weight: 600;
@@ -323,7 +317,6 @@ body {
     transform: translateY(-1px);
 }
 
-/* ── Action buttons ─────────────────────────────── */
 .comp_container_body {
     display: flex;
     flex-wrap: wrap;
