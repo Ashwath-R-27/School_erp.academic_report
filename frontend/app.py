@@ -118,7 +118,29 @@ def hscmark():
             "total": 568,
             "cutoff": 188.5,
         }]
-    return render_template("hscmarkpg.html", header_div=header,top_scorers=datas,len1=len(datas))
+    sub_first_marks=[
+        {
+            'name':'MATHEMATICS',
+            'mark':100,
+            'count':5
+        },
+        {
+            'name':'CHEMISTRY',
+            'mark':100,
+            'count':8
+        },
+        {
+            'name':'PHYSICS',
+            'mark':99,
+            'count':3
+        },
+        {
+            'name':'COMPUTER SCIENCE',
+            'mark':100,
+            'count':17
+        }
+    ]
+    return render_template("hscmarkpg.html", header_div=header,top_scorers=datas,len1=len(datas),sub_marks=sub_first_marks)
 
 
 @app.route("/SSLC_2026")
@@ -161,7 +183,34 @@ def sslcmark():
             "social": 100,
             "total": 493,
         }]
-    return render_template("sslcmarkpg.html", header_div=header,top_scorers=datas,len1=len(datas))
+    sub_first_marks=[
+        {
+            'name':'TAMIL',
+            'mark':99,
+            'count':2
+        },
+        {
+            'name':'ENGLISH',
+            'mark':99,
+            'count':4
+        },
+        {
+            'name':'MATHS',
+            'mark':100,
+            'count':1
+        },
+        {
+            'name':'SCIENCE',
+            'mark':100,
+            'count':4
+        },
+        {
+            'name':'SOCIAL',
+            'mark':100,
+            'count':8
+        }
+    ]
+    return render_template("sslcmarkpg.html", header_div=header,top_scorers=datas,len1=len(datas),sub_marks=sub_first_marks)
 
 
 @app.route("/HSC_2026/Marks/Group")

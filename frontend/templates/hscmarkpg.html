@@ -38,9 +38,8 @@
                         <thead>
                             <tr><th>SUBJECT</th><th>FIRST MARK</th><th>NO OF STUDENTS</th></tr>
                         </thead>
-                        <tbody>
-                            <tr><td>MATHEMATICS</td><td>100</td><td>5</td></tr>
-                            <tr><td>CHEMISTRY</td><td>100</td><td>8</td></tr>
+                        <tbody>{% for i in sub_marks %}
+                            <tr><td>{{ i.name }}</td><td>{{ i.mark }}</td><td>{{ i.count }}</td></tr>{% endfor %}
                         </tbody>
                     </table>
                 </div>
