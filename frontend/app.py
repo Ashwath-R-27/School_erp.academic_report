@@ -124,7 +124,44 @@ def hscmark():
 @app.route("/SSLC_2026")
 def sslcmark():
     header = header_div()
-    return render_template("sslcmarkpg.html", header_div=header)
+    datas = [
+        {
+            "rank": 1,
+            "reg_no": 5287481,
+            "class": "D",
+            "name": "ASHWATH R",
+            "tamil": 87,
+            "english": 98,
+            "maths": 100,
+            "science": 98,
+            "social": 92,
+            "total": 475,
+        },
+        {
+            "rank": 1,
+            "reg_no": 5367867,
+            "class": "B",
+            "name": "NILAKSHA R",
+            "tamil": 97,
+            "english": 99,
+            "maths": 100,
+            "science": 99,
+            "social": 98,
+            "total": 493,
+        },
+        {
+            "rank": 1,
+            "reg_no": 5367958,
+            "class": "E",
+            "name": "NAVADEEP S J",
+            "tamil": 97,
+            "english": 99,
+            "maths": 98,
+            "science": 99,
+            "social": 100,
+            "total": 493,
+        }]
+    return render_template("sslcmarkpg.html", header_div=header,top_scorers=datas,len1=len(datas))
 
 
 @app.route("/HSC_2026/Marks/Group")
