@@ -11,6 +11,7 @@ class HSC(SQLModel, table=True):
     class_: str = Field(sa_column=Column("class", String, nullable=False))
     name: str
     group_name: Optional[str] = None
+    lang_name: str
     lang: int
     eng: int
     sn1: str

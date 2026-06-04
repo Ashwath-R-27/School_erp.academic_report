@@ -1,6 +1,6 @@
 import csv
 from contextlib import asynccontextmanager
-from typing import List
+from typing import List, Optional
 
 from DTOs import SubjectFirstMarkResponse, TopperResponse
 from fastapi import Depends, FastAPI, HTTPException, Query, status
@@ -314,4 +314,99 @@ def import_sslc_csv(
         raise HTTPException(
             status_code=500,
             detail=f"An unexpected error occurred during database injection: {str(e)}",
+        )
+
+
+@app.get("/import_hsc_mock")
+def import_mock_hsc_csv(
+    file_path: str = "mock_data/tn_hsc_exam_data.csv",
+    db: Session = Depends(get_session),
+):
+    """
+    GET endpoint to read the new CSV file, parse the data,
+    and insert rows into PostgreSQL using SQLModel.
+    Omits 'total' and 'cut_off' to let DB auto-generation handle them.
+    """
+    try:
+        with open(file_path, mode="r", encoding="utf-8-sig") as file:
+            reader = csv.DictReader(file)
+
+            # Normalize column headers to handle any accidental spaces and lowercase them
+            reader.fieldnames = (
+                [field.strip().lower() for field in reader.fieldnames]
+                if reader.fieldnames
+                else []
+            )
+
+            records_to_insert = []
+
+            for row in reader:
+                # Helper function to clear out empty string optional fields safely
+                def get_optional_str(key: str) -> Optional[str]:
+                    val = row.get(key)
+                    if val is None:
+                        return None
+                    val = val.strip()
+                    return val if val != "" else None
+
+                # Helper function to parse optional int fields safely
+                def get_optional_int(key: str) -> Optional[int]:
+                    val = row.get(key)
+                    if val is None:
+                        return None
+                    val = val.strip()
+                    return int(val) if val != "" else None
+
+                # Constructing the model instance directly using values from the CSV row
+                hsc_record = HSC(
+                    reg_no=int(row["reg_no"]),
+                    class_=row["class"].strip(),
+                    name=row["name"].strip(),
+                    group_name=get_optional_str("group_name"),
+                    lang_name=row["lang_name"].strip(),
+                    lang=int(row["lang"]),
+                    eng=int(row["eng"]),
+                    sn1=row["sn1"].strip(),
+                    sn2=row["sn2"].strip(),
+                    sn3=row["sn3"].strip(),
+                    sn4=get_optional_str("sn4"),
+                    sm1=int(row["sm1"]),
+                    sm2=int(row["sm2"]),
+                    sm3=int(row["sm3"]),
+                    sm4=get_optional_int("sm4"),
+                    # 'total' and 'cut_off' are intentionally omitted here
+                )
+                records_to_insert.append(hsc_record)
+
+            if not records_to_insert:
+                raise HTTPException(
+                    status_code=400,
+                    detail="The provided CSV file contains no records.",
+                )
+
+            # Bulk add and commit to PostgreSQL database
+            db.add_all(records_to_insert)
+            db.commit()
+
+            return {
+                "status": "success",
+                "inserted_records": len(records_to_insert),
+                "message": f"Successfully loaded {len(records_to_insert)} student records into the hsc table.",
+            }
+
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=404,
+            detail=f"The CSV file could not be found at the path: '{file_path}'",
+        )
+    except KeyError as e:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Missing expected column in CSV file: {str(e)}",
+        )
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(
+            status_code=500,
+            detail=f"An error occurred while writing to the database: {str(e)}",
         )

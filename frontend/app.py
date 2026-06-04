@@ -30,6 +30,18 @@ def initialize_db():
     return jsonify({"hsc_initialization": hsc_res, "sslc_initialization": sslc_res})
 
 
+@app.route("/init_mock")
+def initialize_mock_db():
+
+    hsc_res = get_data_from_backend("/import_hsc_mock")
+    print("HSC Import Results:", hsc_res)
+
+    sslc_res = get_data_from_backend("/import_sslc?class_char=A")
+    print("SSLC Import Results:", sslc_res)
+
+    return jsonify({"hsc_initialization": hsc_res, "sslc_initialization": sslc_res})
+
+
 def header_div():
     logo_url = url_for("static", filename="logo.png")
     header = f""" <div class="header">
