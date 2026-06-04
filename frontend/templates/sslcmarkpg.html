@@ -23,10 +23,10 @@
                 <div class="top_scorers_table">
                     <table>
                         <thead>
-                            <tr><th>RANK</th><th>REG NO</th><th>NAME</th><th>TOTAL</th><th>VIEW MARKS</th></tr>
+                            <tr><th>RANK</th><th>CLASS</th><th>NAME</th><th>TOTAL</th><th>VIEW MARKS</th></tr>
                         </thead>
-                        <tbody>
-                            <tr><td>1</td><td>1256654</td><td>ASHWATH R</td><td>495</td><td><button>View Marks</button></td></tr>
+                        <tbody>{% for i in range(len1) %}
+                            <tr><td>{{ top_scorers[i].rank }}</td><td>{{ top_scorers[i].class }}</td><td>{{ top_scorers[i].name }}</td><td>{{ top_scorers[i].total }}</td><td><button class="view-btn" data-name="{{ top_scorers[i].name }}" data-reg-no="{{ top_scorers[i].reg_no }}" data-tamil="{{ top_scorers[i].tamil }}" data-english="{{ top_scorers[i].english }}" data-maths="{{ top_scorers[i].maths }}" data-science="{{ top_scorers[i].science }}" data-social="{{ top_scorers[i].social }}" data-total="{{ top_scorers[i].total }}">View Marks</button></td></tr>{% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -58,5 +58,7 @@
             <hr>
         </div>
     </div>
+    <div id="dias"></div>
+    <script src="{{ url_for('static',filename='sslcmarkpg.js') }}"></script>
 </body>
 </html>
