@@ -23,10 +23,10 @@
                 <div class="top_scorers_table">
                     <table>
                         <thead>
-                            <tr><th>RANK</th><th>REG NO</th><th>NAME</th><th>GROUP</th><th>TOTAL</th><th>VIEW MARKS</th></tr>
+                            <tr><th>RANK</th><th>CLASS</th><th>NAME</th><th>GROUP</th><th>TOTAL</th><th>VIEW MARKS</th></tr>
                         </thead>
-                        <tbody>
-                            <tr><td>1</td><td>1256654</td><td>ASHWATH R</td><td>CSC</td><td>595</td><td><button>View Marks</button></td></tr>
+                        <tbody>{% for i in range(len1) %}
+                            <tr><td>{{ top_scorers[i].rank }}</td><td>{{ top_scorers[i].class }}</td><td>{{ top_scorers[i].name }}</td><td>{{ top_scorers[i].group | upper }}</td><td>{{ top_scorers[i].total }}</td><td><button class="view-btn" data-name="{{ top_scorers[i].name }}" data-reg-no="{{ top_scorers[i].reg_no }}" data-group="{{ top_scorers[i].group }}" data-lang="{{ top_scorers[i].lang }}" data-eng="{{ top_scorers[i].eng }}" data-sub1="{{ top_scorers[i].sub1 }}" data-sub2="{{ top_scorers[i].sub2 }}" data-sub3="{{ top_scorers[i].sub3 }}" data-sub4="{{ top_scorers[i].sub4 }}" data-total="{{ top_scorers[i].total }}" data-cutoff="{{ top_scorers[i].cutoff }}">View Marks</button></td></tr>{% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -56,5 +56,7 @@
             <hr>
         </div>
     </div>
+    <div id="dias"></div>
+    <script src="{{ url_for('static',filename='markpgscript.js') }}"></script>
 </body>
 </html>

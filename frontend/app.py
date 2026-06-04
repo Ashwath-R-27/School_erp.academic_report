@@ -72,7 +72,53 @@ def testing():
 @app.route("/HSC_2026")
 def hscmark():
     header = header_div()
-    return render_template("hscmarkpg.html", header_div=header)
+    datas = [
+        {
+            "rank": 1,
+            "reg_no": 3265566,
+            "class": "A1",
+            "group": "csc",
+            "name": "JEEVIKA G",
+            "lang": 99,
+            "eng": 95,
+            "sub1": 98,
+            "sub2": 97,
+            "sub3": 91,
+            "sub4": 99,
+            "total": 579,
+            "cutoff": 196.5,
+        },
+        {
+            "rank": 2,
+            "reg_no": 3265552,
+            "class": "A",
+            "group": "biomat",
+            "name": "AMUTHAVAANI K",
+            "lang": 97,
+            "eng": 98,
+            "sub1": 88,
+            "sub2": 95,
+            "sub3": 96,
+            "sub4": 95,
+            "total": 569,
+            "cutoff": 186.5,
+        },
+        {
+            "rank": 3,
+            "reg_no": 3265606,
+            "class": "A",
+            "group": "csc",
+            "name": "RASHEETH N",
+            "lang": 96,
+            "eng": 97,
+            "sub1": 87,
+            "sub2": 96,
+            "sub3": 95,
+            "sub4": 97,
+            "total": 568,
+            "cutoff": 188.5,
+        }]
+    return render_template("hscmarkpg.html", header_div=header,top_scorers=datas,len1=len(datas))
 
 
 @app.route("/SSLC_2026")
