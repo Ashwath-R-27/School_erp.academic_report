@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const group = groupMap[data.group];
 
             const rows = [
-                ["LANG",         data.lang],
+                [data.langName,  data.lang],
                 ["ENG",          data.eng],
                 [group.sub1,     data.sub1],
                 [group.sub2,     data.sub2],
