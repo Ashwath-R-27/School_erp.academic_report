@@ -1,3 +1,3 @@
-from .hsc_response import TopperResponse
+from .hsc_response import SubjectFirstMarkResponse, TopperResponse
 
-__all__ = ["TopperResponse"]
+__all__ = ["TopperResponse", "SubjectFirstMarkResponse"]

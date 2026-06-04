@@ -1,7 +1,20 @@
 import requests
 from flask import Flask, redirect, render_template, request, url_for
+from requests.models import HTTPError
+
+from frontend.sslc import response
 
 app = Flask(__name__)
+
+BACKEND_URL = "https://127.0.0.1"
+
+
+def get_data_from_backend(REQUEST_ENDPOINT):
+    try:
+        response = requests.get(BACKEND_URL + REQUEST_ENDPOINT)
+        return eval(response.text)
+    except HTTPError:
+        return []
 
 
 def header_div():
@@ -60,87 +73,18 @@ def home():
     return render_template("home.html", header_div=header)
 
 
-@app.route("/tesing_backend")
-def testing():
-    response = requests.get("http://localhost:8000")
-    if response.ok:
-        return response.text
-    else:
-        return f"{'Error': {response.status_code}}"
-
-
 @app.route("/HSC_2026")
 def hscmark():
     header = header_div()
-    datas = [
-        {
-            "rank": 1,
-            "reg_no": 3265566,
-            "class": "A1",
-            "group": "csc",
-            "name": "JEEVIKA G",
-            "lang": 99,
-            "eng": 95,
-            "sub1": 98,
-            "sub2": 97,
-            "sub3": 91,
-            "sub4": 99,
-            "total": 579,
-            "cutoff": 196.5,
-        },
-        {
-            "rank": 2,
-            "reg_no": 3265552,
-            "class": "A",
-            "group": "biomat",
-            "name": "AMUTHAVAANI K",
-            "lang": 97,
-            "eng": 98,
-            "sub1": 88,
-            "sub2": 95,
-            "sub3": 96,
-            "sub4": 95,
-            "total": 569,
-            "cutoff": 186.5,
-        },
-        {
-            "rank": 3,
-            "reg_no": 3265606,
-            "class": "A",
-            "group": "csc",
-            "name": "RASHEETH N",
-            "lang": 96,
-            "eng": 97,
-            "sub1": 87,
-            "sub2": 96,
-            "sub3": 95,
-            "sub4": 97,
-            "total": 568,
-            "cutoff": 188.5,
-        }]
-    sub_first_marks=[
-        {
-            'name':'MATHEMATICS',
-            'mark':100,
-            'count':5
-        },
-        {
-            'name':'CHEMISTRY',
-            'mark':100,
-            'count':8
-        },
-        {
-            'name':'PHYSICS',
-            'mark':99,
-            'count':3
-        },
-        {
-            'name':'COMPUTER SCIENCE',
-            'mark':100,
-            'count':17
-        }
-    ]
-    return render_template("hscmarkpg.html", header_div=header,top_scorers=datas,len1=len(datas),sub_marks=sub_first_marks)
+    datas = get_data_from_backend("/hsc/toppers?limit=5")
+    sub_first_marks = get_data_from_backend("/hsc/subject-first-marks")
+    return render_template(
+        "hscmarkpg.html",
+        header_div=header,
+        top_scorers=datas,
+        len1=len(datas),
+        sub_marks=sub_first_marks,
+    )
 
 
 @app.route("/SSLC_2026")
@@ -182,35 +126,22 @@ def sslcmark():
             "science": 99,
             "social": 100,
             "total": 493,
-        }]
-    sub_first_marks=[
-        {
-            'name':'TAMIL',
-            'mark':99,
-            'count':2
         },
-        {
-            'name':'ENGLISH',
-            'mark':99,
-            'count':4
-        },
-        {
-            'name':'MATHS',
-            'mark':100,
-            'count':1
-        },
-        {
-            'name':'SCIENCE',
-            'mark':100,
-            'count':4
-        },
-        {
-            'name':'SOCIAL',
-            'mark':100,
-            'count':8
-        }
     ]
-    return render_template("sslcmarkpg.html", header_div=header,top_scorers=datas,len1=len(datas),sub_marks=sub_first_marks)
+    sub_first_marks = [
+        {"name": "TAMIL", "mark": 99, "count": 2},
+        {"name": "ENGLISH", "mark": 99, "count": 4},
+        {"name": "MATHS", "mark": 100, "count": 1},
+        {"name": "SCIENCE", "mark": 100, "count": 4},
+        {"name": "SOCIAL", "mark": 100, "count": 8},
+    ]
+    return render_template(
+        "sslcmarkpg.html",
+        header_div=header,
+        top_scorers=datas,
+        len1=len(datas),
+        sub_marks=sub_first_marks,
+    )
 
 
 @app.route("/HSC_2026/Marks/Group")
@@ -901,13 +832,15 @@ def sslcclassmark():
 
 @app.route("/HSC_2026/StudForm")
 def hscstudformpg():
-    header=header_div()
-    return render_template('studform.html',header_div=header,key='hsc')
+    header = header_div()
+    return render_template("studform.html", header_div=header, key="hsc")
+
 
 @app.route("/SSLC_2026/StudForm")
 def sslcstudformpg():
-    header=header_div()
-    return render_template('studform.html',header_div=header,key='sslc')
+    header = header_div()
+    return render_template("studform.html", header_div=header, key="sslc")
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

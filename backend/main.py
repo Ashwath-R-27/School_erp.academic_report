@@ -3,10 +3,10 @@ from contextlib import asynccontextmanager
 from typing import List
 
 from fastapi import Depends, FastAPI, HTTPException, Query, status
-from sqlmodel import Session, SQLModel, select
+from sqlmodel import Session, SQLModel, select, text
 
 from .database import engine, get_session
-from .DTOs import TopperResponse
+from .DTOs import SubjectFirstMarkResponse, TopperResponse
 from .models import HSC, SSLC
 
 
@@ -105,6 +105,47 @@ def get_hsc_toppers(limit: int = 10, session: Session = Depends(get_session)):
         previous_total = student_total
 
     return toppers
+
+
+@app.get("/hsc/subject-first-marks", response_model=List[SubjectFirstMarkResponse])
+def get_subject_first_marks(session: Session = Depends(get_session)):
+    # Raw SQL query to unpivot the subject columns, find max marks, and count achievers
+    query = text("""
+        WITH unpivoted_subjects AS (
+            SELECT sn1 AS subject_name, sm1 AS mark FROM hsc WHERE sn1 IS NOT NULL
+            UNION ALL
+            SELECT sn2 AS subject_name, sm2 AS mark FROM hsc WHERE sn2 IS NOT NULL
+            UNION ALL
+            SELECT sn3 AS subject_name, sm3 AS mark FROM hsc WHERE sn3 IS NOT NULL
+            UNION ALL
+            SELECT sn4 AS subject_name, sm4 AS mark FROM hsc WHERE sn4 IS NOT NULL AND sm4 IS NOT NULL
+        ),
+        max_marks_per_subject AS (
+            SELECT
+                subject_name,
+                MAX(mark) as max_mark
+            FROM unpivoted_subjects
+            GROUP BY subject_name
+        )
+        SELECT
+            u.subject_name AS name,
+            u.mark AS mark,
+            COUNT(*) AS count
+        FROM unpivoted_subjects u
+        JOIN max_marks_per_subject m
+          ON u.subject_name = m.subject_name AND u.mark = m.max_mark
+        GROUP BY u.subject_name, u.mark
+        ORDER BY count DESC;
+    """)
+
+    # Execute query
+    result = session.execute(query).mappings().all()
+
+    # Map raw SQL results directly to the Pydantic schema
+    return [
+        SubjectFirstMarkResponse(name=row["name"], mark=row["mark"], count=row["count"])
+        for row in result
+    ]
 
 
 @app.get("/hsc/subject/toppers")

@@ -20,3 +20,9 @@ class TopperResponse(BaseModel):
 
     class Config:
         populate_by_name = True
+
+
+class SubjectFirstMarkResponse(BaseModel):
+    name: str
+    mark: int
+    count: int
