@@ -9,8 +9,7 @@ class SSLC(SQLModel, table=True):
 
     reg_no: int = Field(primary_key=True)
     class_: str = Field(sa_column=Column("class", String(1), nullable=False))
-    first_name: Optional[str] = Field(default=None, max_length=15)
-    last_name: Optional[str] = Field(default=None, max_length=15)
+    name: Optional[str] = Field(default=None, max_length=30)
     tamil: Optional[int] = None
     english: Optional[int] = None
     maths: Optional[int] = None
