@@ -161,7 +161,7 @@ def get_hsc_subject_toppers(
 def import_hsc_csv(
     file_path: str = "mock_data/hsc.csv",
     class_name: str = "XII-A1",
-    group_name: str = "Computer Science",
+    group_name: str = "csc",
     db: Session = Depends(get_session),
 ):
     """
@@ -199,7 +199,7 @@ def import_hsc_csv(
                     eng=int(row["ENGLISH"]),
                     sn1="PHYSICS",
                     sn2="CHEMISTRY",
-                    sn3="COMP",
+                    sn3="COMPUTER SCIENCE",
                     sn4="MATHS",
                     sm1=physics,
                     sm2=chemistry,
