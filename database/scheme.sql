@@ -15,6 +15,7 @@ CREATE TABLE hsc (
     class varchar NOT NULL,
     name varchar NOT NULL,
     group_name varchar,
+    lang_name varchar NOT NULL,
     lang integer NOT NULL,
     eng integer NOT NULL,
     sn1 varchar NOT NULL,
