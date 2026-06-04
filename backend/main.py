@@ -1,10 +1,12 @@
 import csv
 from contextlib import asynccontextmanager
+from typing import List
 
 from fastapi import Depends, FastAPI, HTTPException, Query, status
-from sqlmodel import Session, SQLModel
+from sqlmodel import Session, SQLModel, select
 
 from .database import engine, get_session
+from .DTOs import TopperResponse
 from .models import HSC, SSLC
 
 
@@ -60,8 +62,49 @@ def get_hsc_classwise(class_name: str, session: Session = Depends(get_session)):
 
 @app.get("/hsc/toppers")
 def get_hsc_toppers(limit: int = 10, session: Session = Depends(get_session)):
-    # TODO: Get overall top students based on total marks or cut-off
-    pass
+    # 1. Fetch records ordered by total marks descending
+    statement = select(HSC).order_by(HSC.total.desc()).limit(limit)
+    results = session.exec(statement).all()
+
+    if not results:
+        return []
+
+    toppers = []
+
+    # Track ranking states
+    current_rank = 1
+    previous_total = None
+
+    # 2. Assign ranks dynamically based on total score ties
+    for index, student in enumerate(results, start=1):
+        student_total = student.total if student.total is not None else 0
+
+        # If it's not the first student and the score dropped,
+        # catch up the rank to the current loop position (Standard Competition Ranking / 1-2-2-4)
+        if previous_total is not None and student_total < previous_total:
+            current_rank = index
+
+        toppers.append(
+            TopperResponse(
+                rank=current_rank,
+                reg_no=student.reg_no,
+                class_=student.class_,
+                group=student.group_name,
+                name=student.name,
+                lang=student.lang,
+                eng=student.eng,
+                sub1=student.sm1,
+                sub2=student.sm2,
+                sub3=student.sm3,
+                sub4=student.sm4,
+                total=student_total,
+                cutoff=student.cut_off,
+            )
+        )
+        # Update previous total for the next iteration
+        previous_total = student_total
+
+    return toppers
 
 
 @app.get("/hsc/subject/toppers")
