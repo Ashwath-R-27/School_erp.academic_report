@@ -1,10 +1,19 @@
-from fastapi import Depends, FastAPI, status
-from sqlmodel import Session
+from contextlib import asynccontextmanager
 
-from .database import get_session
+from fastapi import Depends, FastAPI, status
+from sqlmodel import Session, SQLModel
+
+from .database import engine, get_session
 from .models import HSC, SSLC
 
-app = FastAPI(title="School Result Organizing Microservice")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    SQLModel.metadata.create_all(engine)
+    yield
+
+
+app = FastAPI(title="School Result Organizing Microservice", lifespan=lifespan)
 
 
 # --- AUTH ENDPOINT ---

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from sqlalchemy import Column, String
+from sqlalchemy import Column, FetchedValue, String
 from sqlmodel import Field, SQLModel
 
 
@@ -17,10 +17,7 @@ class SSLC(SQLModel, table=True):
     science: Optional[int] = None
     social: Optional[int] = None
 
-    # Generated column from DB side is marked as completely optional/read-only during creation
+    # Tells SQLModel the DB handles this value automatically on insert/update
     total: Optional[int] = Field(
-        default=None,
-        sa_column_kwargs={
-            "schema": "GENERATED ALWAYS AS (tamil + english + maths + science + social) STORED"
-        },
+        default=None, sa_column_kwargs={"server_default": FetchedValue()}
     )
