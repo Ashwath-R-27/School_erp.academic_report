@@ -3,36 +3,71 @@ version: "3.8"
 services:
   database:
     image: "postgres:17-alpine"
+    container_name: school_report_db
+    restart: unless-stopped
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
-      POSTGRES_USER: svgv
-      POSTGRES_PASSWORD: svgv
-      POSTGRES_DB: postgres
+      POSTGRES_USER: ${DB_USER:-svgv}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-svgv}
+      POSTGRES_DB: ${DB_NAME:-postgres}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/scheme.sql:/docker-entrypoint-initdb.d/scheme.sql
+    networks:
+      - backend_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
-  # backend:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "8000:8000"
-  #   volumes:
-  #     - ./backend:/code
-  #   environment:
-  #     - ENV=development
-  #     - DB_HOST=database
-  #   depends_on:
-  #     - database
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: school_report_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/code
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - ENV=development
+      - DB_HOST=database
+      - DB_USER=${DB_USER:-svgv}
+      - DB_PASSWORD=${DB_PASSWORD:-svgv}
+      - DB_NAME=${DB_NAME:-postgres}
+    networks:
+      - backend_net
+      - frontend_net
+    depends_on:
+      database:
+        condition: service_healthy
 
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "5000:5000"
-  #   volumes:
-  #     - ./frontend:/code
-  #   environment:
-  #     - BACKEND_URL=http://backend:8000
-  #   depends_on:
-  #     - backend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: school_report_frontend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./frontend:/code
+    environment:
+      - BACKEND_URL=http://backend:8000
+    networks:
+      - frontend_net
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+
+networks:
+  backend_net:
+    driver: bridge
+  frontend_net:
+    driver: bridge

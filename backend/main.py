@@ -2,12 +2,12 @@ import csv
 from contextlib import asynccontextmanager
 from typing import List
 
+from DTOs import SubjectFirstMarkResponse, TopperResponse
 from fastapi import Depends, FastAPI, HTTPException, Query, status
+from models import HSC, SSLC
 from sqlmodel import Session, SQLModel, select, text
 
-from .database import engine, get_session
-from .DTOs import SubjectFirstMarkResponse, TopperResponse
-from .models import HSC, SSLC
+from database import engine, get_session
 
 
 @asynccontextmanager
@@ -159,7 +159,7 @@ def get_hsc_subject_toppers(
 # --- IMPORT HSC DATA ---
 @app.get("/import_hsc")
 def import_hsc_csv(
-    file_path: str = "C:\\Users\\Asus\\Downloads\\result.csv",
+    file_path: str = "mock_data/hsc.csv",
     class_name: str = "XII-A1",
     group_name: str = "Computer Science",
     db: Session = Depends(get_session),
@@ -206,12 +206,6 @@ def import_hsc_csv(
                     sm3=int(row["COMP"]),
                     sm4=maths,
                     cut_off=calculated_cutoff,
-                    total=physics
-                    + chemistry
-                    + int(row["COMP"])
-                    + maths
-                    + int(row["TAMIL"])
-                    + int(row["ENGLISH"]),
                 )
                 records_to_insert.append(hsc_record)
 
@@ -249,7 +243,7 @@ def import_hsc_csv(
 
 @app.get("/import_sslc")
 def import_sslc_csv(
-    file_path: str = "C:\\Users\\Asus\\Downloads\\result (1).csv",
+    file_path: str = "mock_data/sslc.csv",
     class_char: str = Query(
         ...,
         min_length=1,
@@ -286,11 +280,6 @@ def import_sslc_csv(
                     maths=int(row["MATHS"]) if row.get("MATHS") else None,
                     science=int(row["SCIENCE"]) if row.get("SCIENCE") else None,
                     social=int(row["SOCIAL"]) if row.get("SOCIAL") else None,
-                    total=int(row["TAMIL"])
-                    + int(row["ENGLISH"])
-                    + int(row["MATHS"])
-                    + int(row["SCIENCE"])
-                    + int(row["SOCIAL"]),
                 )
                 records_to_insert.append(sslc_record)
 

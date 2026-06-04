@@ -1,15 +1,13 @@
-
 CREATE TABLE sslc (
     reg_no integer PRIMARY KEY,
     class varchar(1),
-    first_name varchar(15),
-    last_name varchar(15),
+    name varchar(30),
     tamil integer,
     english integer,
     maths integer,
     science integer,
     social integer,
-    total integer GENERATED ALWAYS AS (tamil + english + maths + science + social) STORED,
+    total integer GENERATED ALWAYS AS (tamil + english + maths + science + social) STORED
 );
 
 CREATE TABLE hsc (
@@ -27,6 +25,6 @@ CREATE TABLE hsc (
     sm2 integer NOT NULL,
     sm3 integer NOT NULL,
     sm4 integer,
-    total integer GENERATED AS (lang + eng + sm1 + sm2 + sm3 + sm4) STORED,
-    cut_off real,
+    total integer GENERATED ALWAYS AS (lang + eng + sm1 + sm2 + sm3 + sm4) STORED,
+    cut_off real
 );

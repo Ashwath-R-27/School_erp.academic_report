@@ -3,8 +3,8 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     # Replace with your actual PostgreSQL credentials
-    DATABASE_URL: str = "postgresql://svgv:svgv@localhost:5432/postgres"
-    SECRET_KEY: str = "your_super_secret_jwt_key"
+    DATABASE_URL: str = "postgresql://svgv:svgv@database:5432/postgres"
+
     ALGORITHM: str = "HS256"
 
     class Config:

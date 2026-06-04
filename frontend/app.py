@@ -1,12 +1,13 @@
-import requests
-from flask import Flask, redirect, render_template, request, url_for
-from requests.models import HTTPError
+import os
 
-from frontend.sslc import response
+import requests
+from flask import Flask, jsonify, redirect, render_template, url_for
+from requests.models import HTTPError
 
 app = Flask(__name__)
 
-BACKEND_URL = "https://127.0.0.1"
+
+BACKEND_URL = os.environ.get("BACKEND_URL", "http://127.0.0.1:8000")
 
 
 def get_data_from_backend(REQUEST_ENDPOINT):
@@ -15,6 +16,18 @@ def get_data_from_backend(REQUEST_ENDPOINT):
         return eval(response.text)
     except HTTPError:
         return []
+
+
+@app.route("/init_db")
+def initialize_db():
+
+    hsc_res = get_data_from_backend("/import_hsc")
+    print("HSC Import Results:", hsc_res)
+
+    sslc_res = get_data_from_backend("/import_sslc?class_char=A")
+    print("SSLC Import Results:", sslc_res)
+
+    return jsonify({"hsc_initialization": hsc_res, "sslc_initialization": sslc_res})
 
 
 def header_div():
