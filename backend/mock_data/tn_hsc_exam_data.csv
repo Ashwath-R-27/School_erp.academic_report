@@ -1,306 +1,306 @@
 reg_no,class,name,group_name,lang_name,lang,eng,sn1,sn2,sn3,sn4,sm1,sm2,sm3,sm4,total,cut_off
-10001,A1,Gayathri Gupta,BIOCS,Tamil,95,95,89,77,88,92,89,77,88,92,536,86.5
-10002,A1,Rajesh Sundaram,CSC,Tamil,96,100,98,97,97,96,98,97,97,96,584,193.5
-10003,A1,Vignesh Gounder,CSC,Tamil,90,90,94,100,100,83,94,100,100,83,557,180.0
-10004,A1,Jayanthi Nadar,BIOMAT,French,100,91,97,89,96,97,97,89,96,97,570,190.0
-10005,A1,Mohan Pillai,BIOMAT,Tamil,83,86,95,83,91,100,95,83,91,100,538,189.0
-10006,A1,Zahir Murugan,CSC,Tamil,98,86,92,79,99,93,92,79,99,93,547,178.5
-10007,A1,Rahul Nadar,CSC,Tamil,78,100,88,97,94,83,88,97,94,83,540,175.5
-10008,A1,Jayanthi Rajan,CSC,Tamil,85,91,94,100,78,95,94,100,78,95,543,192.0
-10009,A1,Ilayaraja Krishnan,BIOMAT,Tamil,94,83,100,88,94,90,100,88,94,90,549,184.0
-10010,A1,Arun Murugan,BIOMAT,Tamil,35,44,43,38,44,38,43,38,44,38,242,78.5
-10011,A1,Fathima Thevar,BIOCS,Tamil,97,95,99,96,97,100,99,96,97,100,584,98.0
-10012,A1,Vani Sundaram,CSC,Tamil,94,81,99,100,90,79,99,100,90,79,543,178.5
-10013,A1,Jayanthi Nadar,BIOMAT,Tamil,93,97,84,100,79,77,84,100,79,77,530,169.0
-10014,A1,Yogesh Gupta,CSC,French,87,97,97,94,90,82,97,94,90,82,547,177.5
-10015,A1,Zahir Rajan,BIOMAT,Tamil,81,82,96,84,90,100,96,84,90,100,533,190.0
-10016,A1,Kala Velu,CSC,French,92,95,99,98,87,89,99,98,87,89,560,187.5
-10017,A1,Ramesh Chettiar,CSC,Tamil,84,95,94,100,92,87,94,100,92,87,552,184.0
-10018,A1,Dhinesh Pillai,BIOMAT,Tamil,91,99,98,78,96,76,98,78,96,76,538,164.0
-10019,A1,Keerthana Krishnan,CSC,Tamil,78,81,87,92,80,95,87,92,80,95,513,184.5
-10020,A1,Manoj Nadar,BIOMAT,Tamil,100,86,85,88,90,95,85,88,90,95,544,181.5
-10021,A1,Sangeetha Sharma,BIOMAT,French,100,91,82,93,93,85,82,93,93,85,544,172.5
-10022,A1,Varun Thevar,CSC,French,88,84,97,99,98,90,97,99,98,90,556,188.0
-10023,A1,Bharath Raman,BIOMAT,Tamil,92,90,100,88,100,97,100,88,100,97,567,191.0
-10024,A1,Brindha Balaji,BIOMAT,Tamil,99,96,84,90,100,99,84,90,100,99,568,186.0
-10025,A1,Divya Balaji,BIOMAT,Tamil,87,91,88,79,83,100,88,79,83,100,528,183.5
-10026,A,Santhosh Balaji,BIOMAT,Tamil,79,84,82,87,97,72,82,87,97,72,501,156.5
-10027,A,Kamal Gupta,BIOCS,Tamil,78,99,97,96,84,95,97,96,84,95,549,93.0
-10028,A,Vijay Gounder,BIOMAT,Tamil,75,88,100,95,75,76,100,95,75,76,509,173.5
-10029,A,Jagan Subramanian,CSC,French,37,38,41,37,38,36,41,37,38,36,227,75.0
-10030,A,Aravind Raman,CSC,Tamil,85,100,82,100,87,71,82,100,87,71,525,162.0
-10031,A,Venkatesh Balaji,CSC,Tamil,100,82,75,88,72,82,75,88,72,82,499,163.5
-10032,A,Rajesh Balaji,BIOMAT,French,81,82,77,79,69,82,77,79,69,82,470,160.0
-10033,A,Vignesh Kumar,CSC,Tamil,81,77,77,72,87,82,77,72,87,82,476,156.5
-10034,A,Zahir Velu,BIOMAT,Tamil,71,78,84,82,95,84,84,82,95,84,494,167.0
-10035,A,Aravind Naidu,BIOMAT,French,69,90,78,80,100,70,78,80,100,70,487,149.0
-10036,A,Mohan Pillai,BIOMAT,Tamil,73,96,70,88,76,91,70,88,76,91,494,170.0
-10037,A,Sathish Balaji,CSC,Tamil,99,87,100,78,69,82,100,78,69,82,515,171.0
-10038,A,Santhosh Thevar,CSC,Tamil,75,81,79,78,87,77,79,78,87,77,477,155.5
-10039,A,Sathish Iyer,BIOCS,Tamil,91,97,95,74,71,79,95,74,71,79,507,79.75
-10040,A,Bharath Velu,CSC,Tamil,90,81,96,77,75,69,96,77,75,69,488,155.5
-10041,A,Aravind Kumar,BIOMAT,Tamil,86,100,88,69,76,76,88,69,76,76,495,154.5
-10042,A,Lokesh Sundaram,BIOMAT,Tamil,86,86,95,63,87,90,95,63,87,90,507,169.0
-10043,A,Aravind Murugan,BIOMAT,Tamil,65,87,80,81,68,100,80,81,68,100,481,180.5
-10044,A,Ashwin Rajan,BIOMAT,Tamil,98,83,86,83,91,87,86,83,91,87,528,171.5
-10045,A,Lokesh Naidu,BIOMAT,French,74,83,72,82,67,73,72,82,67,73,451,150.0
-10046,A,Suresh Chettiar,BIOMAT,Tamil,96,69,88,84,76,84,88,84,76,84,497,170.0
-10047,A,Tharun Venkatesh,BIOMAT,Tamil,97,83,77,91,94,84,77,91,94,84,526,168.0
-10048,A,Ganesh Venkatesh,BIOMAT,French,87,62,85,78,92,79,85,78,92,79,483,160.5
-10049,A,Venkatesh Sundaram,CSC,French,91,95,77,84,80,84,77,84,80,84,511,164.5
-10050,A,Tharun Balaji,CSC,Tamil,100,75,72,78,75,76,72,78,75,76,476,151.0
-10051,A,Sriram Kumar,BIOMAT,Tamil,95,75,74,81,83,97,74,81,83,97,505,174.5
-10052,A,Rahul Chettiar,BIOMAT,Tamil,77,75,70,77,84,84,70,77,84,84,467,157.5
-10053,A,Dhinesh Sharma,CSC,French,81,78,95,87,70,97,95,87,70,97,508,188.0
-10054,A,Hari Balaji,BIOMAT,Tamil,96,96,78,92,81,94,78,92,81,94,537,179.0
-10055,A,Suresh Venkatesh,BIOMAT,French,79,97,71,98,94,92,71,98,94,92,531,176.5
-10056,A,Nithin Chettiar,BIOMAT,Tamil,77,79,74,87,93,66,74,87,93,66,476,146.5
-10057,A,Vijay Gounder,CSC,Tamil,98,82,95,78,81,87,95,78,81,87,521,173.5
-10058,A,Gokul Subramanian,CSC,French,85,79,91,61,71,80,91,61,71,80,467,156.0
-10059,A,Mohan Chettiar,CSC,Tamil,70,81,91,88,93,71,91,88,93,71,494,160.5
-10060,A,Mohan Iyer,BIOMAT,French,86,67,85,87,93,90,85,87,93,90,508,176.0
-10061,A,Zahir Venkatesh,CSC,French,90,89,78,72,68,79,78,72,68,79,476,154.0
-10062,A,Vignesh Iyer,CSC,Tamil,96,87,85,72,83,100,85,72,83,100,523,178.5
-10063,A,Venkatesh Chettiar,BIOMAT,Tamil,71,83,71,81,87,84,71,81,87,84,477,160.0
-10064,A,Ilayaraja Kumar,CSC,French,73,76,71,93,100,73,71,93,100,73,486,155.0
-10065,A,Bharath Naidu,BIOMAT,Tamil,89,90,91,70,75,96,91,70,75,96,511,176.5
-10066,B,Jayanthi Gupta,BIOMAT,Tamil,91,93,67,62,84,66,67,62,84,66,463,130.5
-10067,B,Lakshmi Rajan,BIOMAT,Tamil,99,91,87,93,78,92,87,93,78,92,540,182.0
-10068,B,Dhanalakshmi Murugan,BIOMAT,Tamil,74,92,97,72,80,69,97,72,80,69,484,153.5
-10069,B,Nisha Kumar,BIOMAT,Tamil,82,68,100,84,73,74,100,84,73,74,481,166.0
-10070,B,Kavitha Rajan,BIOMAT,French,90,63,64,78,88,65,64,78,88,65,448,136.0
-10071,B,Harshini Iyer,BIOMAT,Tamil,89,95,94,77,83,80,94,77,83,80,518,165.5
-10072,B,Bhavani Chettiar,BIOMAT,Tamil,85,84,89,64,89,66,89,64,89,66,477,142.5
-10073,B,Hemalatha Subramanian,BIOMAT,Tamil,83,95,76,88,100,100,76,88,100,100,542,182.0
-10074,B,Divya Murugan,BIOMAT,Tamil,85,86,83,78,75,96,83,78,75,96,503,176.5
-10075,B,Abirami Rajan,BIOMAT,Tamil,75,78,95,87,84,84,95,87,84,84,503,175.0
-10076,B,Kala Gounder,BIOMAT,Tamil,70,96,70,88,74,92,70,88,74,92,490,171.0
-10077,B,Vani Murugan,BIOMAT,Tamil,90,65,77,81,65,82,77,81,65,82,460,161.0
-10078,B,Harini Pillai,BIOMAT,Tamil,85,84,76,79,100,81,76,79,100,81,505,158.5
-10079,B,Abirami Velu,BIOMAT,Tamil,94,94,87,74,100,74,87,74,100,74,523,154.5
-10080,B,Meena Sundaram,BIOMAT,Tamil,79,80,66,75,88,92,66,75,88,92,480,162.5
-10081,B,Abirami Kumar,BIOMAT,Tamil,89,89,93,92,74,84,93,92,74,84,521,176.5
-10082,B,Dhanalakshmi Krishnan,BIOMAT,French,90,100,82,75,70,84,82,75,70,84,501,162.5
-10083,B,Divya Sharma,BIOCS,Tamil,90,78,81,93,77,89,81,93,77,89,508,85.0
-10084,B,Divya Nadar,BIOMAT,French,100,71,67,74,84,84,67,74,84,84,480,154.5
-10085,B,Divya Venkatesh,BIOMAT,Tamil,92,99,100,89,90,78,100,89,90,78,548,172.5
-10086,B,Swetha Naidu,BIOMAT,Tamil,87,71,88,62,80,82,88,62,80,82,470,157.0
-10087,B,Brindha Velu,BIOMAT,Tamil,86,92,86,89,91,65,86,89,91,65,509,152.5
-10088,B,Harshini Sharma,BIOMAT,French,45,37,35,38,42,42,35,38,42,42,239,78.5
-10089,B,Uma Iyer,BIOMAT,Tamil,83,100,81,90,72,80,81,90,72,80,506,165.5
-10090,B,Uma Sundaram,BIOMAT,Tamil,75,89,94,83,84,86,94,83,84,86,511,174.5
-10091,B,Divya Iyer,BIOMAT,Tamil,71,80,71,85,73,68,71,85,73,68,448,146.0
-10092,B,Deepika Balaji,BIOMAT,Tamil,99,71,100,83,76,70,100,83,76,70,499,161.5
-10093,B,Kala Balaji,BIOCS,Tamil,93,83,84,76,100,77,84,76,100,77,513,84.25
-10094,B,Harshini Velu,BIOMAT,Tamil,78,85,72,81,86,80,72,81,86,80,482,156.5
-10095,B,Jayanthi Raman,BIOMAT,Tamil,77,69,85,73,73,87,85,73,73,87,464,166.0
-10096,B,Brindha Naidu,BIOMAT,Tamil,83,74,65,84,86,99,65,84,86,99,491,173.5
-10097,B,Jayanthi Subramanian,BIOCS,Tamil,81,100,89,72,76,64,89,72,76,64,482,75.25
-10098,B,Priya Naidu,BIOMAT,Tamil,94,77,96,85,86,82,96,85,86,82,520,172.5
-10099,B,Keerthana Raman,BIOMAT,Tamil,87,78,93,100,77,87,93,100,77,87,522,183.5
-10100,B,Ranjini Nadar,BIOMAT,Tamil,73,87,81,93,65,88,81,93,65,88,487,175.0
-10101,B,Nalini Sharma,BIOMAT,French,69,76,70,67,91,71,70,67,91,71,444,139.5
-10102,B,Brindha Raman,BIOMAT,Tamil,75,72,90,71,96,85,90,71,96,85,489,165.5
-10103,B,Preethi Velu,BIOMAT,Tamil,100,70,96,75,84,86,96,75,84,86,511,171.5
-10104,B,Harini Murugan,BIOCS,Tamil,92,79,85,72,92,88,85,72,92,88,508,84.25
-10105,B,Tharani Krishnan,BIOMAT,Tamil,86,64,93,65,69,100,93,65,69,100,477,179.0
-10106,C,Harish Reddy,CSC,French,96,100,98,97,97,98,98,97,97,98,586,195.5
-10107,C,Kishore Balaji,CSC,Tamil,78,60,55,81,79,61,55,81,79,61,414,129.0
-10108,C,Elango Murugan,CSC,French,94,59,56,69,92,62,56,69,92,62,432,124.5
-10109,C,Karthik Krishnan,CSC,French,92,66,73,59,79,72,73,59,79,72,441,138.0
-10110,C,Varun Murugan,CSC,Tamil,73,80,61,77,79,87,61,77,79,87,457,156.0
-10111,C,Kamal Sharma,CSC,French,78,87,65,95,88,59,65,95,88,59,472,139.0
-10112,C,Kishore Thevar,CSC,Tamil,64,65,86,77,87,79,86,77,87,79,458,160.5
-10113,C,Zahir Sundaram,CSC,Tamil,69,86,73,98,59,90,73,98,59,90,475,175.5
-10114,C,Varun Subramanian,CSC,Tamil,95,100,99,97,100,96,99,97,100,96,587,194.0
-10115,C,Venkatesh Balaji,CSC,Tamil,79,89,72,87,73,53,72,87,73,53,453,132.5
-10116,C,Ajay Sundaram,CSC,Tamil,73,70,84,66,85,83,84,66,85,83,461,158.0
-10117,C,Bharath Reddy,CSC,Tamil,61,54,71,96,70,85,71,96,70,85,437,168.5
-10118,C,Rajesh Reddy,CSC,Tamil,80,74,65,64,80,87,65,64,80,87,450,151.5
-10119,C,Gokul Raman,CSC,Tamil,89,86,76,53,67,86,76,53,67,86,457,150.5
-10120,C,Hari Sharma,CSC,Tamil,43,38,40,43,39,36,40,43,39,36,239,77.5
-10121,C,Mahesh Naidu,CSC,Tamil,88,57,65,71,78,78,65,71,78,78,437,146.0
-10122,C,Suresh Naidu,CSC,Tamil,96,100,97,98,99,98,97,98,99,98,588,195.5
-10123,C,Aravind Venkatesh,CSC,Tamil,67,78,78,82,82,90,78,82,82,90,477,170.0
-10124,C,Varun Gounder,CSC,Tamil,81,79,69,73,100,93,69,73,100,93,495,164.0
-10125,C,Lokesh Sundaram,CSC,Tamil,89,86,61,69,83,56,61,69,83,56,444,121.0
-10126,C,Uday Sundaram,CSC,Tamil,79,93,94,78,76,72,94,78,76,72,492,158.0
-10127,C,Mahesh Gounder,CSC,Tamil,69,96,77,81,83,84,77,81,83,84,490,163.0
-10128,C,Vijay Velu,CSC,Tamil,68,78,87,75,78,87,87,75,78,87,473,168.0
-10129,C,Rajesh Thevar,CSC,French,65,60,61,75,78,88,61,75,78,88,427,156.0
-10130,C,Ajay Subramanian,CSC,French,57,87,64,67,77,58,64,67,77,58,410,123.5
-10131,C,Mahesh Iyer,CSC,Tamil,78,67,84,83,94,85,84,83,94,85,491,168.5
-10132,C,Ganesh Subramanian,CSC,Tamil,36,45,44,38,43,35,44,38,43,35,241,76.0
-10133,C,Arun Iyer,CSC,French,98,98,96,100,97,95,96,100,97,95,584,193.0
-10134,C,Dhinesh Nadar,CSC,French,84,83,69,93,72,59,69,93,72,59,460,140.0
-10135,C,Kamal Sharma,CSC,Tamil,60,84,74,74,97,90,74,74,97,90,479,164.0
-10136,C,Dhinesh Iyer,CSC,Tamil,59,75,86,58,69,72,86,58,69,72,419,144.0
-10137,C,Sriram Iyer,CSC,Tamil,58,74,73,67,87,88,73,67,87,88,447,158.0
-10138,C,Tharun Thevar,CSC,Tamil,69,68,92,74,89,94,92,74,89,94,486,177.0
-10139,C,Rahul Thevar,CSC,Tamil,77,80,77,70,54,93,77,70,54,93,451,166.5
-10140,C,Mohan Pillai,CSC,Tamil,67,77,90,67,94,65,90,67,94,65,460,143.5
-10141,C,Arun Thevar,CSC,Tamil,42,45,39,35,41,39,39,35,41,39,241,76.0
-10142,C,Jagan Krishnan,CSC,Tamil,69,53,94,60,68,78,94,60,68,78,422,155.0
-10143,C,Santhosh Pillai,CSC,Tamil,74,69,74,88,58,79,74,88,58,79,442,160.0
-10144,C,Manoj Thevar,CSC,Tamil,73,88,80,69,71,65,80,69,71,65,446,139.5
-10145,C,Sathish Rajan,CSC,Tamil,69,63,55,70,83,72,55,70,83,72,412,134.5
-10146,D,Jayanthi Iyer,CSC,Tamil,75,70,66,94,78,79,66,94,78,79,462,159.0
-10147,D,Harini Krishnan,CSC,French,72,59,85,83,83,82,85,83,83,82,464,166.0
-10148,D,Nalini Pillai,CSC,Tamil,76,63,67,91,72,84,67,91,72,84,453,163.0
-10149,D,Brindha Krishnan,CSC,French,93,83,66,65,66,72,66,65,66,72,445,137.5
-10150,D,Hemalatha Venkatesh,CSC,Tamil,59,81,70,79,74,90,70,79,74,90,453,164.5
-10151,D,Hemalatha Raman,CSC,French,80,62,83,88,86,91,83,88,86,91,490,176.5
-10152,D,Ezhilarasi Sundaram,CSC,Tamil,76,87,70,69,81,67,70,69,81,67,450,136.5
-10153,D,Gayathri Sundaram,CSC,Tamil,75,77,58,85,81,63,58,85,81,63,439,134.5
-10154,D,Sangeetha Nadar,CSC,Tamil,82,80,73,100,88,69,73,100,88,69,492,155.5
-10155,D,Yamini Pillai,CSC,Tamil,96,71,67,78,81,74,67,78,81,74,467,146.5
-10156,D,Nandhini Kumar,CSC,Tamil,72,75,70,89,94,86,70,89,94,86,486,165.5
-10157,D,Jayanthi Thevar,CSC,Tamil,75,59,79,80,56,70,79,80,56,70,419,149.5
-10158,D,Keerthana Murugan,CSC,Tamil,64,73,82,64,61,90,82,64,61,90,434,163.0
-10159,D,Harshini Rajan,CSC,Tamil,71,55,67,90,80,71,67,90,80,71,434,149.5
-10160,D,Eswari Sundaram,CSC,Tamil,96,73,53,79,95,69,53,79,95,69,465,135.0
-10161,D,Ranjini Raman,CSC,French,86,81,64,75,80,88,64,75,80,88,474,157.5
-10162,D,Nisha Raman,CSC,Tamil,68,84,54,70,78,79,54,70,78,79,433,141.0
-10163,D,Swetha Naidu,CSC,Tamil,79,68,79,68,89,83,79,68,89,83,466,156.5
-10164,D,Priya Iyer,CSC,Tamil,60,66,92,66,71,55,92,66,71,55,410,134.0
-10165,D,Sangeetha Gupta,CSC,Tamil,56,68,81,83,66,52,81,83,66,52,406,134.0
-10166,D,Kala Sharma,CSC,Tamil,89,59,75,76,90,85,75,76,90,85,474,160.5
-10167,D,Divya Krishnan,CSC,Tamil,67,73,56,68,71,74,56,68,71,74,409,136.0
-10168,D,Uma Sundaram,CSC,French,84,75,67,63,62,79,67,63,62,79,430,144.0
-10169,D,Preethi Iyer,CSC,Tamil,97,73,69,75,75,67,69,75,75,67,456,139.0
-10170,D,Jaya Kumar,CSC,French,72,70,64,97,74,72,64,97,74,72,449,152.5
-10171,D,Kavitha Pillai,CSC,French,84,78,89,86,74,66,89,86,74,66,477,153.5
-10172,D,Yamini Gupta,CSC,Tamil,44,42,44,41,43,43,44,41,43,43,257,85.5
-10173,D,Keerthana Reddy,CSC,Tamil,95,89,81,60,82,75,81,60,82,75,482,145.5
-10174,D,Kala Gounder,CSC,French,88,53,61,73,89,85,61,73,89,85,449,152.0
-10175,D,Anusha Pillai,CSC,Tamil,89,88,65,65,62,65,65,65,62,65,434,130.0
-10176,D,Anusha Kumar,CSC,Tamil,72,76,68,78,62,60,68,78,62,60,416,133.0
-10177,D,Eswari Nadar,CSC,Tamil,62,71,72,77,77,69,72,77,77,69,428,143.5
-10178,D,Kala Velu,CSC,Tamil,84,82,75,56,64,76,75,56,64,76,437,141.5
-10179,D,Anusha Krishnan,CSC,Tamil,61,86,86,79,81,80,86,79,81,80,473,162.5
-10180,D,Anusha Nadar,CSC,Tamil,85,98,70,75,63,66,70,75,63,66,457,138.5
-10181,D,Eswari Gupta,CSC,Tamil,82,72,75,70,87,92,75,70,87,92,478,164.5
-10182,D,Jaya Sharma,CSC,Tamil,74,70,88,80,69,68,88,80,69,68,449,152.0
-10183,D,Ishwarya Iyer,CSC,Tamil,86,70,70,57,60,65,70,57,60,65,408,128.5
-10184,D,Ishwarya Rajan,CSC,Tamil,89,83,71,61,91,87,71,61,91,87,482,153.0
-10185,D,Jayanthi Thevar,CSC,Tamil,73,81,60,72,63,67,60,72,63,67,416,133.0
-10186,E,Bharath Iyer,ARTSCA,French,72,54,54,79,76,79,54,79,76,79,414,69.0
-10187,E,Ilayaraja Venkatesh,ARTSCA,Tamil,75,61,51,52,59,67,51,52,59,67,365,60.83
-10188,E,Yogesh Kumar,ARTSBM,Tamil,78,70,57,80,77,81,57,80,77,81,443,73.83
-10189,E,Uday Reddy,ARTSBM,Tamil,64,86,66,68,67,68,66,68,67,68,419,69.83
-10190,E,Mahesh Pillai,ARTSBM,Tamil,62,45,69,52,82,53,69,52,82,53,363,60.5
-10191,E,Kamal Murugan,ARTSCA,Tamil,59,71,56,51,85,66,56,51,85,66,388,64.67
-10192,E,Harish Gounder,ARTSBM,Tamil,66,70,68,50,60,63,68,50,60,63,377,62.83
-10193,E,Arun Naidu,ARTSCA,Tamil,56,72,60,68,51,91,60,68,51,91,398,66.33
-10194,E,Ramesh Gounder,ARTSBM,Tamil,62,74,48,51,75,77,48,51,75,77,387,64.5
-10195,E,Prakash Raman,ARTSCA,Tamil,58,65,92,78,74,50,92,78,74,50,417,69.5
-10196,E,Nithin Murugan,ARTSBM,Tamil,60,51,64,82,77,79,64,82,77,79,413,68.83
-10197,E,Rahul Subramanian,ARTSBM,Tamil,96,95,95,98,99,97,95,98,99,97,580,96.67
-10198,E,Aravind Murugan,ARTSCA,Tamil,43,43,44,37,39,36,44,37,39,36,242,40.33
-10199,E,Ashwin Naidu,ARTSBM,French,72,53,74,50,58,61,74,50,58,61,368,61.33
-10200,E,Gokul Pillai,ARTSBM,Tamil,54,44,45,82,89,61,45,82,89,61,375,62.5
-10201,E,Gokul Rajan,ARTSCA,Tamil,51,75,75,74,59,85,75,74,59,85,419,69.83
-10202,E,Nithin Krishnan,ARTSCA,French,58,64,54,72,42,56,54,72,42,56,346,57.67
-10203,E,Rahul Rajan,ARTSCA,French,59,73,67,76,59,66,67,76,59,66,400,66.67
-10204,E,Mahesh Iyer,ARTSBM,Tamil,54,58,67,62,89,51,67,62,89,51,381,63.5
-10205,E,Elango Kumar,ARTSCA,Tamil,81,77,81,49,66,71,81,49,66,71,425,70.83
-10206,E,Naveen Sharma,ARTSCA,Tamil,62,69,68,72,57,46,68,72,57,46,374,62.33
-10207,E,Vijay Chettiar,ARTSCA,Tamil,63,62,68,67,56,55,68,67,56,55,371,61.83
-10208,E,Lokesh Balaji,ARTSCA,French,70,76,56,56,50,51,56,56,50,51,359,59.83
-10209,E,Bharath Pillai,ARTSCA,Tamil,67,73,59,50,78,48,59,50,78,48,375,62.5
-10210,E,Ajay Balaji,ARTSBM,Tamil,81,52,61,53,85,82,61,53,85,82,414,69.0
-10211,E,Karthik Murugan,ARTSBM,Tamil,41,58,64,83,63,58,64,83,63,58,367,61.17
-10212,E,Hari Subramanian,ARTSBM,French,50,64,56,48,79,71,56,48,79,71,368,61.33
-10213,E,Nithin Rajan,ARTSBM,Tamil,65,72,61,75,73,83,61,75,73,83,429,71.5
-10214,E,Varun Sharma,ARTSBM,Tamil,72,80,74,75,87,82,74,75,87,82,470,78.33
-10215,E,Ajay Gounder,ARTSCA,Tamil,79,54,58,86,80,59,58,86,80,59,416,69.33
-10216,F,Kala Reddy,ARTSBM,Tamil,50,75,56,73,71,52,56,73,71,52,377,62.83
-10217,F,Harshini Venkatesh,ARTSBM,Tamil,88,64,72,46,73,54,72,46,73,54,397,66.17
-10218,F,Divya Krishnan,ARTSBM,Tamil,58,61,43,67,52,84,43,67,52,84,365,60.83
-10219,F,Malar Nadar,ARTSCA,Tamil,64,63,91,65,94,69,91,65,94,69,446,74.33
-10220,F,Kala Velu,ARTSCA,Tamil,53,58,83,47,79,74,83,47,79,74,394,65.67
-10221,F,Divya Krishnan,ARTSCA,Tamil,66,65,65,75,48,60,65,75,48,60,379,63.17
-10222,F,Ezhilarasi Reddy,ARTSCA,Tamil,55,81,63,83,79,67,63,83,79,67,428,71.33
-10223,F,Divya Sundaram,ARTSBM,Tamil,35,39,35,40,39,36,35,40,39,36,224,37.33
-10224,F,Harini Velu,ARTSBM,French,61,55,70,87,69,72,70,87,69,72,414,69.0
-10225,F,Chitra Rajan,ARTSCA,Tamil,92,65,66,47,83,90,66,47,83,90,443,73.83
-10226,F,Nandhini Thevar,ARTSCA,Tamil,45,45,44,42,38,36,44,42,38,36,250,41.67
-10227,F,Uma Krishnan,ARTSBM,Tamil,73,71,85,58,86,62,85,58,86,62,435,72.5
-10228,F,Indhu Gupta,ARTSBM,Tamil,77,62,47,48,79,84,47,48,79,84,397,66.17
-10229,F,Harshini Reddy,ARTSBM,Tamil,83,88,70,61,66,90,70,61,66,90,458,76.33
-10230,F,Kavitha Sundaram,ARTSBM,Tamil,56,59,49,69,73,68,49,69,73,68,374,62.33
-10231,F,Kala Reddy,ARTSBM,Tamil,85,73,69,86,60,53,69,86,60,53,426,71.0
-10232,F,Eswari Chettiar,ARTSBM,French,55,85,74,84,89,71,74,84,89,71,458,76.33
-10233,F,Nalini Chettiar,ARTSCA,Tamil,66,75,56,78,63,70,56,78,63,70,408,68.0
-10234,F,Yamini Venkatesh,ARTSCA,French,58,73,68,85,51,74,68,85,51,74,409,68.17
-10235,F,Harini Gounder,ARTSCA,Tamil,52,75,69,91,46,58,69,91,46,58,391,65.17
-10236,F,Brindha Nadar,ARTSBM,Tamil,60,77,84,47,66,90,84,47,66,90,424,70.67
-10237,F,Lakshmi Subramanian,ARTSCA,Tamil,58,54,53,48,60,60,53,48,60,60,333,55.5
-10238,F,Lakshmi Subramanian,ARTSBM,French,55,68,70,47,75,79,70,47,75,79,394,65.67
-10239,F,Nisha Naidu,ARTSCA,French,67,75,83,46,83,95,83,46,83,95,449,74.83
-10240,F,Jayanthi Rajan,ARTSCA,Tamil,54,77,68,76,65,65,68,76,65,65,405,67.5
-10241,F,Indhu Gupta,ARTSCA,Tamil,61,80,69,77,60,62,69,77,60,62,409,68.17
-10242,F,Ranjini Murugan,ARTSCA,French,81,67,60,61,56,80,60,61,56,80,405,67.5
-10243,F,Malar Reddy,ARTSBM,Tamil,72,72,74,72,62,63,74,72,62,63,415,69.17
-10244,F,Dhanalakshmi Pillai,ARTSBM,Tamil,59,82,67,53,62,84,67,53,62,84,407,67.83
-10245,F,Kala Nadar,ARTSCA,French,60,81,61,43,76,58,61,43,76,58,379,63.17
-10246,G1,Santhosh Thevar,BM,Tamil,74,77,59,54,58,45,59,54,58,45,367,61.17
-10247,G1,Vijay Balaji,BM,Tamil,66,46,75,81,47,46,75,81,47,46,361,60.17
-10248,G1,Nandhini Reddy,BM,Tamil,53,77,52,60,56,49,52,60,56,49,347,57.83
-10249,G1,Anusha Subramanian,BM,Tamil,49,83,88,57,41,37,88,57,41,37,355,59.17
-10250,G1,Jagan Velu,BM,Tamil,50,75,67,57,71,77,67,57,71,77,397,66.17
-10251,G1,Jaya Venkatesh,BM,Tamil,72,79,67,58,70,46,67,58,70,46,392,65.33
-10252,G1,Chitra Murugan,BM,Tamil,100,95,95,99,100,98,95,99,100,98,587,97.83
-10253,G1,Tharani Sundaram,BM,Tamil,71,63,61,65,46,46,61,65,46,46,352,58.67
-10254,G1,Dhinesh Nadar,BM,Tamil,37,63,55,71,82,51,55,71,82,51,359,59.83
-10255,G1,Nithin Reddy,BM,French,74,81,48,44,48,79,48,44,48,79,374,62.33
-10256,G1,Preethi Kumar,BM,Tamil,74,58,69,75,39,71,69,75,39,71,386,64.33
-10257,G1,Jaya Naidu,BM,French,72,87,54,65,77,63,54,65,77,63,418,69.67
-10258,G1,Hari Raman,BM,Tamil,71,54,62,64,54,66,62,64,54,66,371,61.83
-10259,G1,Keerthana Gupta,BM,Tamil,65,80,58,86,39,73,58,86,39,73,401,66.83
-10260,G1,Ranjini Gupta,BM,Tamil,84,84,68,74,59,63,68,74,59,63,432,72.0
-10261,G1,Pavithra Rajan,BM,Tamil,66,48,45,77,70,79,45,77,70,79,385,64.17
-10262,G1,Pavithra Subramanian,BM,Tamil,64,70,53,54,62,57,53,54,62,57,360,60.0
-10263,G1,Ganesh Reddy,BM,Tamil,88,58,51,55,80,81,51,55,80,81,413,68.83
-10264,G1,Ramesh Pillai,BM,Tamil,83,79,80,58,70,67,80,58,70,67,437,72.83
-10265,G1,Tharun Sundaram,BM,Tamil,72,81,53,83,61,62,53,83,61,62,412,68.67
-10266,G1,Gayathri Chettiar,BM,Tamil,78,66,51,41,63,39,51,41,63,39,338,56.33
-10267,G1,Jaya Raman,BM,French,45,59,70,71,60,77,70,71,60,77,382,63.67
-10268,G1,Praveen Kumar,BM,Tamil,98,98,98,100,97,99,98,100,97,99,590,98.33
-10269,G1,Eswari Murugan,BM,Tamil,70,95,76,88,53,67,76,88,53,67,449,74.83
-10270,G1,Suresh Rajan,BM,Tamil,50,69,55,63,51,70,55,63,51,70,358,59.67
-10271,G1,Santhosh Murugan,BM,Tamil,94,69,88,59,71,54,88,59,71,54,435,72.5
-10272,G1,Jaya Kumar,BM,Tamil,51,55,66,67,67,83,66,67,67,83,389,64.83
-10273,G1,Santhosh Krishnan,BM,Tamil,93,51,67,54,68,53,67,54,68,53,386,64.33
-10274,G1,Hemalatha Subramanian,BM,Tamil,57,69,46,86,55,45,46,86,55,45,358,59.67
-10275,G1,Kavitha Gupta,BM,Tamil,82,43,50,57,42,43,50,57,42,43,317,52.83
-10276,G2,Yogesh Rajan,BM,French,83,73,55,62,69,76,55,62,69,76,418,69.67
-10277,G2,Indhu Pillai,BM,Tamil,62,75,67,71,51,62,67,71,51,62,388,64.67
-10278,G2,Jaya Murugan,BM,French,58,87,47,37,90,77,47,37,90,77,396,66.0
-10279,G2,Uday Balaji,BM,Tamil,71,50,68,57,47,72,68,57,47,72,365,60.83
-10280,G2,Bhavani Gounder,BM,Tamil,36,38,44,42,40,40,44,42,40,40,240,40.0
-10281,G2,Arun Sundaram,BM,French,73,83,76,89,68,67,76,89,68,67,456,76.0
-10282,G2,Ganesh Naidu,BM,Tamil,63,53,79,74,69,73,79,74,69,73,411,68.5
-10283,G2,Ilayaraja Reddy,BM,French,75,71,41,52,75,90,41,52,75,90,404,67.33
-10284,G2,Dinesh Raman,BM,Tamil,84,55,67,81,57,83,67,81,57,83,427,71.17
-10285,G2,Vignesh Gounder,BM,Tamil,79,71,68,64,75,76,68,64,75,76,433,72.17
-10286,G2,Harshini Chettiar,BM,Tamil,43,79,74,65,57,58,74,65,57,58,376,62.67
-10287,G2,Vani Krishnan,BM,Tamil,79,70,92,55,63,65,92,55,63,65,424,70.67
-10288,G2,Chitra Nadar,BM,Tamil,73,71,68,51,87,58,68,51,87,58,408,68.0
-10289,G2,Ramesh Reddy,BM,Tamil,59,80,71,77,61,51,71,77,61,51,399,66.5
-10290,G2,Harshini Raman,BM,Tamil,99,96,95,96,97,96,95,96,97,96,579,96.5
-10291,G2,Malar Nadar,BM,French,55,62,88,70,62,77,88,70,62,77,414,69.0
-10292,G2,Gomathi Subramanian,BM,Tamil,83,74,61,63,41,63,61,63,41,63,385,64.17
-10293,G2,Abirami Sharma,BM,Tamil,74,85,44,69,90,55,44,69,90,55,417,69.5
-10294,G2,Vijay Naidu,BM,Tamil,77,75,74,66,66,51,74,66,66,51,409,68.17
-10295,G2,Priya Raman,BM,Tamil,100,95,99,99,95,99,99,99,95,99,587,97.83
-10296,G2,Hemalatha Subramanian,BM,Tamil,82,80,68,80,77,64,68,80,77,64,451,75.17
-10297,G2,Hemalatha Sharma,BM,Tamil,73,72,69,46,63,48,69,46,63,48,371,61.83
-10298,G2,Kishore Gounder,BM,Tamil,43,79,37,59,86,42,37,59,86,42,346,57.67
-10299,G2,Santhosh Iyer,BM,Tamil,79,77,74,66,80,41,74,66,80,41,417,69.5
-10300,G2,Santhosh Kumar,BM,Tamil,65,40,48,71,72,78,48,71,72,78,374,62.33
-10301,G2,Kavitha Nadar,BM,French,88,68,59,79,76,71,59,79,76,71,441,73.5
-10302,G2,Dhinesh Balaji,BM,Tamil,59,75,87,65,77,72,87,65,77,72,435,72.5
-10303,G2,Meena Murugan,BM,Tamil,79,56,68,73,69,58,68,73,69,58,403,67.17
-10304,G2,Kishore Thevar,BM,Tamil,75,63,79,52,72,57,79,52,72,57,398,66.33
-10305,G2,Prakash Reddy,BM,Tamil,44,55,74,70,76,84,74,70,76,84,403,67.17
+10001,A1,Gayathri Gupta,biocs,Tamil,95,95,Physics,Chemistry,Biology,Computer Science,89,77,88,92,536,86.5
+10002,A1,Rajesh Sundaram,csc,Tamil,96,100,Physics,Chemistry,Computer Science,Mathematics,98,97,97,96,584,193.5
+10003,A1,Vignesh Gounder,csc,Tamil,90,90,Physics,Chemistry,Computer Science,Mathematics,94,100,100,83,557,180
+10004,A1,Jayanthi Nadar,biomat,French,100,91,Physics,Chemistry,Biology,Mathematics,97,89,96,97,570,190
+10005,A1,Mohan Pillai,biomat,Tamil,83,86,Physics,Chemistry,Biology,Mathematics,95,83,91,100,538,189
+10006,A1,Zahir Murugan,csc,Tamil,98,86,Physics,Chemistry,Computer Science,Mathematics,92,79,99,93,547,178.5
+10007,A1,Rahul Nadar,csc,Tamil,78,100,Physics,Chemistry,Computer Science,Mathematics,88,97,94,83,540,175.5
+10008,A1,Jayanthi Rajan,csc,Tamil,85,91,Physics,Chemistry,Computer Science,Mathematics,94,100,78,95,543,192
+10009,A1,Ilayaraja Krishnan,biomat,Tamil,94,83,Physics,Chemistry,Biology,Mathematics,100,88,94,90,549,184
+10010,A1,Arun Murugan,biomat,Tamil,35,44,Physics,Chemistry,Biology,Mathematics,43,38,44,38,242,78.5
+10011,A1,Fathima Thevar,biocs,Tamil,97,95,Physics,Chemistry,Biology,Computer Science,99,96,97,100,584,98
+10012,A1,Vani Sundaram,csc,Tamil,94,81,Physics,Chemistry,Computer Science,Mathematics,99,100,90,79,543,178.5
+10013,A1,Jayanthi Nadar,biomat,Tamil,93,97,Physics,Chemistry,Biology,Mathematics,84,100,79,77,530,169
+10014,A1,Yogesh Gupta,csc,French,87,97,Physics,Chemistry,Computer Science,Mathematics,97,94,90,82,547,177.5
+10015,A1,Zahir Rajan,biomat,Tamil,81,82,Physics,Chemistry,Biology,Mathematics,96,84,90,100,533,190
+10016,A1,Kala Velu,csc,French,92,95,Physics,Chemistry,Computer Science,Mathematics,99,98,87,89,560,187.5
+10017,A1,Ramesh Chettiar,csc,Tamil,84,95,Physics,Chemistry,Computer Science,Mathematics,94,100,92,87,552,184
+10018,A1,Dhinesh Pillai,biomat,Tamil,91,99,Physics,Chemistry,Biology,Mathematics,98,78,96,76,538,164
+10019,A1,Keerthana Krishnan,csc,Tamil,78,81,Physics,Chemistry,Computer Science,Mathematics,87,92,80,95,513,184.5
+10020,A1,Manoj Nadar,biomat,Tamil,100,86,Physics,Chemistry,Biology,Mathematics,85,88,90,95,544,181.5
+10021,A1,Sangeetha Sharma,biomat,French,100,91,Physics,Chemistry,Biology,Mathematics,82,93,93,85,544,172.5
+10022,A1,Varun Thevar,csc,French,88,84,Physics,Chemistry,Computer Science,Mathematics,97,99,98,90,556,188
+10023,A1,Bharath Raman,biomat,Tamil,92,90,Physics,Chemistry,Biology,Mathematics,100,88,100,97,567,191
+10024,A1,Brindha Balaji,biomat,Tamil,99,96,Physics,Chemistry,Biology,Mathematics,84,90,100,99,568,186
+10025,A1,Divya Balaji,biomat,Tamil,87,91,Physics,Chemistry,Biology,Mathematics,88,79,83,100,528,183.5
+10026,A,Santhosh Balaji,biomat,Tamil,79,84,Physics,Chemistry,Biology,Mathematics,82,87,97,72,501,156.5
+10027,A,Kamal Gupta,biocs,Tamil,78,99,Physics,Chemistry,Biology,Computer Science,97,96,84,95,549,93
+10028,A,Vijay Gounder,biomat,Tamil,75,88,Physics,Chemistry,Biology,Mathematics,100,95,75,76,509,173.5
+10029,A,Jagan Subramanian,csc,French,37,38,Physics,Chemistry,Computer Science,Mathematics,41,37,38,36,227,75
+10030,A,Aravind Raman,csc,Tamil,85,100,Physics,Chemistry,Computer Science,Mathematics,82,100,87,71,525,162
+10031,A,Venkatesh Balaji,csc,Tamil,100,82,Physics,Chemistry,Computer Science,Mathematics,75,88,72,82,499,163.5
+10032,A,Rajesh Balaji,biomat,French,81,82,Physics,Chemistry,Biology,Mathematics,77,79,69,82,470,160
+10033,A,Vignesh Kumar,csc,Tamil,81,77,Physics,Chemistry,Computer Science,Mathematics,77,72,87,82,476,156.5
+10034,A,Zahir Velu,biomat,Tamil,71,78,Physics,Chemistry,Biology,Mathematics,84,82,95,84,494,167
+10035,A,Aravind Naidu,biomat,French,69,90,Physics,Chemistry,Biology,Mathematics,78,80,100,70,487,149
+10036,A,Mohan Pillai,biomat,Tamil,73,96,Physics,Chemistry,Biology,Mathematics,70,88,76,91,494,170
+10037,A,Sathish Balaji,csc,Tamil,99,87,Physics,Chemistry,Computer Science,Mathematics,100,78,69,82,515,171
+10038,A,Santhosh Thevar,csc,Tamil,75,81,Physics,Chemistry,Computer Science,Mathematics,79,78,87,77,477,155.5
+10039,A,Sathish Iyer,biocs,Tamil,91,97,Physics,Chemistry,Biology,Computer Science,95,74,71,79,507,79.75
+10040,A,Bharath Velu,csc,Tamil,90,81,Physics,Chemistry,Computer Science,Mathematics,96,77,75,69,488,155.5
+10041,A,Aravind Kumar,biomat,Tamil,86,100,Physics,Chemistry,Biology,Mathematics,88,69,76,76,495,154.5
+10042,A,Lokesh Sundaram,biomat,Tamil,86,86,Physics,Chemistry,Biology,Mathematics,95,63,87,90,507,169
+10043,A,Aravind Murugan,biomat,Tamil,65,87,Physics,Chemistry,Biology,Mathematics,80,81,68,100,481,180.5
+10044,A,Ashwin Rajan,biomat,Tamil,98,83,Physics,Chemistry,Biology,Mathematics,86,83,91,87,528,171.5
+10045,A,Lokesh Naidu,biomat,French,74,83,Physics,Chemistry,Biology,Mathematics,72,82,67,73,451,150
+10046,A,Suresh Chettiar,biomat,Tamil,96,69,Physics,Chemistry,Biology,Mathematics,88,84,76,84,497,170
+10047,A,Tharun Venkatesh,biomat,Tamil,97,83,Physics,Chemistry,Biology,Mathematics,77,91,94,84,526,168
+10048,A,Ganesh Venkatesh,biomat,French,87,62,Physics,Chemistry,Biology,Mathematics,85,78,92,79,483,160.5
+10049,A,Venkatesh Sundaram,csc,French,91,95,Physics,Chemistry,Computer Science,Mathematics,77,84,80,84,511,164.5
+10050,A,Tharun Balaji,csc,Tamil,100,75,Physics,Chemistry,Computer Science,Mathematics,72,78,75,76,476,151
+10051,A,Sriram Kumar,biomat,Tamil,95,75,Physics,Chemistry,Biology,Mathematics,74,81,83,97,505,174.5
+10052,A,Rahul Chettiar,biomat,Tamil,77,75,Physics,Chemistry,Biology,Mathematics,70,77,84,84,467,157.5
+10053,A,Dhinesh Sharma,csc,French,81,78,Physics,Chemistry,Computer Science,Mathematics,95,87,70,97,508,188
+10054,A,Hari Balaji,biomat,Tamil,96,96,Physics,Chemistry,Biology,Mathematics,78,92,81,94,537,179
+10055,A,Suresh Venkatesh,biomat,French,79,97,Physics,Chemistry,Biology,Mathematics,71,98,94,92,531,176.5
+10056,A,Nithin Chettiar,biomat,Tamil,77,79,Physics,Chemistry,Biology,Mathematics,74,87,93,66,476,146.5
+10057,A,Vijay Gounder,csc,Tamil,98,82,Physics,Chemistry,Computer Science,Mathematics,95,78,81,87,521,173.5
+10058,A,Gokul Subramanian,csc,French,85,79,Physics,Chemistry,Computer Science,Mathematics,91,61,71,80,467,156
+10059,A,Mohan Chettiar,csc,Tamil,70,81,Physics,Chemistry,Computer Science,Mathematics,91,88,93,71,494,160.5
+10060,A,Mohan Iyer,biomat,French,86,67,Physics,Chemistry,Biology,Mathematics,85,87,93,90,508,176
+10061,A,Zahir Venkatesh,csc,French,90,89,Physics,Chemistry,Computer Science,Mathematics,78,72,68,79,476,154
+10062,A,Vignesh Iyer,csc,Tamil,96,87,Physics,Chemistry,Computer Science,Mathematics,85,72,83,100,523,178.5
+10063,A,Venkatesh Chettiar,biomat,Tamil,71,83,Physics,Chemistry,Biology,Mathematics,71,81,87,84,477,160
+10064,A,Ilayaraja Kumar,csc,French,73,76,Physics,Chemistry,Computer Science,Mathematics,71,93,100,73,486,155
+10065,A,Bharath Naidu,biomat,Tamil,89,90,Physics,Chemistry,Biology,Mathematics,91,70,75,96,511,176.5
+10066,B,Jayanthi Gupta,biomat,Tamil,91,93,Physics,Chemistry,Biology,Mathematics,67,62,84,66,463,130.5
+10067,B,Lakshmi Rajan,biomat,Tamil,99,91,Physics,Chemistry,Biology,Mathematics,87,93,78,92,540,182
+10068,B,Dhanalakshmi Murugan,biomat,Tamil,74,92,Physics,Chemistry,Biology,Mathematics,97,72,80,69,484,153.5
+10069,B,Nisha Kumar,biomat,Tamil,82,68,Physics,Chemistry,Biology,Mathematics,100,84,73,74,481,166
+10070,B,Kavitha Rajan,biomat,French,90,63,Physics,Chemistry,Biology,Mathematics,64,78,88,65,448,136
+10071,B,Harshini Iyer,biomat,Tamil,89,95,Physics,Chemistry,Biology,Mathematics,94,77,83,80,518,165.5
+10072,B,Bhavani Chettiar,biomat,Tamil,85,84,Physics,Chemistry,Biology,Mathematics,89,64,89,66,477,142.5
+10073,B,Hemalatha Subramanian,biomat,Tamil,83,95,Physics,Chemistry,Biology,Mathematics,76,88,100,100,542,182
+10074,B,Divya Murugan,biomat,Tamil,85,86,Physics,Chemistry,Biology,Mathematics,83,78,75,96,503,176.5
+10075,B,Abirami Rajan,biomat,Tamil,75,78,Physics,Chemistry,Biology,Mathematics,95,87,84,84,503,175
+10076,B,Kala Gounder,biomat,Tamil,70,96,Physics,Chemistry,Biology,Mathematics,70,88,74,92,490,171
+10077,B,Vani Murugan,biomat,Tamil,90,65,Physics,Chemistry,Biology,Mathematics,77,81,65,82,460,161
+10078,B,Harini Pillai,biomat,Tamil,85,84,Physics,Chemistry,Biology,Mathematics,76,79,100,81,505,158.5
+10079,B,Abirami Velu,biomat,Tamil,94,94,Physics,Chemistry,Biology,Mathematics,87,74,100,74,523,154.5
+10080,B,Meena Sundaram,biomat,Tamil,79,80,Physics,Chemistry,Biology,Mathematics,66,75,88,92,480,162.5
+10081,B,Abirami Kumar,biomat,Tamil,89,89,Physics,Chemistry,Biology,Mathematics,93,92,74,84,521,176.5
+10082,B,Dhanalakshmi Krishnan,biomat,French,90,100,Physics,Chemistry,Biology,Mathematics,82,75,70,84,501,162.5
+10083,B,Divya Sharma,biocs,Tamil,90,78,Physics,Chemistry,Biology,Computer Science,81,93,77,89,508,85
+10084,B,Divya Nadar,biomat,French,100,71,Physics,Chemistry,Biology,Mathematics,67,74,84,84,480,154.5
+10085,B,Divya Venkatesh,biomat,Tamil,92,99,Physics,Chemistry,Biology,Mathematics,100,89,90,78,548,172.5
+10086,B,Swetha Naidu,biomat,Tamil,87,71,Physics,Chemistry,Biology,Mathematics,88,62,80,82,470,157
+10087,B,Brindha Velu,biomat,Tamil,86,92,Physics,Chemistry,Biology,Mathematics,86,89,91,65,509,152.5
+10088,B,Harshini Sharma,biomat,French,45,37,Physics,Chemistry,Biology,Mathematics,35,38,42,42,239,78.5
+10089,B,Uma Iyer,biomat,Tamil,83,100,Physics,Chemistry,Biology,Mathematics,81,90,72,80,506,165.5
+10090,B,Uma Sundaram,biomat,Tamil,75,89,Physics,Chemistry,Biology,Mathematics,94,83,84,86,511,174.5
+10091,B,Divya Iyer,biomat,Tamil,71,80,Physics,Chemistry,Biology,Mathematics,71,85,73,68,448,146
+10092,B,Deepika Balaji,biomat,Tamil,99,71,Physics,Chemistry,Biology,Mathematics,100,83,76,70,499,161.5
+10093,B,Kala Balaji,biocs,Tamil,93,83,Physics,Chemistry,Biology,Computer Science,84,76,100,77,513,84.25
+10094,B,Harshini Velu,biomat,Tamil,78,85,Physics,Chemistry,Biology,Mathematics,72,81,86,80,482,156.5
+10095,B,Jayanthi Raman,biomat,Tamil,77,69,Physics,Chemistry,Biology,Mathematics,85,73,73,87,464,166
+10096,B,Brindha Naidu,biomat,Tamil,83,74,Physics,Chemistry,Biology,Mathematics,65,84,86,99,491,173.5
+10097,B,Jayanthi Subramanian,biocs,Tamil,81,100,Physics,Chemistry,Biology,Computer Science,89,72,76,64,482,75.25
+10098,B,Priya Naidu,biomat,Tamil,94,77,Physics,Chemistry,Biology,Mathematics,96,85,86,82,520,172.5
+10099,B,Keerthana Raman,biomat,Tamil,87,78,Physics,Chemistry,Biology,Mathematics,93,100,77,87,522,183.5
+10100,B,Ranjini Nadar,biomat,Tamil,73,87,Physics,Chemistry,Biology,Mathematics,81,93,65,88,487,175
+10101,B,Nalini Sharma,biomat,French,69,76,Physics,Chemistry,Biology,Mathematics,70,67,91,71,444,139.5
+10102,B,Brindha Raman,biomat,Tamil,75,72,Physics,Chemistry,Biology,Mathematics,90,71,96,85,489,165.5
+10103,B,Preethi Velu,biomat,Tamil,100,70,Physics,Chemistry,Biology,Mathematics,96,75,84,86,511,171.5
+10104,B,Harini Murugan,biocs,Tamil,92,79,Physics,Chemistry,Biology,Computer Science,85,72,92,88,508,84.25
+10105,B,Tharani Krishnan,biomat,Tamil,86,64,Physics,Chemistry,Biology,Mathematics,93,65,69,100,477,179
+10106,C,Harish Reddy,csc,French,96,100,Physics,Chemistry,Computer Science,Mathematics,98,97,97,98,586,195.5
+10107,C,Kishore Balaji,csc,Tamil,78,60,Physics,Chemistry,Computer Science,Mathematics,55,81,79,61,414,129
+10108,C,Elango Murugan,csc,French,94,59,Physics,Chemistry,Computer Science,Mathematics,56,69,92,62,432,124.5
+10109,C,Karthik Krishnan,csc,French,92,66,Physics,Chemistry,Computer Science,Mathematics,73,59,79,72,441,138
+10110,C,Varun Murugan,csc,Tamil,73,80,Physics,Chemistry,Computer Science,Mathematics,61,77,79,87,457,156
+10111,C,Kamal Sharma,csc,French,78,87,Physics,Chemistry,Computer Science,Mathematics,65,95,88,59,472,139
+10112,C,Kishore Thevar,csc,Tamil,64,65,Physics,Chemistry,Computer Science,Mathematics,86,77,87,79,458,160.5
+10113,C,Zahir Sundaram,csc,Tamil,69,86,Physics,Chemistry,Computer Science,Mathematics,73,98,59,90,475,175.5
+10114,C,Varun Subramanian,csc,Tamil,95,100,Physics,Chemistry,Computer Science,Mathematics,99,97,100,96,587,194
+10115,C,Venkatesh Balaji,csc,Tamil,79,89,Physics,Chemistry,Computer Science,Mathematics,72,87,73,53,453,132.5
+10116,C,Ajay Sundaram,csc,Tamil,73,70,Physics,Chemistry,Computer Science,Mathematics,84,66,85,83,461,158
+10117,C,Bharath Reddy,csc,Tamil,61,54,Physics,Chemistry,Computer Science,Mathematics,71,96,70,85,437,168.5
+10118,C,Rajesh Reddy,csc,Tamil,80,74,Physics,Chemistry,Computer Science,Mathematics,65,64,80,87,450,151.5
+10119,C,Gokul Raman,csc,Tamil,89,86,Physics,Chemistry,Computer Science,Mathematics,76,53,67,86,457,150.5
+10120,C,Hari Sharma,csc,Tamil,43,38,Physics,Chemistry,Computer Science,Mathematics,40,43,39,36,239,77.5
+10121,C,Mahesh Naidu,csc,Tamil,88,57,Physics,Chemistry,Computer Science,Mathematics,65,71,78,78,437,146
+10122,C,Suresh Naidu,csc,Tamil,96,100,Physics,Chemistry,Computer Science,Mathematics,97,98,99,98,588,195.5
+10123,C,Aravind Venkatesh,csc,Tamil,67,78,Physics,Chemistry,Computer Science,Mathematics,78,82,82,90,477,170
+10124,C,Varun Gounder,csc,Tamil,81,79,Physics,Chemistry,Computer Science,Mathematics,69,73,100,93,495,164
+10125,C,Lokesh Sundaram,csc,Tamil,89,86,Physics,Chemistry,Computer Science,Mathematics,61,69,83,56,444,121
+10126,C,Uday Sundaram,csc,Tamil,79,93,Physics,Chemistry,Computer Science,Mathematics,94,78,76,72,492,158
+10127,C,Mahesh Gounder,csc,Tamil,69,96,Physics,Chemistry,Computer Science,Mathematics,77,81,83,84,490,163
+10128,C,Vijay Velu,csc,Tamil,68,78,Physics,Chemistry,Computer Science,Mathematics,87,75,78,87,473,168
+10129,C,Rajesh Thevar,csc,French,65,60,Physics,Chemistry,Computer Science,Mathematics,61,75,78,88,427,156
+10130,C,Ajay Subramanian,csc,French,57,87,Physics,Chemistry,Computer Science,Mathematics,64,67,77,58,410,123.5
+10131,C,Mahesh Iyer,csc,Tamil,78,67,Physics,Chemistry,Computer Science,Mathematics,84,83,94,85,491,168.5
+10132,C,Ganesh Subramanian,csc,Tamil,36,45,Physics,Chemistry,Computer Science,Mathematics,44,38,43,35,241,76
+10133,C,Arun Iyer,csc,French,98,98,Physics,Chemistry,Computer Science,Mathematics,96,100,97,95,584,193
+10134,C,Dhinesh Nadar,csc,French,84,83,Physics,Chemistry,Computer Science,Mathematics,69,93,72,59,460,140
+10135,C,Kamal Sharma,csc,Tamil,60,84,Physics,Chemistry,Computer Science,Mathematics,74,74,97,90,479,164
+10136,C,Dhinesh Iyer,csc,Tamil,59,75,Physics,Chemistry,Computer Science,Mathematics,86,58,69,72,419,144
+10137,C,Sriram Iyer,csc,Tamil,58,74,Physics,Chemistry,Computer Science,Mathematics,73,67,87,88,447,158
+10138,C,Tharun Thevar,csc,Tamil,69,68,Physics,Chemistry,Computer Science,Mathematics,92,74,89,94,486,177
+10139,C,Rahul Thevar,csc,Tamil,77,80,Physics,Chemistry,Computer Science,Mathematics,77,70,54,93,451,166.5
+10140,C,Mohan Pillai,csc,Tamil,67,77,Physics,Chemistry,Computer Science,Mathematics,90,67,94,65,460,143.5
+10141,C,Arun Thevar,csc,Tamil,42,45,Physics,Chemistry,Computer Science,Mathematics,39,35,41,39,241,76
+10142,C,Jagan Krishnan,csc,Tamil,69,53,Physics,Chemistry,Computer Science,Mathematics,94,60,68,78,422,155
+10143,C,Santhosh Pillai,csc,Tamil,74,69,Physics,Chemistry,Computer Science,Mathematics,74,88,58,79,442,160
+10144,C,Manoj Thevar,csc,Tamil,73,88,Physics,Chemistry,Computer Science,Mathematics,80,69,71,65,446,139.5
+10145,C,Sathish Rajan,csc,Tamil,69,63,Physics,Chemistry,Computer Science,Mathematics,55,70,83,72,412,134.5
+10146,D,Jayanthi Iyer,csc,Tamil,75,70,Physics,Chemistry,Computer Science,Mathematics,66,94,78,79,462,159
+10147,D,Harini Krishnan,csc,French,72,59,Physics,Chemistry,Computer Science,Mathematics,85,83,83,82,464,166
+10148,D,Nalini Pillai,csc,Tamil,76,63,Physics,Chemistry,Computer Science,Mathematics,67,91,72,84,453,163
+10149,D,Brindha Krishnan,csc,French,93,83,Physics,Chemistry,Computer Science,Mathematics,66,65,66,72,445,137.5
+10150,D,Hemalatha Venkatesh,csc,Tamil,59,81,Physics,Chemistry,Computer Science,Mathematics,70,79,74,90,453,164.5
+10151,D,Hemalatha Raman,csc,French,80,62,Physics,Chemistry,Computer Science,Mathematics,83,88,86,91,490,176.5
+10152,D,Ezhilarasi Sundaram,csc,Tamil,76,87,Physics,Chemistry,Computer Science,Mathematics,70,69,81,67,450,136.5
+10153,D,Gayathri Sundaram,csc,Tamil,75,77,Physics,Chemistry,Computer Science,Mathematics,58,85,81,63,439,134.5
+10154,D,Sangeetha Nadar,csc,Tamil,82,80,Physics,Chemistry,Computer Science,Mathematics,73,100,88,69,492,155.5
+10155,D,Yamini Pillai,csc,Tamil,96,71,Physics,Chemistry,Computer Science,Mathematics,67,78,81,74,467,146.5
+10156,D,Nandhini Kumar,csc,Tamil,72,75,Physics,Chemistry,Computer Science,Mathematics,70,89,94,86,486,165.5
+10157,D,Jayanthi Thevar,csc,Tamil,75,59,Physics,Chemistry,Computer Science,Mathematics,79,80,56,70,419,149.5
+10158,D,Keerthana Murugan,csc,Tamil,64,73,Physics,Chemistry,Computer Science,Mathematics,82,64,61,90,434,163
+10159,D,Harshini Rajan,csc,Tamil,71,55,Physics,Chemistry,Computer Science,Mathematics,67,90,80,71,434,149.5
+10160,D,Eswari Sundaram,csc,Tamil,96,73,Physics,Chemistry,Computer Science,Mathematics,53,79,95,69,465,135
+10161,D,Ranjini Raman,csc,French,86,81,Physics,Chemistry,Computer Science,Mathematics,64,75,80,88,474,157.5
+10162,D,Nisha Raman,csc,Tamil,68,84,Physics,Chemistry,Computer Science,Mathematics,54,70,78,79,433,141
+10163,D,Swetha Naidu,csc,Tamil,79,68,Physics,Chemistry,Computer Science,Mathematics,79,68,89,83,466,156.5
+10164,D,Priya Iyer,csc,Tamil,60,66,Physics,Chemistry,Computer Science,Mathematics,92,66,71,55,410,134
+10165,D,Sangeetha Gupta,csc,Tamil,56,68,Physics,Chemistry,Computer Science,Mathematics,81,83,66,52,406,134
+10166,D,Kala Sharma,csc,Tamil,89,59,Physics,Chemistry,Computer Science,Mathematics,75,76,90,85,474,160.5
+10167,D,Divya Krishnan,csc,Tamil,67,73,Physics,Chemistry,Computer Science,Mathematics,56,68,71,74,409,136
+10168,D,Uma Sundaram,csc,French,84,75,Physics,Chemistry,Computer Science,Mathematics,67,63,62,79,430,144
+10169,D,Preethi Iyer,csc,Tamil,97,73,Physics,Chemistry,Computer Science,Mathematics,69,75,75,67,456,139
+10170,D,Jaya Kumar,csc,French,72,70,Physics,Chemistry,Computer Science,Mathematics,64,97,74,72,449,152.5
+10171,D,Kavitha Pillai,csc,French,84,78,Physics,Chemistry,Computer Science,Mathematics,89,86,74,66,477,153.5
+10172,D,Yamini Gupta,csc,Tamil,44,42,Physics,Chemistry,Computer Science,Mathematics,44,41,43,43,257,85.5
+10173,D,Keerthana Reddy,csc,Tamil,95,89,Physics,Chemistry,Computer Science,Mathematics,81,60,82,75,482,145.5
+10174,D,Kala Gounder,csc,French,88,53,Physics,Chemistry,Computer Science,Mathematics,61,73,89,85,449,152
+10175,D,Anusha Pillai,csc,Tamil,89,88,Physics,Chemistry,Computer Science,Mathematics,65,65,62,65,434,130
+10176,D,Anusha Kumar,csc,Tamil,72,76,Physics,Chemistry,Computer Science,Mathematics,68,78,62,60,416,133
+10177,D,Eswari Nadar,csc,Tamil,62,71,Physics,Chemistry,Computer Science,Mathematics,72,77,77,69,428,143.5
+10178,D,Kala Velu,csc,Tamil,84,82,Physics,Chemistry,Computer Science,Mathematics,75,56,64,76,437,141.5
+10179,D,Anusha Krishnan,csc,Tamil,61,86,Physics,Chemistry,Computer Science,Mathematics,86,79,81,80,473,162.5
+10180,D,Anusha Nadar,csc,Tamil,85,98,Physics,Chemistry,Computer Science,Mathematics,70,75,63,66,457,138.5
+10181,D,Eswari Gupta,csc,Tamil,82,72,Physics,Chemistry,Computer Science,Mathematics,75,70,87,92,478,164.5
+10182,D,Jaya Sharma,csc,Tamil,74,70,Physics,Chemistry,Computer Science,Mathematics,88,80,69,68,449,152
+10183,D,Ishwarya Iyer,csc,Tamil,86,70,Physics,Chemistry,Computer Science,Mathematics,70,57,60,65,408,128.5
+10184,D,Ishwarya Rajan,csc,Tamil,89,83,Physics,Chemistry,Computer Science,Mathematics,71,61,91,87,482,153
+10185,D,Jayanthi Thevar,csc,Tamil,73,81,Physics,Chemistry,Computer Science,Mathematics,60,72,63,67,416,133
+10186,E,Bharath Iyer,artsca,French,72,54,Economics,Commerce,Accountancy,Computer Applications,54,79,76,79,414,69
+10187,E,Ilayaraja Venkatesh,artsca,Tamil,75,61,Economics,Commerce,Accountancy,Computer Applications,51,52,59,67,365,60.83
+10188,E,Yogesh Kumar,artsbm,Tamil,78,70,Economics,Commerce,Accountancy,Business Mathematics,57,80,77,81,443,73.83
+10189,E,Uday Reddy,artsbm,Tamil,64,86,Economics,Commerce,Accountancy,Business Mathematics,66,68,67,68,419,69.83
+10190,E,Mahesh Pillai,artsbm,Tamil,62,45,Economics,Commerce,Accountancy,Business Mathematics,69,52,82,53,363,60.5
+10191,E,Kamal Murugan,artsca,Tamil,59,71,Economics,Commerce,Accountancy,Computer Applications,56,51,85,66,388,64.67
+10192,E,Harish Gounder,artsbm,Tamil,66,70,Economics,Commerce,Accountancy,Business Mathematics,68,50,60,63,377,62.83
+10193,E,Arun Naidu,artsca,Tamil,56,72,Economics,Commerce,Accountancy,Computer Applications,60,68,51,91,398,66.33
+10194,E,Ramesh Gounder,artsbm,Tamil,62,74,Economics,Commerce,Accountancy,Business Mathematics,48,51,75,77,387,64.5
+10195,E,Prakash Raman,artsca,Tamil,58,65,Economics,Commerce,Accountancy,Computer Applications,92,78,74,50,417,69.5
+10196,E,Nithin Murugan,artsbm,Tamil,60,51,Economics,Commerce,Accountancy,Business Mathematics,64,82,77,79,413,68.83
+10197,E,Rahul Subramanian,artsbm,Tamil,96,95,Economics,Commerce,Accountancy,Business Mathematics,95,98,99,97,580,96.67
+10198,E,Aravind Murugan,artsca,Tamil,43,43,Economics,Commerce,Accountancy,Computer Applications,44,37,39,36,242,40.33
+10199,E,Ashwin Naidu,artsbm,French,72,53,Economics,Commerce,Accountancy,Business Mathematics,74,50,58,61,368,61.33
+10200,E,Gokul Pillai,artsbm,Tamil,54,44,Economics,Commerce,Accountancy,Business Mathematics,45,82,89,61,375,62.5
+10201,E,Gokul Rajan,artsca,Tamil,51,75,Economics,Commerce,Accountancy,Computer Applications,75,74,59,85,419,69.83
+10202,E,Nithin Krishnan,artsca,French,58,64,Economics,Commerce,Accountancy,Computer Applications,54,72,42,56,346,57.67
+10203,E,Rahul Rajan,artsca,French,59,73,Economics,Commerce,Accountancy,Computer Applications,67,76,59,66,400,66.67
+10204,E,Mahesh Iyer,artsbm,Tamil,54,58,Economics,Commerce,Accountancy,Business Mathematics,67,62,89,51,381,63.5
+10205,E,Elango Kumar,artsca,Tamil,81,77,Economics,Commerce,Accountancy,Computer Applications,81,49,66,71,425,70.83
+10206,E,Naveen Sharma,artsca,Tamil,62,69,Economics,Commerce,Accountancy,Computer Applications,68,72,57,46,374,62.33
+10207,E,Vijay Chettiar,artsca,Tamil,63,62,Economics,Commerce,Accountancy,Computer Applications,68,67,56,55,371,61.83
+10208,E,Lokesh Balaji,artsca,French,70,76,Economics,Commerce,Accountancy,Computer Applications,56,56,50,51,359,59.83
+10209,E,Bharath Pillai,artsca,Tamil,67,73,Economics,Commerce,Accountancy,Computer Applications,59,50,78,48,375,62.5
+10210,E,Ajay Balaji,artsbm,Tamil,81,52,Economics,Commerce,Accountancy,Business Mathematics,61,53,85,82,414,69
+10211,E,Karthik Murugan,artsbm,Tamil,41,58,Economics,Commerce,Accountancy,Business Mathematics,64,83,63,58,367,61.17
+10212,E,Hari Subramanian,artsbm,French,50,64,Economics,Commerce,Accountancy,Business Mathematics,56,48,79,71,368,61.33
+10213,E,Nithin Rajan,artsbm,Tamil,65,72,Economics,Commerce,Accountancy,Business Mathematics,61,75,73,83,429,71.5
+10214,E,Varun Sharma,artsbm,Tamil,72,80,Economics,Commerce,Accountancy,Business Mathematics,74,75,87,82,470,78.33
+10215,E,Ajay Gounder,artsca,Tamil,79,54,Economics,Commerce,Accountancy,Computer Applications,58,86,80,59,416,69.33
+10216,F,Kala Reddy,artsbm,Tamil,50,75,Economics,Commerce,Accountancy,Business Mathematics,56,73,71,52,377,62.83
+10217,F,Harshini Venkatesh,artsbm,Tamil,88,64,Economics,Commerce,Accountancy,Business Mathematics,72,46,73,54,397,66.17
+10218,F,Divya Krishnan,artsbm,Tamil,58,61,Economics,Commerce,Accountancy,Business Mathematics,43,67,52,84,365,60.83
+10219,F,Malar Nadar,artsca,Tamil,64,63,Economics,Commerce,Accountancy,Computer Applications,91,65,94,69,446,74.33
+10220,F,Kala Velu,artsca,Tamil,53,58,Economics,Commerce,Accountancy,Computer Applications,83,47,79,74,394,65.67
+10221,F,Divya Krishnan,artsca,Tamil,66,65,Economics,Commerce,Accountancy,Computer Applications,65,75,48,60,379,63.17
+10222,F,Ezhilarasi Reddy,artsca,Tamil,55,81,Economics,Commerce,Accountancy,Computer Applications,63,83,79,67,428,71.33
+10223,F,Divya Sundaram,artsbm,Tamil,35,39,Economics,Commerce,Accountancy,Business Mathematics,35,40,39,36,224,37.33
+10224,F,Harini Velu,artsbm,French,61,55,Economics,Commerce,Accountancy,Business Mathematics,70,87,69,72,414,69
+10225,F,Chitra Rajan,artsca,Tamil,92,65,Economics,Commerce,Accountancy,Computer Applications,66,47,83,90,443,73.83
+10226,F,Nandhini Thevar,artsca,Tamil,45,45,Economics,Commerce,Accountancy,Computer Applications,44,42,38,36,250,41.67
+10227,F,Uma Krishnan,artsbm,Tamil,73,71,Economics,Commerce,Accountancy,Business Mathematics,85,58,86,62,435,72.5
+10228,F,Indhu Gupta,artsbm,Tamil,77,62,Economics,Commerce,Accountancy,Business Mathematics,47,48,79,84,397,66.17
+10229,F,Harshini Reddy,artsbm,Tamil,83,88,Economics,Commerce,Accountancy,Business Mathematics,70,61,66,90,458,76.33
+10230,F,Kavitha Sundaram,artsbm,Tamil,56,59,Economics,Commerce,Accountancy,Business Mathematics,49,69,73,68,374,62.33
+10231,F,Kala Reddy,artsbm,Tamil,85,73,Economics,Commerce,Accountancy,Business Mathematics,69,86,60,53,426,71
+10232,F,Eswari Chettiar,artsbm,French,55,85,Economics,Commerce,Accountancy,Business Mathematics,74,84,89,71,458,76.33
+10233,F,Nalini Chettiar,artsca,Tamil,66,75,Economics,Commerce,Accountancy,Computer Applications,56,78,63,70,408,68
+10234,F,Yamini Venkatesh,artsca,French,58,73,Economics,Commerce,Accountancy,Computer Applications,68,85,51,74,409,68.17
+10235,F,Harini Gounder,artsca,Tamil,52,75,Economics,Commerce,Accountancy,Computer Applications,69,91,46,58,391,65.17
+10236,F,Brindha Nadar,artsbm,Tamil,60,77,Economics,Commerce,Accountancy,Business Mathematics,84,47,66,90,424,70.67
+10237,F,Lakshmi Subramanian,artsca,Tamil,58,54,Economics,Commerce,Accountancy,Computer Applications,53,48,60,60,333,55.5
+10238,F,Lakshmi Subramanian,artsbm,French,55,68,Economics,Commerce,Accountancy,Business Mathematics,70,47,75,79,394,65.67
+10239,F,Nisha Naidu,artsca,French,67,75,Economics,Commerce,Accountancy,Computer Applications,83,46,83,95,449,74.83
+10240,F,Jayanthi Rajan,artsca,Tamil,54,77,Economics,Commerce,Accountancy,Computer Applications,68,76,65,65,405,67.5
+10241,F,Indhu Gupta,artsca,Tamil,61,80,Economics,Commerce,Accountancy,Computer Applications,69,77,60,62,409,68.17
+10242,F,Ranjini Murugan,artsca,French,81,67,Economics,Commerce,Accountancy,Computer Applications,60,61,56,80,405,67.5
+10243,F,Malar Reddy,artsbm,Tamil,72,72,Economics,Commerce,Accountancy,Business Mathematics,74,72,62,63,415,69.17
+10244,F,Dhanalakshmi Pillai,artsbm,Tamil,59,82,Economics,Commerce,Accountancy,Business Mathematics,67,53,62,84,407,67.83
+10245,F,Kala Nadar,artsca,French,60,81,Economics,Commerce,Accountancy,Computer Applications,61,43,76,58,379,63.17
+10246,G1,Santhosh Thevar,bme,Tamil,74,77,Mathematics,BME (Theory),BME (Practical),Employability Skills,59,54,58,45,367,61.17
+10247,G1,Vijay Balaji,bme,Tamil,66,46,Mathematics,BME (Theory),BME (Practical),Employability Skills,75,81,47,46,361,60.17
+10248,G1,Nandhini Reddy,bme,Tamil,53,77,Mathematics,BME (Theory),BME (Practical),Employability Skills,52,60,56,49,347,57.83
+10249,G1,Anusha Subramanian,bme,Tamil,49,83,Mathematics,BME (Theory),BME (Practical),Employability Skills,88,57,41,37,355,59.17
+10250,G1,Jagan Velu,bme,Tamil,50,75,Mathematics,BME (Theory),BME (Practical),Employability Skills,67,57,71,77,397,66.17
+10251,G1,Jaya Venkatesh,bme,Tamil,72,79,Mathematics,BME (Theory),BME (Practical),Employability Skills,67,58,70,46,392,65.33
+10252,G1,Chitra Murugan,bme,Tamil,100,95,Mathematics,BME (Theory),BME (Practical),Employability Skills,95,99,100,98,587,97.83
+10253,G1,Tharani Sundaram,bme,Tamil,71,63,Mathematics,BME (Theory),BME (Practical),Employability Skills,61,65,46,46,352,58.67
+10254,G1,Dhinesh Nadar,bme,Tamil,37,63,Mathematics,BME (Theory),BME (Practical),Employability Skills,55,71,82,51,359,59.83
+10255,G1,Nithin Reddy,bme,French,74,81,Mathematics,BME (Theory),BME (Practical),Employability Skills,48,44,48,79,374,62.33
+10256,G1,Preethi Kumar,bme,Tamil,74,58,Mathematics,BME (Theory),BME (Practical),Employability Skills,69,75,39,71,386,64.33
+10257,G1,Jaya Naidu,bme,French,72,87,Mathematics,BME (Theory),BME (Practical),Employability Skills,54,65,77,63,418,69.67
+10258,G1,Hari Raman,bme,Tamil,71,54,Mathematics,BME (Theory),BME (Practical),Employability Skills,62,64,54,66,371,61.83
+10259,G1,Keerthana Gupta,bme,Tamil,65,80,Mathematics,BME (Theory),BME (Practical),Employability Skills,58,86,39,73,401,66.83
+10260,G1,Ranjini Gupta,bme,Tamil,84,84,Mathematics,BME (Theory),BME (Practical),Employability Skills,68,74,59,63,432,72
+10261,G1,Pavithra Rajan,bme,Tamil,66,48,Mathematics,BME (Theory),BME (Practical),Employability Skills,45,77,70,79,385,64.17
+10262,G1,Pavithra Subramanian,bme,Tamil,64,70,Mathematics,BME (Theory),BME (Practical),Employability Skills,53,54,62,57,360,60
+10263,G1,Ganesh Reddy,bme,Tamil,88,58,Mathematics,BME (Theory),BME (Practical),Employability Skills,51,55,80,81,413,68.83
+10264,G1,Ramesh Pillai,bme,Tamil,83,79,Mathematics,BME (Theory),BME (Practical),Employability Skills,80,58,70,67,437,72.83
+10265,G1,Tharun Sundaram,bme,Tamil,72,81,Mathematics,BME (Theory),BME (Practical),Employability Skills,53,83,61,62,412,68.67
+10266,G1,Gayathri Chettiar,bme,Tamil,78,66,Mathematics,BME (Theory),BME (Practical),Employability Skills,51,41,63,39,338,56.33
+10267,G1,Jaya Raman,bme,French,45,59,Mathematics,BME (Theory),BME (Practical),Employability Skills,70,71,60,77,382,63.67
+10268,G1,Praveen Kumar,bme,Tamil,98,98,Mathematics,BME (Theory),BME (Practical),Employability Skills,98,100,97,99,590,98.33
+10269,G1,Eswari Murugan,bme,Tamil,70,95,Mathematics,BME (Theory),BME (Practical),Employability Skills,76,88,53,67,449,74.83
+10270,G1,Suresh Rajan,bme,Tamil,50,69,Mathematics,BME (Theory),BME (Practical),Employability Skills,55,63,51,70,358,59.67
+10271,G1,Santhosh Murugan,bme,Tamil,94,69,Mathematics,BME (Theory),BME (Practical),Employability Skills,88,59,71,54,435,72.5
+10272,G1,Jaya Kumar,bme,Tamil,51,55,Mathematics,BME (Theory),BME (Practical),Employability Skills,66,67,67,83,389,64.83
+10273,G1,Santhosh Krishnan,bme,Tamil,93,51,Mathematics,BME (Theory),BME (Practical),Employability Skills,67,54,68,53,386,64.33
+10274,G1,Hemalatha Subramanian,bme,Tamil,57,69,Mathematics,BME (Theory),BME (Practical),Employability Skills,46,86,55,45,358,59.67
+10275,G1,Kavitha Gupta,bme,Tamil,82,43,Mathematics,BME (Theory),BME (Practical),Employability Skills,50,57,42,43,317,52.83
+10276,G2,Yogesh Rajan,bme,French,83,73,Mathematics,BME (Theory),BME (Practical),Employability Skills,55,62,69,76,418,69.67
+10277,G2,Indhu Pillai,bme,Tamil,62,75,Mathematics,BME (Theory),BME (Practical),Employability Skills,67,71,51,62,388,64.67
+10278,G2,Jaya Murugan,bme,French,58,87,Mathematics,BME (Theory),BME (Practical),Employability Skills,47,37,90,77,396,66
+10279,G2,Uday Balaji,bme,Tamil,71,50,Mathematics,BME (Theory),BME (Practical),Employability Skills,68,57,47,72,365,60.83
+10280,G2,Bhavani Gounder,bme,Tamil,36,38,Mathematics,BME (Theory),BME (Practical),Employability Skills,44,42,40,40,240,40
+10281,G2,Arun Sundaram,bme,French,73,83,Mathematics,BME (Theory),BME (Practical),Employability Skills,76,89,68,67,456,76
+10282,G2,Ganesh Naidu,bme,Tamil,63,53,Mathematics,BME (Theory),BME (Practical),Employability Skills,79,74,69,73,411,68.5
+10283,G2,Ilayaraja Reddy,bme,French,75,71,Mathematics,BME (Theory),BME (Practical),Employability Skills,41,52,75,90,404,67.33
+10284,G2,Dinesh Raman,bme,Tamil,84,55,Mathematics,BME (Theory),BME (Practical),Employability Skills,67,81,57,83,427,71.17
+10285,G2,Vignesh Gounder,bme,Tamil,79,71,Mathematics,BME (Theory),BME (Practical),Employability Skills,68,64,75,76,433,72.17
+10286,G2,Harshini Chettiar,bme,Tamil,43,79,Mathematics,BME (Theory),BME (Practical),Employability Skills,74,65,57,58,376,62.67
+10287,G2,Vani Krishnan,bme,Tamil,79,70,Mathematics,BME (Theory),BME (Practical),Employability Skills,92,55,63,65,424,70.67
+10288,G2,Chitra Nadar,bme,Tamil,73,71,Mathematics,BME (Theory),BME (Practical),Employability Skills,68,51,87,58,408,68
+10289,G2,Ramesh Reddy,bme,Tamil,59,80,Mathematics,BME (Theory),BME (Practical),Employability Skills,71,77,61,51,399,66.5
+10290,G2,Harshini Raman,bme,Tamil,99,96,Mathematics,BME (Theory),BME (Practical),Employability Skills,95,96,97,96,579,96.5
+10291,G2,Malar Nadar,bme,French,55,62,Mathematics,BME (Theory),BME (Practical),Employability Skills,88,70,62,77,414,69
+10292,G2,Gomathi Subramanian,bme,Tamil,83,74,Mathematics,BME (Theory),BME (Practical),Employability Skills,61,63,41,63,385,64.17
+10293,G2,Abirami Sharma,bme,Tamil,74,85,Mathematics,BME (Theory),BME (Practical),Employability Skills,44,69,90,55,417,69.5
+10294,G2,Vijay Naidu,bme,Tamil,77,75,Mathematics,BME (Theory),BME (Practical),Employability Skills,74,66,66,51,409,68.17
+10295,G2,Priya Raman,bme,Tamil,100,95,Mathematics,BME (Theory),BME (Practical),Employability Skills,99,99,95,99,587,97.83
+10296,G2,Hemalatha Subramanian,bme,Tamil,82,80,Mathematics,BME (Theory),BME (Practical),Employability Skills,68,80,77,64,451,75.17
+10297,G2,Hemalatha Sharma,bme,Tamil,73,72,Mathematics,BME (Theory),BME (Practical),Employability Skills,69,46,63,48,371,61.83
+10298,G2,Kishore Gounder,bme,Tamil,43,79,Mathematics,BME (Theory),BME (Practical),Employability Skills,37,59,86,42,346,57.67
+10299,G2,Santhosh Iyer,bme,Tamil,79,77,Mathematics,BME (Theory),BME (Practical),Employability Skills,74,66,80,41,417,69.5
+10300,G2,Santhosh Kumar,bme,Tamil,65,40,Mathematics,BME (Theory),BME (Practical),Employability Skills,48,71,72,78,374,62.33
+10301,G2,Kavitha Nadar,bme,French,88,68,Mathematics,BME (Theory),BME (Practical),Employability Skills,59,79,76,71,441,73.5
+10302,G2,Dhinesh Balaji,bme,Tamil,59,75,Mathematics,BME (Theory),BME (Practical),Employability Skills,87,65,77,72,435,72.5
+10303,G2,Meena Murugan,bme,Tamil,79,56,Mathematics,BME (Theory),BME (Practical),Employability Skills,68,73,69,58,403,67.17
+10304,G2,Kishore Thevar,bme,Tamil,75,63,Mathematics,BME (Theory),BME (Practical),Employability Skills,79,52,72,57,398,66.33
+10305,G2,Prakash Reddy,bme,Tamil,44,55,Mathematics,BME (Theory),BME (Practical),Employability Skills,74,70,76,84,403,67.17

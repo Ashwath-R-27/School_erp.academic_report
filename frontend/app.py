@@ -13,7 +13,8 @@ BACKEND_URL = os.environ.get("BACKEND_URL", "http://127.0.0.1:8000")
 def get_data_from_backend(REQUEST_ENDPOINT):
     try:
         response = requests.get(BACKEND_URL + REQUEST_ENDPOINT)
-        return eval(response.text)
+        return response.json()
+
     except HTTPError:
         return []
 
