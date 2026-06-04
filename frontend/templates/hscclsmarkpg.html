@@ -18,10 +18,10 @@
                     <div class="table-container">
                         <table>
                             <thead>
-                                <tr><th>RANK</th><th>CLASS</th><th>NAME</th><th>LANG</th><th>ENG</th><th>{{ cls[i].grp[j].sub1 }}</th><th>{{ cls[i].grp[j].sub2 }}</th><th>{{ cls[i].grp[j].sub3 }}</th><th>{{ cls[i].grp[j].sub4 }}</th><th>TOTAL</th><th>CUT OFF</th></tr>
+                                <tr><th>RANK</th><th>CLASS</th><th>NAME</th><th colspan="2">LANG</th><th>ENG</th><th>{{ cls[i].grp[j].sub1 }}</th><th>{{ cls[i].grp[j].sub2 }}</th><th>{{ cls[i].grp[j].sub3 }}</th><th>{{ cls[i].grp[j].sub4 }}</th><th>TOTAL</th><th>CUT OFF</th></tr>
                             </thead>
                             <tbody>{% for k in range(len2) %}{% if records[k].class==cls[i].sec %}{% if records[k].group==cls[i].grp[j].code %}
-                                <tr><td>{{ records[k].rank }}</td><td>{{ records[k].class }}</td><td>{{ records[k].name }}</td><td>{{ records[k].lang }}</td><td>{{ records[k].eng }}</td><td>{{ records[k].sub1 }}</td><td>{{ records[k].sub2 }}</td><td>{{ records[k].sub3 }}</td><td>{{ records[k].sub4 }}</td><td>{{ records[k].total }}</td><td>{{ records[k].cutoff }}</td></tr>{% endif %}{% endif %}{% endfor %}
+                                <tr><td>{{ records[k].rank }}</td><td>{{ records[k].class }}</td><td>{{ records[k].name }}</td><td>{{ records[k].lang_name | upper }}</td><td>{{ records[k].lang }}</td><td>{{ records[k].eng }}</td><td>{{ records[k].sub1 }}</td><td>{{ records[k].sub2 }}</td><td>{{ records[k].sub3 }}</td><td>{{ records[k].sub4 }}</td><td>{{ records[k].total }}</td><td>{{ records[k].cutoff }}</td></tr>{% endif %}{% endif %}{% endfor %}
                             </tbody>
                         </table>
                     </div>
