@@ -166,13 +166,13 @@ body {
     color: var(--color--primary);
 }
 
-.table-container table td:nth-child(10) {
+.table-container table td:nth-child(11) {
     font-weight: 700;
     color: var(--color--text-main);
     background: rgba(26, 79, 28, 0.05);
 }
 
-.table-container table td:nth-child(11) {
+.table-container table td:nth-child(12) {
     font-weight: 700;
     color: #0f6e56;
 }
