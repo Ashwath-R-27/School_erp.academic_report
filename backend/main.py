@@ -2,10 +2,15 @@ import csv
 from contextlib import asynccontextmanager
 from typing import List, Optional
 
-from DTOs import SubjectFirstMarkResponse, TopperResponse
+from DTOs import (
+    GroupwiseResponseDTO,
+    StudentGroupwiseDTO,
+    SubjectFirstMarkResponse,
+    TopperResponse,
+)
 from fastapi import Depends, FastAPI, HTTPException, Query, status
 from models import HSC, SSLC
-from sqlmodel import Session, SQLModel, select, text
+from sqlmodel import Session, SQLModel, desc, func, select, text
 
 from database import engine, get_session
 
@@ -48,10 +53,52 @@ def get_sslc_subject_toppers(
 
 
 # --- HSC ENDPOINTS ---
-@app.get("/hsc/groupwise")
-def get_hsc_groupwise(group_name: str, session: Session = Depends(get_session)):
-    # TODO: Get students filtered by academic group split
-    pass
+@app.get("/hsc/groupwise", response_model=GroupwiseResponseDTO)
+def get_hsc_groupwise(
+    group_name: str = "BIOMAT", session: Session = Depends(get_session)
+):
+    statement = (
+        select(
+            func.rank().over(order_by=desc(HSC.total)).label("rank"),
+            HSC.reg_no,
+            HSC.class_.label("class_name"),
+            HSC.group_name.label("group"),
+            HSC.name,
+            HSC.lang,
+            HSC.eng,
+            HSC.sm1.label("sub1"),
+            HSC.sm2.label("sub2"),
+            HSC.sm3.label("sub3"),
+            HSC.sm4.label("sub4"),
+            HSC.total,
+            HSC.cut_off.label("cutoff"),
+        )
+        .where(HSC.group_name == group_name)
+        .order_by(desc(HSC.total))
+    )
+
+    results = session.exec(statement).all()
+
+    students = [
+        StudentGroupwiseDTO(
+            rank=row.rank,
+            reg_no=row.reg_no,
+            class_=row.class_name,
+            group=row.group,
+            name=row.name,
+            lang=row.lang,
+            eng=row.eng,
+            sub1=row.sub1,
+            sub2=row.sub2,
+            sub3=row.sub3,
+            sub4=row.sub4,
+            total=row.total,
+            cutoff=row.cutoff,
+        )
+        for row in results
+    ]
+
+    return GroupwiseResponseDTO(datas=students)
 
 
 @app.get("/hsc/classwise")
