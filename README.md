@@ -12,4 +12,4 @@ one is by running the engine manually and the other is by running the engine in 
 -  run the engine ``` python app.py```
 
 2. Running the engine in a docker container cluster
-- just run ```docker-compose up ``` 
+- just run ```docker-compose up ``` and sleep . everything is automated you don't want to worry
