@@ -9,6 +9,7 @@ class TopperResponse(BaseModel):
     class_: str = Field(..., alias="class")  # Maps 'class_' to 'class' in JSON
     group: Optional[str]
     name: str
+    lang_name: Optional[str] = None
     lang: int
     eng: int
     sub1: int
@@ -34,6 +35,7 @@ class StudentGroupwiseDTO(BaseModel):
     class_: str = Field(..., alias="class")
     group: str
     name: str
+    lang_name: Optional[str] = None
     lang: int
     eng: int
     sub1: int

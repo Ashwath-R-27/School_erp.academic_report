@@ -4,6 +4,8 @@ from typing import List, Optional
 
 from DTOs import (
     GroupwiseResponseDTO,
+    SSLCClasswiseResponseDTO,
+    SSLCTopperResponse,
     StudentGroupwiseDTO,
     SubjectFirstMarkResponse,
     TopperResponse,
@@ -32,24 +34,175 @@ def login():
 
 
 # --- SSLC ENDPOINTS ---
-@app.get("/sslc/classwise")
+@app.get("/sslc/classwise", response_model=List[SSLCTopperResponse])
 def get_sslc_classwise(class_name: str, session: Session = Depends(get_session)):
-    # TODO: Get students filtered by class
-    pass
+    """Get SSLC students filtered by class, ranked by total marks descending."""
+    statement = (
+        select(
+            func.rank().over(order_by=desc(SSLC.total)).label("rank"),
+            SSLC.reg_no,
+            SSLC.class_.label("class_name"),
+            SSLC.name,
+            SSLC.tamil,
+            SSLC.english,
+            SSLC.maths,
+            SSLC.science,
+            SSLC.social,
+            SSLC.total,
+        )
+        .where(SSLC.class_ == class_name)
+        .order_by(desc(SSLC.total))
+    )
+
+    results = session.exec(statement).all()
+
+    return [
+        SSLCTopperResponse(
+            rank=row.rank,
+            reg_no=row.reg_no,
+            class_=row.class_name,
+            name=row.name,
+            tamil=row.tamil,
+            english=row.english,
+            maths=row.maths,
+            science=row.science,
+            social=row.social,
+            total=row.total,
+        )
+        for row in results
+    ]
 
 
-@app.get("/sslc/toppers")
+@app.get("/sslc/toppers", response_model=List[SSLCTopperResponse])
 def get_sslc_toppers(limit: int = 10, session: Session = Depends(get_session)):
-    # TODO: Get overall top students based on total marks
-    pass
+    """Get overall top SSLC students based on total marks with competition ranking."""
+    statement = select(SSLC).order_by(SSLC.total.desc()).limit(limit)
+    results = session.exec(statement).all()
+
+    if not results:
+        return []
+
+    toppers = []
+    current_rank = 1
+    previous_total = None
+
+    for index, student in enumerate(results, start=1):
+        student_total = student.total if student.total is not None else 0
+
+        if previous_total is not None and student_total < previous_total:
+            current_rank = index
+
+        toppers.append(
+            SSLCTopperResponse(
+                rank=current_rank,
+                reg_no=student.reg_no,
+                class_=student.class_,
+                name=student.name,
+                tamil=student.tamil,
+                english=student.english,
+                maths=student.maths,
+                science=student.science,
+                social=student.social,
+                total=student_total,
+            )
+        )
+        previous_total = student_total
+
+    return toppers
 
 
-@app.get("/sslc/subject/toppers")
+@app.get("/sslc/subject-first-marks", response_model=List[SubjectFirstMarkResponse])
+def get_sslc_subject_first_marks(session: Session = Depends(get_session)):
+    """Get highest marks per subject and count of students who achieved them (SSLC)."""
+    query = text("""
+        WITH unpivoted_subjects AS (
+            SELECT 'TAMIL' AS subject_name, tamil AS mark FROM sslc WHERE tamil IS NOT NULL
+            UNION ALL
+            SELECT 'ENGLISH' AS subject_name, english AS mark FROM sslc WHERE english IS NOT NULL
+            UNION ALL
+            SELECT 'MATHS' AS subject_name, maths AS mark FROM sslc WHERE maths IS NOT NULL
+            UNION ALL
+            SELECT 'SCIENCE' AS subject_name, science AS mark FROM sslc WHERE science IS NOT NULL
+            UNION ALL
+            SELECT 'SOCIAL' AS subject_name, social AS mark FROM sslc WHERE social IS NOT NULL
+        ),
+        max_marks_per_subject AS (
+            SELECT
+                subject_name,
+                MAX(mark) as max_mark
+            FROM unpivoted_subjects
+            GROUP BY subject_name
+        )
+        SELECT
+            u.subject_name AS name,
+            u.mark AS mark,
+            COUNT(*) AS count
+        FROM unpivoted_subjects u
+        JOIN max_marks_per_subject m
+          ON u.subject_name = m.subject_name AND u.mark = m.max_mark
+        GROUP BY u.subject_name, u.mark
+        ORDER BY count DESC;
+    """)
+
+    result = session.execute(query).mappings().all()
+
+    return [
+        SubjectFirstMarkResponse(name=row["name"], mark=row["mark"], count=row["count"])
+        for row in result
+    ]
+
+
+@app.get("/sslc/subject/toppers", response_model=List[SSLCTopperResponse])
 def get_sslc_subject_toppers(
     subject: str, limit: int = 5, session: Session = Depends(get_session)
 ):
-    # TODO: Get subject-specific toppers
-    pass
+    """Get top students for a specific SSLC subject."""
+    valid_subjects = {"tamil", "english", "maths", "science", "social"}
+    subject_lower = subject.lower()
+
+    if subject_lower not in valid_subjects:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid subject '{subject}'. Valid subjects: {', '.join(sorted(valid_subjects))}",
+        )
+
+    subject_col = getattr(SSLC, subject_lower)
+
+    statement = (
+        select(
+            func.rank().over(order_by=desc(subject_col)).label("rank"),
+            SSLC.reg_no,
+            SSLC.class_.label("class_name"),
+            SSLC.name,
+            SSLC.tamil,
+            SSLC.english,
+            SSLC.maths,
+            SSLC.science,
+            SSLC.social,
+            SSLC.total,
+        )
+        .where(subject_col.isnot(None))
+        .order_by(desc(subject_col))
+        .limit(limit)
+    )
+
+    results = session.exec(statement).all()
+
+    return [
+        SSLCTopperResponse(
+            rank=row.rank,
+            reg_no=row.reg_no,
+            class_=row.class_name,
+            name=row.name,
+            tamil=row.tamil,
+            english=row.english,
+            maths=row.maths,
+            science=row.science,
+            social=row.social,
+            total=row.total,
+        )
+        for row in results
+    ]
 
 
 # --- HSC ENDPOINTS ---
@@ -64,6 +217,7 @@ def get_hsc_groupwise(
             HSC.class_.label("class_name"),
             HSC.group_name.label("group"),
             HSC.name,
+            HSC.lang_name,
             HSC.lang,
             HSC.eng,
             HSC.sm1.label("sub1"),
@@ -86,6 +240,7 @@ def get_hsc_groupwise(
             class_=row.class_name,
             group=row.group,
             name=row.name,
+            lang_name=row.lang_name,
             lang=row.lang,
             eng=row.eng,
             sub1=row.sub1,
@@ -101,10 +256,51 @@ def get_hsc_groupwise(
     return GroupwiseResponseDTO(datas=students)
 
 
-@app.get("/hsc/classwise")
+@app.get("/hsc/classwise", response_model=List[StudentGroupwiseDTO])
 def get_hsc_classwise(class_name: str, session: Session = Depends(get_session)):
-    # TODO: Get students filtered by class
-    pass
+    """Get HSC students filtered by class, ranked by total marks descending."""
+    statement = (
+        select(
+            func.rank().over(order_by=desc(HSC.total)).label("rank"),
+            HSC.reg_no,
+            HSC.class_.label("class_name"),
+            HSC.group_name.label("group"),
+            HSC.name,
+            HSC.lang_name,
+            HSC.lang,
+            HSC.eng,
+            HSC.sm1.label("sub1"),
+            HSC.sm2.label("sub2"),
+            HSC.sm3.label("sub3"),
+            HSC.sm4.label("sub4"),
+            HSC.total,
+            HSC.cut_off.label("cutoff"),
+        )
+        .where(HSC.class_ == class_name)
+        .order_by(desc(HSC.total))
+    )
+
+    results = session.exec(statement).all()
+
+    return [
+        StudentGroupwiseDTO(
+            rank=row.rank,
+            reg_no=row.reg_no,
+            class_=row.class_name,
+            group=row.group,
+            name=row.name,
+            lang_name=row.lang_name,
+            lang=row.lang,
+            eng=row.eng,
+            sub1=row.sub1,
+            sub2=row.sub2,
+            sub3=row.sub3,
+            sub4=row.sub4,
+            total=row.total,
+            cutoff=row.cutoff,
+        )
+        for row in results
+    ]
 
 
 @app.get("/hsc/toppers")
@@ -138,6 +334,7 @@ def get_hsc_toppers(limit: int = 10, session: Session = Depends(get_session)):
                 class_=student.class_,
                 group=student.group_name,
                 name=student.name,
+                lang_name=student.lang_name,
                 lang=student.lang,
                 eng=student.eng,
                 sub1=student.sm1,
@@ -195,12 +392,72 @@ def get_subject_first_marks(session: Session = Depends(get_session)):
     ]
 
 
-@app.get("/hsc/subject/toppers")
+@app.get("/hsc/subject/toppers", response_model=List[TopperResponse])
 def get_hsc_subject_toppers(
     subject: str, limit: int = 5, session: Session = Depends(get_session)
 ):
-    # TODO: Get subject-specific toppers
-    pass
+    """Get top students for a specific HSC subject."""
+    # Map frontend subject names to model columns
+    subject_map = {
+        "lang": HSC.lang,
+        "eng": HSC.eng,
+        "sm1": HSC.sm1,
+        "sm2": HSC.sm2,
+        "sm3": HSC.sm3,
+        "sm4": HSC.sm4,
+    }
+    subject_lower = subject.lower()
+
+    if subject_lower not in subject_map:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid subject '{subject}'. Valid subjects: {', '.join(sorted(subject_map.keys()))}",
+        )
+
+    subject_col = subject_map[subject_lower]
+
+    statement = (
+        select(HSC)
+        .where(subject_col.isnot(None))
+        .order_by(desc(subject_col))
+        .limit(limit)
+    )
+
+    results = session.exec(statement).all()
+
+    toppers = []
+    current_rank = 1
+    previous_mark = None
+
+    for index, student in enumerate(results, start=1):
+        student_mark = getattr(student, subject_lower) if hasattr(student, subject_lower) else (
+            getattr(student, subject_lower, 0)
+        )
+
+        if previous_mark is not None and student_mark < previous_mark:
+            current_rank = index
+
+        toppers.append(
+            TopperResponse(
+                rank=current_rank,
+                reg_no=student.reg_no,
+                class_=student.class_,
+                group=student.group_name,
+                name=student.name,
+                lang_name=student.lang_name,
+                lang=student.lang,
+                eng=student.eng,
+                sub1=student.sm1,
+                sub2=student.sm2,
+                sub3=student.sm3,
+                sub4=student.sm4,
+                total=student.total if student.total is not None else 0,
+                cutoff=student.cut_off,
+            )
+        )
+        previous_mark = student_mark
+
+    return toppers
 
 
 # --- IMPORT HSC DATA ---
