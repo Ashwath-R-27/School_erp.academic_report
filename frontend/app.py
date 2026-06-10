@@ -59,18 +59,50 @@ def hscgroups():
         {
             "name": "COMPUTER SCIENCE + MATHS",
             "code": "csc",
-            "sub1": "PHY",
-            "sub2": "CHEM",
-            "sub3": "COMP",
-            "sub4": "MATHS",
+            "sub1": "Physics",
+            "sub2": "Chemistry",
+            "sub3": "Computer Science",
+            "sub4": "Mathematics",
         },
         {
             "name": "BIOLOGY + MATHS",
             "code": "biomat",
-            "sub1": "PHY",
-            "sub2": "CHEM",
-            "sub3": "BIO",
-            "sub4": "MATHS",
+            "sub1": "Physics",
+            "sub2": "Chemistry",
+            "sub3": "Biology",
+            "sub4": "Mathematics",
+        },
+        {
+            "name": "BIOLOGY + COMPUTER SCIENCE",
+            "code": "biocs",
+            "sub1": "Physics",
+            "sub2": "Chemistry",
+            "sub3": "Biology",
+            "sub4": "Computer Science",
+        },
+        {
+            "name": "ARTS - COMMERCE + ACCOUNTANCY",
+            "code": "artsbm",
+            "sub1": "Economics",
+            "sub2": "Commerce",
+            "sub3": "Accountancy",
+            "sub4": "Business Mathematics",
+        },
+        {
+            "name": "ARTS - COMMERCE + CA",
+            "code": "artsca",
+            "sub1": "Economics",
+            "sub2": "Commerce",
+            "sub3": "Accountancy",
+            "sub4": "Computer Applications",
+        },
+        {
+            "name": "BASIC MECHANICAL ENGINEERING",
+            "code": "bme",
+            "sub1": "Mathematics",
+            "sub2": "BME (Theory)",
+            "sub3": "BME (Practical)",
+            "sub4": "Employability Skills",
         },
     ]
     return grpdtls
@@ -133,10 +165,7 @@ def hscgrpwisemarks():
     header = header_div()
     groups = hscgroups()
     return render_template(
-        "hscgrpmark.html",
-        header_div=header,
-        records=datas,
-        groups=groups
+        "hscgrpmark.html", header_div=header, records=datas, groups=groups
     )
 
 
