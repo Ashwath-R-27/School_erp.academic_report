@@ -24,10 +24,19 @@
                 </div>
                 <div class="input-box">
                     <div class="field-wrap">
+                        <input type="number" min="1" max="5" id="no_of_sub" required placeholder=" "/>
+                        <label for="no_of_sub">Enter the no. Of Subjects</label>
+                    </div>
+                    <span class="field-msg" id="err-nos"></span>
+                </div>
+                <div id="subject-list"></div>
+                <div id="sub-handling"></div>
+                <div class="input-box">
+                    <div class="field-wrap">
                         <input type="text" id="un" required placeholder=" " />
                         <label for="un">Username</label>
                     </div>
-                    <span class="field-msg" id="err-name"></span>
+                    <span class="field-msg" id="err-un"></span>
                 </div>
                 <div class="input-box">
                     <div class="field-wrap">
@@ -57,15 +66,52 @@
                                 <input type="email" id="em" required placeholder=" " />
                                 <label for="em">Email</label>
                             </div>
-                            <span class="field-msg" id="err-name"></span>
+                            <span class="field-msg" id="err-em"></span>
                         </td>
-                        <td><button type="button">Send OTP</button></td>
+                        <td><button type="button" id="send-otp-btn">Send OTP</button></td>
                     </table>
                 </div>
                 <div class="btn">
-                    <button type="submit" id="login-btn">REGISTER</button>
+                    <button type="submit" id="login-btn" disabled>REGISTER</button>
                 </div>
             </form>
+        </div>
+    </div>
+    <div id="otp-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+        <div id="otp-dialog" style="background:#fff; border-radius:14px; padding:32px 28px; width:340px; box-shadow:0 8px 32px rgba(0,0,0,0.18); text-align:center;">
+            <i class="ti ti-shield-lock" style="font-size:36px; color:#534AB7;"></i>
+            <h3 style="margin:10px 0 4px; color:#534AB7;">Verify your email</h3>
+            <p style="font-size:13px; color:#888; margin-bottom:20px;">Enter the 6-digit OTP sent to <strong id="otp-email-display"></strong></p>
+
+            <input type="text" id="otp-input" maxlength="6" placeholder="Enter OTP"
+                style="width:100%; box-sizing:border-box; padding:10px 14px; font-size:18px;
+                    letter-spacing:8px; text-align:center; border:1.5px solid #ccc;
+                    border-radius:10px; outline:none;">
+
+            <p id="otp-error" style="color:red; font-size:12px; min-height:16px; margin:6px 0;"></p>
+
+            <p style="font-size:13px; color:#888; margin:10px 0 4px;">
+                Time remaining: <strong id="otp-timer" style="color:#534AB7;">2:00</strong>
+            </p>
+
+            <button id="resend-btn" disabled
+                style="background:none; border:none; color:#534AB7; cursor:pointer;
+                    font-size:13px; text-decoration:underline; margin-bottom:16px; opacity:0.4;">
+                Resend OTP
+            </button>
+
+            <div style="display:flex; gap:10px;">
+                <button type="button" id="verify-otp-btn"
+                    style="flex:1; padding:10px; background:#534AB7; color:#fff;
+                        border:none; border-radius:10px; font-weight:bold; cursor:pointer;">
+                    Verify
+                </button>
+                <button type="button" id="cancel-otp-btn"
+                    style="flex:1; padding:10px; background:#eee; color:#333;
+                        border:none; border-radius:10px; font-weight:bold; cursor:pointer;">
+                    Cancel
+                </button>
+            </div>
         </div>
     </div>
     <script src="{{ url_for('static',filename='registerscr.js') }}"></script>

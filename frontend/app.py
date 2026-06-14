@@ -1,14 +1,23 @@
 import os
 
+import argparse
 import requests
 from flask import Flask, jsonify, redirect, render_template, url_for
 from requests.models import HTTPError
 
 app = Flask(__name__)
-
-
+parser = argparse.ArgumentParser(description="A simple CLI tool.")
 BACKEND_URL = os.environ.get("BACKEND_URL", "http://127.0.0.1:8000")
 
+
+    
+parser.add_argument(
+        "--debug", 
+        action="store_true", 
+        help="Enable debug mode with verbose logging"
+)    
+args = parser.parse_args()   
+debug_mode = args.debug
 
 def get_data_from_backend(REQUEST_ENDPOINT):
     try:
@@ -256,4 +265,7 @@ def sslcstudformpg():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    if debug_mode:
+        app.run(host="0.0.0.0", port=5001, debug=True)
+    else:
+        app.run(host="0.0.0.0", port=5000, debug=True)
