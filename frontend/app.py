@@ -263,6 +263,15 @@ def sslcstudformpg():
     header = header_div()
     return render_template("studform.html", header_div=header, key="sslc")
 
+@app.route("/HSC_2026/Report")
+def hscreportfetch():
+    header = header_div()
+    return render_template("hscreportpg.html",header_div=header)
+
+@app.route("/SSLC_2026/Report")
+def sslcreportfetch():
+    header = header_div()
+    return render_template("sslcreportpg.html",header_div=header)
 
 if __name__ == "__main__":
     if debug_mode:

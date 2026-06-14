@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSE(+2) Results</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(255, 255, 255);
+        }
+
+        #pghead{
+            margin-top: 30px;
+            padding: 10px 0;
+            text-align: center;
+            background-color: #005f5f;
+            color: white;
+            font-weight: bold;
+            word-spacing: 3px;
+            font-size: clamp(15px,4vw,20px);
+        }
+
+        .content {
+            flex: 1;
+            display: grid;
+            place-items: center;
+            padding: clamp(10px, 4vw, 20px);
+        }
+
+        .report-table {
+            width: 95%;
+        }
+
+        .report-table table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #2c3e50;
+        }
+
+        .report-table table thead tr {
+            background: #2c3e50;
+        }
+
+        .report-table table th {
+            color: #f0f0f0;
+            padding: 11px 16px;
+            text-align: center;
+            font-size: clamp(9px,4vw,15px);
+            font-weight: 500;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            border: 1px solid #46627a;
+        }
+
+        .report-table table th:first-child {
+            width: 70%;
+        }
+
+        .report-table table tbody tr:nth-child(even) {
+            background: #f4f6f8;
+        }
+
+        .report-table table tbody tr:nth-child(odd) {
+            background: #ffffff;
+        }
+
+        .report-table table tbody tr:hover {
+            background: #f4f9ff;
+        }
+
+        .report-table table td {
+            padding: 10px 16px;
+            border: 1px solid #c5cdd6;
+            height: 35px;
+            font-size: clamp(9px,4vw,15px);
+            text-align: center;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+
+        .report-table table td:first-child {
+            text-align: left;
+            padding: 0 10px;
+        }
+
+        .report-table table td select {
+            padding: 6px 10px;
+            border: 1px solid #9aa5b0;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            background-color: #f4f6f8;
+            color: #2c3e50;
+            cursor: pointer;
+            width: 95%;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%232c3e50' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 28px;
+        }
+
+        .report-table table td select:hover {
+            border-color: #d4a017;
+            background-color: #ffffff;
+        }
+
+        .report-table table td select:focus {
+            border-color: #d4a017;
+            box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.2);
+            background-color: #ffffff;
+        }
+
+        .report-table table td button {
+            padding: 7px;
+            background: #d4a017;
+            border: 1px solid #b08010;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            width: 95%;
+            font-size: 13px;
+            font-weight: 500;
+            transition: background 0.15s;
+        }
+
+        .report-table table td button:hover {
+            background: #b08010;
+            border-color: #8a6508;
+        }
+
+        .report-table table td button:active {
+            background: #8a6508;
+        }
+    </style>
+</head>
+<body>
+    {{ header_div | safe }}
+    <div id="pghead">HSE(+2) EXAMINATION RSULTS 2026 REPORTS</div>
+    <div class="content">
+        <div class="report-table">
+            <table>
+                <thead>
+                    <tr><th>REPORT FORMAT</th><th>FILE FORMAT</th><th>GET</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CLASS WISE</td>
+                        <td>
+                            <select id="cls_type">
+                                <option value="pdf">PDF(.pdf)</option>
+                                <option value="xlsx">EXCEL(.xlsx)</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button>Download</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>GROUP WISE</td>
+                        <td>
+                            <select id="grp_type">
+                                <option value="pdf">PDF(.pdf)</option>
+                                <option value="xlsx">EXCEL(.xlsx)</option>
+                            </select>
+                        </td>
+                        <td><button>Download</button></td>
+                    </tr>
+                    <tr>
+                        <td>OVER ALL</td>
+                        <td>
+                            <select id="all_type">
+                                <option value="pdf">PDF(.pdf)</option>
+                                <option value="xlsx">EXCEL(.xlsx)</option>
+                            </select>
+                        </td>
+                        <td><button>Download</button></td>
+                    </tr>
+                    <tr>
+                        <td>GROUP WISE + CLASS WISE</td>
+                        <td>
+                            <select id="grpcls_type">
+                                <option value="pdf">PDF(.pdf)</option>
+                                <option value="xlsx">EXCEL(.xlsx)</option>
+                            </select>
+                        </td>
+                        <td><button>Download</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        const routes = {
+            cls_type: '/download/classwise',
+            grp_type: '/download/groupwise',
+            all_type: '/download/overall',
+            grpcls_type: '/download/groupclasswise'
+        };
+
+        document.querySelectorAll('tbody tr').forEach(row => {
+            const select = row.querySelector('select');
+            const button = row.querySelector('button');
+
+            button.addEventListener('click', () => {
+                const fileType = select.value;
+                const route = routes[select.id];
+                window.location.href = `${route}?type=${fileType}`;
+            });
+        });
+    </script>
+</body>
+</html>
