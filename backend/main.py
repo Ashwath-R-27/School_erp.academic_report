@@ -27,10 +27,16 @@ app = FastAPI(title="School Result Organizing Microservice", lifespan=lifespan)
 
 
 # --- AUTH ENDPOINT ---
-@app.post("/api/login")
+@app.get("/auth/login")
 def login():
-    # TODO: Implement login verification logic
+
     return {"message": "Login successful stub"}
+
+
+@app.post("/auth/register")
+# register user and generate otp
+@app.get("/auth/verify_otp")
+# verify the otp and send the JWT
 
 
 # --- SSLC ENDPOINTS ---
@@ -430,8 +436,10 @@ def get_hsc_subject_toppers(
     previous_mark = None
 
     for index, student in enumerate(results, start=1):
-        student_mark = getattr(student, subject_lower) if hasattr(student, subject_lower) else (
-            getattr(student, subject_lower, 0)
+        student_mark = (
+            getattr(student, subject_lower)
+            if hasattr(student, subject_lower)
+            else (getattr(student, subject_lower, 0))
         )
 
         if previous_mark is not None and student_mark < previous_mark:
