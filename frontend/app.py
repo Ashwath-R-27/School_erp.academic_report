@@ -1,6 +1,6 @@
+import argparse
 import os
 
-import argparse
 import requests
 from flask import Flask, jsonify, redirect, render_template, url_for
 from requests.models import HTTPError
@@ -10,14 +10,12 @@ parser = argparse.ArgumentParser(description="A simple CLI tool.")
 BACKEND_URL = os.environ.get("BACKEND_URL", "http://127.0.0.1:8000")
 
 
-    
 parser.add_argument(
-        "--debug", 
-        action="store_true", 
-        help="Enable debug mode with verbose logging"
-)    
-args = parser.parse_args()   
+    "--debug", action="store_true", help="Enable debug mode with verbose logging"
+)
+args = parser.parse_args()
 debug_mode = args.debug
+
 
 def get_data_from_backend(REQUEST_ENDPOINT):
     try:
@@ -53,7 +51,7 @@ def initialize_mock_db():
 
 
 def header_div():
-    logo_url = url_for("static", filename="logo.png")
+    logo_url = url_for("static", filename="logo.avif")
     header = f""" <div class="header">
         <div class="logo"><a href="#"><img src="{logo_url}" id="logo"></a></div>
         <div class="header_content">
@@ -125,6 +123,7 @@ def first():
 @app.route("/dashboard")
 def dashboard():
     return render_template("dashboard.html")
+
 
 @app.route("/login")
 def loginpg():
@@ -261,15 +260,18 @@ def sslcstudformpg():
     header = header_div()
     return render_template("studform.html", header_div=header, key="sslc")
 
+
 @app.route("/HSC_2026/Report")
 def hscreportfetch():
     header = header_div()
-    return render_template("hscreportpg.html",header_div=header)
+    return render_template("hscreportpg.html", header_div=header)
+
 
 @app.route("/SSLC_2026/Report")
 def sslcreportfetch():
     header = header_div()
-    return render_template("sslcreportpg.html",header_div=header)
+    return render_template("sslcreportpg.html", header_div=header)
+
 
 if __name__ == "__main__":
     if debug_mode:
