@@ -132,12 +132,6 @@ def loginpg():
     return render_template("login.html", header_div=header)
 
 
-@app.route("/register")
-def registerpg():
-    header = header_div()
-    return render_template("register.html", header_div=header)
-
-
 @app.route("/home")
 def home():
     header = header_div()
@@ -276,10 +270,6 @@ def hscreportfetch():
 def sslcreportfetch():
     header = header_div()
     return render_template("sslcreportpg.html",header_div=header)
-
-@app.route("/HSC/ClassDetails")
-def classentry():
-    return render_template("clsentrypg.html",header_div=header_div())
 
 if __name__ == "__main__":
     if debug_mode:

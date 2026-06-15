@@ -183,16 +183,6 @@
                         </td>
                         <td><button>Download</button></td>
                     </tr>
-                    <tr>
-                        <td>GROUP WISE + CLASS WISE</td>
-                        <td>
-                            <select id="grpcls_type">
-                                <option value="pdf">PDF(.pdf)</option>
-                                <option value="xlsx">EXCEL(.xlsx)</option>
-                            </select>
-                        </td>
-                        <td><button>Download</button></td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -201,8 +191,7 @@
         const routes = {
             cls_type: '/HSC/download/classwise',
             grp_type: '/HSC/download/groupwise',
-            all_type: '/HSC/download/overall',
-            grpcls_type: '/HSC/download/groupclasswise'
+            all_type: '/HSC/download/overall'
         };
 
         document.querySelectorAll('tbody tr').forEach(row => {
