@@ -2,9 +2,18 @@ import os
 
 import requests
 from flask import Flask, jsonify, redirect, render_template, url_for
-from requests.models import HTTPError
 
 app = Flask(__name__)
+
+
+# Basic security headers (minor hardening)
+@app.after_request
+def add_security_headers(response):
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    # Note: Full CSP would be better but may break current inline/styles; start conservative
+    return response
 
 
 BACKEND_URL = os.environ.get("BACKEND_URL", "http://127.0.0.1:8000")
@@ -12,15 +21,18 @@ BACKEND_URL = os.environ.get("BACKEND_URL", "http://127.0.0.1:8000")
 
 def get_data_from_backend(REQUEST_ENDPOINT):
     try:
-        response = requests.get(BACKEND_URL + REQUEST_ENDPOINT)
+        response = requests.get(BACKEND_URL + REQUEST_ENDPOINT, timeout=30)
         return response.json()
-
-    except HTTPError:
+    except Exception:
+        # Broad except to avoid leaking errors; includes HTTPError, RequestException, JSONDecode etc.
         return []
 
 
 @app.route("/init_db")
 def initialize_db():
+    # Security: gate dangerous DB import behind env flag to prevent unauth data reset/injection
+    if os.environ.get("ENABLE_DB_INIT", "0") != "1":
+        return jsonify({"error": "DB init disabled for security"}), 403
 
     hsc_res = get_data_from_backend("/import_hsc")
     print("HSC Import Results:", hsc_res)
@@ -33,6 +45,9 @@ def initialize_db():
 
 @app.route("/init_mock")
 def initialize_mock_db():
+    # Security: gate dangerous DB import behind env flag to prevent unauth data reset/injection
+    if os.environ.get("ENABLE_DB_INIT", "0") != "1":
+        return jsonify({"error": "DB init disabled for security"}), 403
 
     hsc_res = get_data_from_backend("/import_hsc_mock")
     print("HSC Import Results:", hsc_res)
@@ -256,4 +271,6 @@ def sslcstudformpg():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    # Security: never enable debug=True in production (enables Werkzeug console RCE)
+    debug = os.environ.get("FLASK_DEBUG", "false").lower() in ("1", "true", "yes")
+    app.run(host="0.0.0.0", port=5000, debug=debug)

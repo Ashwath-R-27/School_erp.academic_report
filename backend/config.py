@@ -2,8 +2,9 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    # Replace with your actual PostgreSQL credentials
-    DATABASE_URL: str = "postgresql://svgv:svgv@database:5432/postgres"
+    # IMPORTANT: never use default/weak creds in production. Set via .env or env var.
+    # The default below is ONLY for local docker-compose with matching defaults.
+    DATABASE_URL: str = "postgresql://svgv:svgv_insecure_default_change_me@database:5432/postgres"
 
     ALGORITHM: str = "HS256"
 

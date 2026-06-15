@@ -472,6 +472,9 @@ def import_hsc_csv(
     GET endpoint to read the CSV file, parse the data,
     calculate the engineering cut-off, and insert rows into PostgreSQL.
     """
+    ALLOWED_IMPORT_FILES = {"mock_data/hsc.csv", "mock_data/tn_hsc_exam_data.csv", "mock_data/sslc.csv"}
+    if file_path not in ALLOWED_IMPORT_FILES:
+        raise HTTPException(status_code=400, detail="Invalid or unauthorized file path for import")
     try:
         with open(file_path, mode="r", encoding="utf-8-sig") as file:
             reader = csv.DictReader(file)
@@ -560,6 +563,9 @@ def import_sslc_csv(
     GET endpoint to parse the SSLC CSV document, split full names into
     first_name and last_name components, and execute a bulk database insert.
     """
+    ALLOWED_IMPORT_FILES = {"mock_data/hsc.csv", "mock_data/tn_hsc_exam_data.csv", "mock_data/sslc.csv"}
+    if file_path not in ALLOWED_IMPORT_FILES:
+        raise HTTPException(status_code=400, detail="Invalid or unauthorized file path for import")
     try:
         with open(file_path, mode="r", encoding="utf-8-sig") as file:
             reader = csv.DictReader(file)
@@ -631,6 +637,9 @@ def import_mock_hsc_csv(
     and insert rows into PostgreSQL using SQLModel.
     Omits 'total' and 'cut_off' to let DB auto-generation handle them.
     """
+    ALLOWED_IMPORT_FILES = {"mock_data/hsc.csv", "mock_data/tn_hsc_exam_data.csv", "mock_data/sslc.csv"}
+    if file_path not in ALLOWED_IMPORT_FILES:
+        raise HTTPException(status_code=400, detail="Invalid or unauthorized file path for import")
     try:
         with open(file_path, mode="r", encoding="utf-8-sig") as file:
             reader = csv.DictReader(file)

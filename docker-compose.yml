@@ -6,10 +6,10 @@ services:
     container_name: school_report_db
     restart: unless-stopped
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"  # localhost only to prevent remote DB access (weak default creds)
     environment:
       POSTGRES_USER: ${DB_USER:-svgv}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-svgv}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-svgv_insecure_default_change_me}
       POSTGRES_DB: ${DB_NAME:-postgres}
     volumes:
       - pgdata:/var/lib/postgresql/data
@@ -29,7 +29,7 @@ services:
     container_name: school_report_backend
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"  # localhost only; frontend proxies internally. Prevents bypassing auth (none) & import vulns from remote
     volumes:
       - ./backend:/code
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
@@ -37,7 +37,7 @@ services:
       - ENV=development
       - DB_HOST=database
       - DB_USER=${DB_USER:-svgv}
-      - DB_PASSWORD=${DB_PASSWORD:-svgv}
+      - DB_PASSWORD=${DB_PASSWORD:-svgv_insecure_default_change_me}
       - DB_NAME=${DB_NAME:-postgres}
     networks:
       - backend_net
