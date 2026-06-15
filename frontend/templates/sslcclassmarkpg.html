@@ -6,6 +6,11 @@
     <title>SSLC Results</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='markpg.css') }}">
+    <style>
+        .table-container table td:nth-child(9){
+            background: rgba(26, 79, 28, 0.05);
+        }
+    </style>
 </head>
 <body>
     {{ header_div | safe }}
