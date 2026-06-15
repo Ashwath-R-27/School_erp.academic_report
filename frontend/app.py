@@ -119,8 +119,12 @@ def hscgroups():
 
 @app.route("/")
 def first():
-    return redirect(url_for("loginpg"))
+    return redirect(url_for("dashboard"))
 
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
 
 @app.route("/login")
 def loginpg():
@@ -272,6 +276,10 @@ def hscreportfetch():
 def sslcreportfetch():
     header = header_div()
     return render_template("sslcreportpg.html",header_div=header)
+
+@app.route("/HSC/ClassDetails")
+def classentry():
+    return render_template("clsentrypg.html",header_div=header_div())
 
 if __name__ == "__main__":
     if debug_mode:

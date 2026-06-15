@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024, user-scalable=yes">
+    <title>HSC(+2) Class Details</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            background-color: rgb(255, 255, 255);
+        }
+
+        #pghead{
+            margin-top: 30px;
+            padding: 10px 0;
+            text-align: center;
+            background-color: #005f5f;
+            color: white;
+            font-weight: bold;
+            word-spacing: 3px;
+            font-size: clamp(15px,4vw,20px);
+        }
+
+        .content {
+            flex: 1;
+            display: grid;
+            place-items: center;
+            padding: clamp(10px, 4vw, 20px);
+        }
+
+        .class-dtls-tbl {
+            width: 95%;
+        }
+
+        .class-dtls-tbl table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #2c3e50;
+        }
+
+        .class-dtls-tbl table thead tr {
+            background: #2c3e50;
+        }
+
+        .class-dtls-tbl table th {
+            color: #f0f0f0;
+            padding: 11px 16px;
+            text-align: center;
+            font-size: clamp(9px,4vw,15px);
+            font-weight: 500;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            border: 1px solid #46627a;
+        }
+
+        .class-dtls-tbl table th:first-child{
+            width: 30%;
+        }
+
+        .class-dtls-tbl table tbody tr:nth-child(even) {
+            background: #f4f6f8;
+        }
+
+        .class-dtls-tbl table tbody tr:nth-child(odd) {
+            background: #ffffff;
+        }
+
+        .class-dtls-tbl table tbody tr:hover {
+            background: #f4f9ff;
+        }
+
+        .class-dtls-tbl table td {
+            padding: 10px 16px;
+            border: 1px solid #c5cdd6;
+            height: 35px;
+            font-size: clamp(9px,4vw,15px);
+            text-align: center;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+
+        .class-dtls-tbl table td:first-child {
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .class-dtls-tbl table td select {
+            padding: 6px 10px;
+            border: 1px solid #9aa5b0;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            background-color: #f4f6f8;
+            color: #2c3e50;
+            cursor: pointer;
+            width: 95%;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%232c3e50' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 28px;
+        }
+
+        .class-dtls-tbl table td select:hover {
+            border-color: #d4a017;
+            background-color: #ffffff;
+        }
+
+        .class-dtls-tbl table td select:focus {
+            border-color: #d4a017;
+            box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.2);
+            background-color: #ffffff;
+        }
+
+        .class-dtls-tbl table td button {
+            padding: 7px;
+            background: #d4a017;
+            border: 1px solid #b08010;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            width: 95%;
+            font-size: 13px;
+            font-weight: 500;
+            transition: background 0.15s;
+        }
+
+        .class-dtls-tbl table td button:hover {
+            background: #b08010;
+            border-color: #8a6508;
+        }
+
+        .class-dtls-tbl table td button:active {
+            background: #8a6508;
+        }
+
+        .input_field{
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+        .input_field input{
+            margin: 0 5px;
+            border: 1px solid #005f5f;
+            font-weight: 500;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 17px;
+            padding-left: 12px;
+        }
+
+        .input_field input:focus{
+            outline: 0;
+            box-shadow: 0px 0px 9px 0px rgba(48,186,178,0.75);
+        }
+
+        .submit-wrap{
+            margin-top: 20px;
+        }
+
+        .submit-wrap button{
+            padding: 10px;
+            background-color: #d4a017;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    {{ header_div | safe }}
+    <div id="pghead">HSC CLASS DETAILS</div>
+    <div class="content">
+        <div class="input_field">
+            <label for="">Enter no. of classes(sections):</label>
+            <input type="number" min="1" id="cls_nos" required/>
+        </div>
+        <div class="class-dtls-tbl" id="cls_dtls">
+            <table>
+                <thead>
+                    <tr><th>CLASS (Section)</th><th>No. of Groups</th><th>Group Details</th></tr>
+                </thead>
+                <tbody id="cls_tbody"></tbody>
+            </table>
+            <datalist id="group-options">
+                <option value="COMPUTER SCIENCE/MATHS">
+                <option value="BIOLOGY/MATHS">
+                <option value="BIOLOGY/COMPUTER SCIENCE">
+                <option value="ARTS/COMPUTER APPLICATION">
+                <option value="ARTS/BUSINESS MATHS">
+                <option value="BASIC MECHANICAL ENGINEERING/MATHS">
+            </datalist>
+        </div>
+        <div class="submit-wrap" id="submit_wrap" style="display:none;">
+            <button onclick="handleSubmit()">Final Submit</button>
+        </div>
+    </div>
+    <script src="{{ url_for('static',filename='hscclsscript.js') }}"></script>
+</body>
+</html>
