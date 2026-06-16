@@ -1,5 +1,7 @@
 from .hsc_response import (
+    GroupDTO,
     GroupwiseResponseDTO,
+    SectionDTO,
     StudentGroupwiseDTO,
     SubjectFirstMarkResponse,
     TopperResponse,
@@ -16,4 +18,6 @@ __all__ = [
     "GroupwiseResponseDTO",
     "SSLCTopperResponse",
     "SSLCClasswiseResponseDTO",
+    "SectionDTO",
+    "GroupDTO",
 ]

@@ -3,7 +3,9 @@ from contextlib import asynccontextmanager
 from typing import List, Optional
 
 from DTOs import (
+    GroupDTO,
     GroupwiseResponseDTO,
+    SectionDTO,
     SSLCClasswiseResponseDTO,
     SSLCTopperResponse,
     StudentGroupwiseDTO,
@@ -45,7 +47,7 @@ def get_sslc_classwise(class_name: str, session: Session = Depends(get_session))
     """Get SSLC students filtered by class, ranked by total marks descending."""
     statement = (
         select(
-            func.rank().over(order_by=desc(SSLC.total)).label("rank"),
+            func.dense_rank().over(order_by=desc(SSLC.total)).label("rank"),
             SSLC.reg_no,
             SSLC.class_.label("class_name"),
             SSLC.name,
@@ -81,7 +83,7 @@ def get_sslc_classwise(class_name: str, session: Session = Depends(get_session))
 
 @app.get("/sslc/toppers", response_model=List[SSLCTopperResponse])
 def get_sslc_toppers(limit: int = 10, session: Session = Depends(get_session)):
-    """Get overall top SSLC students based on total marks with competition ranking."""
+    """Get overall top SSLC students based on total marks with dense ranking."""
     statement = select(SSLC).order_by(SSLC.total.desc()).limit(limit)
     results = session.exec(statement).all()
 
@@ -92,11 +94,11 @@ def get_sslc_toppers(limit: int = 10, session: Session = Depends(get_session)):
     current_rank = 1
     previous_total = None
 
-    for index, student in enumerate(results, start=1):
+    for student in results:
         student_total = student.total if student.total is not None else 0
 
         if previous_total is not None and student_total < previous_total:
-            current_rank = index
+            current_rank += 1
 
         toppers.append(
             SSLCTopperResponse(
@@ -176,7 +178,7 @@ def get_sslc_subject_toppers(
 
     statement = (
         select(
-            func.rank().over(order_by=desc(subject_col)).label("rank"),
+            func.dense_rank().over(order_by=desc(subject_col)).label("rank"),
             SSLC.reg_no,
             SSLC.class_.label("class_name"),
             SSLC.name,
@@ -211,6 +213,61 @@ def get_sslc_subject_toppers(
     ]
 
 
+# --- HSC sections/groups helpers (used by /hsc/sections) ---
+GROUP_DISPLAY_NAMES: dict[str, str] = {
+    "csc": "COMPUTER SCIENCE + MATHS",
+    "biomat": "BIOLOGY + MATHS",
+    "biocs": "BIOLOGY + COMPUTER SCIENCE",
+    "artsbm": "COMMERCE + BUSINESS MATHEMATICS",
+    "artsca": "COMMERCE + COMPUTER APPLICATIONS",
+    "bme": "BIOMEDICAL ENGINEERING (BME)",
+}
+
+
+def abbreviate_subject(subject: Optional[str]) -> str:
+    """Convert full subject name from DB (e.g. 'Computer Science') to short code used by frontend (e.g. 'COMP')."""
+    if not subject:
+        return ""
+    s = subject.strip().lower()
+    abbrev_map = {
+        "physics": "PHY",
+        "chemistry": "CHEM",
+        "computer science": "COMP",
+        "mathematics": "MATHS",
+        "biology": "BIO",
+        "economics": "ECON",
+        "commerce": "COMM",
+        "accountancy": "ACC",
+        "business mathematics": "B.MATHS",
+        "computer applications": "C.APP",
+        "bme (theory)": "BME-TH",
+        "bme (practical)": "BME-PR",
+        "employability skills": "EMP",
+    }
+    if s in abbrev_map:
+        return abbrev_map[s]
+    # Fallback for unknown/new subjects
+    words = [w for w in s.split() if w]
+    if len(words) >= 2:
+        return "".join(w[0].upper() for w in words)[:6]
+    return s.upper()[:6] or "SUB"
+
+
+def section_sort_key(sec: str) -> tuple:
+    """Custom sort so that 'A1' comes before 'A', 'G2' before 'G', etc.
+    Plain letter sections (no trailing number) sort after their numbered variants.
+    """
+    sec = (sec or "").strip()
+    # Walk backwards to separate trailing digits
+    i = len(sec) - 1
+    while i >= 0 and sec[i].isdigit():
+        i -= 1
+    letter_part = sec[: i + 1].upper()
+    num_part = sec[i + 1 :]
+    num = int(num_part) if num_part else 9999
+    return (letter_part, num)
+
+
 # --- HSC ENDPOINTS ---
 @app.get("/hsc/groupwise", response_model=GroupwiseResponseDTO)
 def get_hsc_groupwise(
@@ -218,7 +275,7 @@ def get_hsc_groupwise(
 ):
     statement = (
         select(
-            func.rank().over(order_by=desc(HSC.total)).label("rank"),
+            func.dense_rank().over(order_by=desc(HSC.total)).label("rank"),
             HSC.reg_no,
             HSC.class_.label("class_name"),
             HSC.group_name.label("group"),
@@ -267,7 +324,7 @@ def get_hsc_classwise(class_name: str, session: Session = Depends(get_session)):
     """Get HSC students filtered by class, ranked by total marks descending."""
     statement = (
         select(
-            func.rank().over(order_by=desc(HSC.total)).label("rank"),
+            func.dense_rank().over(order_by=desc(HSC.total)).label("rank"),
             HSC.reg_no,
             HSC.class_.label("class_name"),
             HSC.group_name.label("group"),
@@ -309,6 +366,68 @@ def get_hsc_classwise(class_name: str, session: Session = Depends(get_session)):
     ]
 
 
+@app.get("/hsc/sections", response_model=List[SectionDTO])
+def get_hsc_sections(session: Session = Depends(get_session)):
+    """
+    Return all available class sections (sec) together with the groups/streams (grp)
+    that exist for students in that section.
+
+    Data is derived from the HSC table (distinct class + group_name).
+    Uses display names and short subject codes for frontend use.
+    """
+    statement = (
+        select(
+            HSC.class_.label("sec"),
+            HSC.group_name.label("code"),
+            HSC.sn1,
+            HSC.sn2,
+            HSC.sn3,
+            HSC.sn4,
+        )
+        .distinct()
+        .order_by(HSC.class_, HSC.group_name)
+    )
+
+    rows = session.exec(statement).all()
+
+    from collections import defaultdict
+
+    sec_to_groups = defaultdict(list)
+    seen = set()
+
+    for row in rows:
+        sec = row.sec
+        code = (row.code or "").strip().lower()
+        if not sec or not code:
+            continue
+
+        key = (sec, code)
+        if key in seen:
+            continue
+        seen.add(key)
+
+        display_name = GROUP_DISPLAY_NAMES.get(code, code.upper())
+
+        g = GroupDTO(
+            name=display_name,
+            code=code,
+            sub1=abbreviate_subject(row.sn1),
+            sub2=abbreviate_subject(row.sn2),
+            sub3=abbreviate_subject(row.sn3),
+            sub4=abbreviate_subject(row.sn4) if row.sn4 else None,
+        )
+        sec_to_groups[sec].append(g)
+
+    # Build final ordered list
+    result: List[SectionDTO] = []
+    for sec in sorted(sec_to_groups.keys(), key=section_sort_key):
+        # Sort groups inside each section by code for stable order
+        grps = sorted(sec_to_groups[sec], key=lambda g: g.code)
+        result.append(SectionDTO(sec=sec, grp=grps))
+
+    return result
+
+
 @app.get("/hsc/toppers")
 def get_hsc_toppers(limit: int = 10, session: Session = Depends(get_session)):
     # 1. Fetch records ordered by total marks descending
@@ -325,13 +444,12 @@ def get_hsc_toppers(limit: int = 10, session: Session = Depends(get_session)):
     previous_total = None
 
     # 2. Assign ranks dynamically based on total score ties
-    for index, student in enumerate(results, start=1):
+    for student in results:
         student_total = student.total if student.total is not None else 0
 
-        # If it's not the first student and the score dropped,
-        # catch up the rank to the current loop position (Standard Competition Ranking / 1-2-2-4)
+        # If score dropped, increment rank by 1 (Dense Ranking / 1-2-2-3)
         if previous_total is not None and student_total < previous_total:
-            current_rank = index
+            current_rank += 1
 
         toppers.append(
             TopperResponse(
@@ -435,7 +553,7 @@ def get_hsc_subject_toppers(
     current_rank = 1
     previous_mark = None
 
-    for index, student in enumerate(results, start=1):
+    for student in results:
         student_mark = (
             getattr(student, subject_lower)
             if hasattr(student, subject_lower)
@@ -443,7 +561,7 @@ def get_hsc_subject_toppers(
         )
 
         if previous_mark is not None and student_mark < previous_mark:
-            current_rank = index
+            current_rank += 1
 
         toppers.append(
             TopperResponse(

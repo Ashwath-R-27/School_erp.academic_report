@@ -51,3 +51,20 @@ class StudentGroupwiseDTO(BaseModel):
 
 class GroupwiseResponseDTO(BaseModel):
     datas: List[StudentGroupwiseDTO]
+
+
+# --- New DTOs for sections + groups configuration ---
+class GroupDTO(BaseModel):
+    """Represents a stream/group within a section (e.g. CSC / BIOMAT)."""
+    name: str
+    code: str
+    sub1: str
+    sub2: str
+    sub3: str
+    sub4: Optional[str] = None
+
+
+class SectionDTO(BaseModel):
+    """A class section with its available groups/streams."""
+    sec: str
+    grp: List[GroupDTO]
