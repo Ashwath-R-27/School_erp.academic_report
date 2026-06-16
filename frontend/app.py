@@ -60,6 +60,12 @@ def header_div():
     </div>"""
     return header
 
+def footer_div():
+    footer = """ <div class="footer">
+                © 2026 SVGV Matriculation Higher Secondary School, Examination
+                Results
+            </div> """
+    return footer
 
 def hscgroups():
     grpdtls = [
@@ -128,13 +134,13 @@ def dashboard():
 @app.route("/login")
 def loginpg():
     header = header_div()
-    return render_template("login.html", header_div=header)
+    return render_template("login.html", header_div=header, footer_div=footer_div())
 
 
 @app.route("/home")
 def home():
     header = header_div()
-    return render_template("home.html", header_div=header)
+    return render_template("home.html", header_div=header, footer_div=footer_div())
 
 
 @app.route("/HSC_2026")
@@ -148,6 +154,7 @@ def hscmark():
         top_scorers=datas,
         len1=len(datas),
         sub_marks=sub_first_marks,
+        footer_div=footer_div()
     )
 
 
@@ -162,6 +169,7 @@ def sslcmark():
         top_scorers=datas,
         len1=len(datas),
         sub_marks=sub_first_marks,
+        footer_div=footer_div()
     )
 
 
@@ -171,7 +179,7 @@ def hscgrpwisemarks():
     header = header_div()
     groups = hscgroups()
     return render_template(
-        "hscgrpmark.html", header_div=header, records=datas, groups=groups
+        "hscgrpmark.html", header_div=header, records=datas, groups=groups, footer_div=footer_div()
     )
 
 
@@ -231,6 +239,7 @@ def hscclasswisemarks():
         length=len(cls),
         len1=len(cls[0]["grp"]),
         len2=len(datas),
+        footer_div=footer_div()
     )
 
 
@@ -246,31 +255,32 @@ def sslcclassmark():
         cls=cls,
         length=len(cls),
         len2=len(datas),
+        footer_div=footer_div()
     )
 
 
 @app.route("/HSC_2026/StudForm")
 def hscstudformpg():
     header = header_div()
-    return render_template("studform.html", header_div=header, key="hsc")
+    return render_template("studform.html", header_div=header, key="hsc", footer_div=footer_div())
 
 
 @app.route("/SSLC_2026/StudForm")
 def sslcstudformpg():
     header = header_div()
-    return render_template("studform.html", header_div=header, key="sslc")
+    return render_template("studform.html", header_div=header, key="sslc", footer_div=footer_div())
 
 
 @app.route("/HSC_2026/Report")
 def hscreportfetch():
     header = header_div()
-    return render_template("hscreportpg.html", header_div=header)
+    return render_template("hscreportpg.html", header_div=header, footer_div=footer_div())
 
 
 @app.route("/SSLC_2026/Report")
 def sslcreportfetch():
     header = header_div()
-    return render_template("sslcreportpg.html", header_div=header)
+    return render_template("sslcreportpg.html", header_div=header, footer_div=footer_div())
 
 
 if __name__ == "__main__":
