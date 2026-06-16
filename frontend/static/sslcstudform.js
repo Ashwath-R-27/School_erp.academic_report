@@ -1,6 +1,6 @@
-form=`<div id="content-header">SSLC EXAMINATION MARCH 2026 <br> STUDENT DETAILS FORM</div>
+form = `<div id="content-header">SSLC EXAMINATION MARCH 2026 <br> STUDENT DETAILS FORM</div>
         <div class="form-container">
-            <form action="" method="post">
+            <form id="student-form">
                 <div id="box-header">STUDENT DETAILS</div>
                 <hr>
                 <div class="input-box">
@@ -32,5 +32,47 @@ form=`<div id="content-header">SSLC EXAMINATION MARCH 2026 <br> STUDENT DETAILS 
                     <button type="submit" id="login-btn">SUBMIT</button>
                 </div>
             </form>
-        </div>`
-document.getElementById('form').innerHTML=form;
+        </div>`;
+
+document.getElementById('form').innerHTML = form;
+
+document.getElementById('student-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const submitBtn = document.getElementById('login-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    try {
+        const response = await fetch('/submit/sslc', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            // Replace form with success message
+            document.getElementById('form').innerHTML = `
+                <div id="content-header">SSLC EXAMINATION MARCH 2026 <br> STUDENT DETAILS FORM</div>
+                <div class="form-container">
+                    <div id="box-header">✅ Submitted Successfully</div>
+                    <hr>
+                    <p style="text-align:center; padding: 20px;">
+                        Your details have been recorded.<br><br>
+                        <strong>${result.name}</strong><br>
+                        Register No: ${result.reg_no}
+                    </p>
+                </div>`;
+        } else {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'SUBMIT';
+            alert(result.detail || 'Submission failed. Please try again.');
+        }
+    } catch (err) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'SUBMIT';
+        alert('Network error. Please try again.');
+    }
+});
