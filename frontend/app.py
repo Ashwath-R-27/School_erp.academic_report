@@ -2,9 +2,9 @@ import argparse
 import os
 
 import requests
+from dashboard_config import DASHBOARD_CONFIGS
 from flask import Flask, jsonify, redirect, render_template, url_for
 from requests.models import HTTPError
-from dashboard_config import DASHBOARD_CONFIGS
 
 app = Flask(__name__)
 parser = argparse.ArgumentParser(description="A simple CLI tool.")
@@ -61,12 +61,14 @@ def header_div():
     </div>"""
     return header
 
+
 def footer_div():
     footer = """ <div class="footer">
                 © 2026 SVGV Matriculation Higher Secondary School, Examination
                 Results
             </div> """
     return footer
+
 
 def hscgroups():
     grpdtls = [
@@ -126,6 +128,7 @@ def hscgroups():
 def first():
     return redirect(url_for("dashboard"))
 
+
 @app.route("/dashboard")
 @app.route("/dashboard/<path:page>")
 def dashboard(page="main"):
@@ -156,7 +159,7 @@ def hscmark():
         top_scorers=datas,
         len1=len(datas),
         sub_marks=sub_first_marks,
-        footer_div=footer_div()
+        footer_div=footer_div(),
     )
 
 
@@ -171,7 +174,7 @@ def sslcmark():
         top_scorers=datas,
         len1=len(datas),
         sub_marks=sub_first_marks,
-        footer_div=footer_div()
+        footer_div=footer_div(),
     )
 
 
@@ -181,56 +184,17 @@ def hscgrpwisemarks():
     header = header_div()
     groups = hscgroups()
     return render_template(
-        "hscgrpmark.html", header_div=header, records=datas, groups=groups, footer_div=footer_div()
+        "hscgrpmark.html",
+        header_div=header,
+        records=datas,
+        groups=groups,
+        footer_div=footer_div(),
     )
 
 
 @app.route("/HSC_2026/Marks/Class")
 def hscclasswisemarks():
-    cls = [
-        {
-            "sec": "A1",
-            "grp": [
-                {
-                    "name": "COMPUTER SCIENCE + MATHS",
-                    "code": "csc",
-                    "sub1": "PHY",
-                    "sub2": "CHEM",
-                    "sub3": "COMP",
-                    "sub4": "MATHS",
-                },
-                {
-                    "name": "BIOLOGY + MATHS",
-                    "code": "biomat",
-                    "sub1": "PHY",
-                    "sub2": "CHEM",
-                    "sub3": "BIO",
-                    "sub4": "MATHS",
-                },
-            ],
-        },
-        {
-            "sec": "A",
-            "grp": [
-                {
-                    "name": "COMPUTER SCIENCE + MATHS",
-                    "code": "csc",
-                    "sub1": "PHY",
-                    "sub2": "CHEM",
-                    "sub3": "COMP",
-                    "sub4": "MATHS",
-                },
-                {
-                    "name": "BIOLOGY + MATHS",
-                    "code": "biomat",
-                    "sub1": "PHY",
-                    "sub2": "CHEM",
-                    "sub3": "BIO",
-                    "sub4": "MATHS",
-                },
-            ],
-        },
-    ]
+    cls = get_data_from_backend("/hsc/sections")
     datas = get_data_from_backend("/hsc/toppers?limit=50")
     header = header_div()
     return render_template(
@@ -238,10 +202,7 @@ def hscclasswisemarks():
         header_div=header,
         records=datas,
         cls=cls,
-        length=len(cls),
-        len1=len(cls[0]["grp"]),
-        len2=len(datas),
-        footer_div=footer_div()
+        footer_div=footer_div(),
     )
 
 
@@ -257,32 +218,40 @@ def sslcclassmark():
         cls=cls,
         length=len(cls),
         len2=len(datas),
-        footer_div=footer_div()
+        footer_div=footer_div(),
     )
 
 
 @app.route("/HSC_2026/StudForm")
 def hscstudformpg():
     header = header_div()
-    return render_template("studform.html", header_div=header, key="hsc", footer_div=footer_div())
+    return render_template(
+        "studform.html", header_div=header, key="hsc", footer_div=footer_div()
+    )
 
 
 @app.route("/SSLC_2026/StudForm")
 def sslcstudformpg():
     header = header_div()
-    return render_template("studform.html", header_div=header, key="sslc", footer_div=footer_div())
+    return render_template(
+        "studform.html", header_div=header, key="sslc", footer_div=footer_div()
+    )
 
 
 @app.route("/HSC_2026/Report")
 def hscreportfetch():
     header = header_div()
-    return render_template("hscreportpg.html", header_div=header, footer_div=footer_div())
+    return render_template(
+        "hscreportpg.html", header_div=header, footer_div=footer_div()
+    )
 
 
 @app.route("/SSLC_2026/Report")
 def sslcreportfetch():
     header = header_div()
-    return render_template("sslcreportpg.html", header_div=header, footer_div=footer_div())
+    return render_template(
+        "sslcreportpg.html", header_div=header, footer_div=footer_div()
+    )
 
 
 if __name__ == "__main__":

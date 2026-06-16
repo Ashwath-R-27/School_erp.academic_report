@@ -10,25 +10,46 @@
 <body>
     {{ header_div | safe }}
     <div class="content">
-        <div class="cls">{% for i in range(length) %}
-            <div id="cls">XII - {{ cls[i].sec }}</div>{% for j in range(len1) %}
+        {% for section in cls %}
+        <div class="cls">
+            <div id="cls">XII - {{ section.sec }}</div>
+            {% for grp in section.grp %}
             <div class="grp_container">
-                <div id="grp_header">{{ cls[i].grp[j].name }}</div>
+                <div id="grp_header">{{ grp.name }}</div>
                 <div class="table-box">
                     <div class="table-container">
                         <table>
                             <thead>
-                                <tr><th>RANK</th><th>CLASS</th><th>NAME</th><th colspan="2">LANG</th><th>ENG</th><th>{{ cls[i].grp[j].sub1 }}</th><th>{{ cls[i].grp[j].sub2 }}</th><th>{{ cls[i].grp[j].sub3 }}</th><th>{{ cls[i].grp[j].sub4 }}</th><th>TOTAL</th><th>CUT OFF</th></tr>
+                                <tr><th>RANK</th><th>CLASS</th><th>NAME</th><th colspan="2">LANG</th><th>ENG</th><th>{{ grp.sub1 }}</th><th>{{ grp.sub2 }}</th><th>{{ grp.sub3 }}</th><th>{{ grp.sub4 }}</th><th>TOTAL</th><th>CUT OFF</th></tr>
                             </thead>
-                            <tbody>{% for k in range(len2) %}{% if records[k].class==cls[i].sec %}{% if records[k].group==cls[i].grp[j].code %}
-                                <tr><td>{{ records[k].rank }}</td><td>{{ records[k].class }}</td><td>{{ records[k].name }}</td><td>{{ records[k].lang_name | upper }}</td><td>{{ records[k].lang }}</td><td>{{ records[k].eng }}</td><td>{{ records[k].sub1 }}</td><td>{{ records[k].sub2 }}</td><td>{{ records[k].sub3 }}</td><td>{{ records[k].sub4 }}</td><td>{{ records[k].total }}</td><td>{{ records[k].cutoff }}</td></tr>{% endif %}{% endif %}{% endfor %}
+                            <tbody>
+                                {% for record in records %}
+                                {% if record.class == section.sec and record.group == grp.code %}
+                                <tr>
+                                    <td>{{ record.rank }}</td>
+                                    <td>{{ record.class }}</td>
+                                    <td>{{ record.name }}</td>
+                                    <td>{{ record.lang_name | upper }}</td>
+                                    <td>{{ record.lang }}</td>
+                                    <td>{{ record.eng }}</td>
+                                    <td>{{ record.sub1 }}</td>
+                                    <td>{{ record.sub2 }}</td>
+                                    <td>{{ record.sub3 }}</td>
+                                    <td>{{ record.sub4 }}</td>
+                                    <td>{{ record.total }}</td>
+                                    <td>{{ record.cutoff }}</td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <hr>
-            </div>{% endfor %}
-        </div>{% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
     </div>
     {{ footer_div | safe }}
 </body>
