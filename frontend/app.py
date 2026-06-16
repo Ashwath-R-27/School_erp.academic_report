@@ -97,20 +97,20 @@ def hscgroups():
             "sub4": "CSC",
         },
         {
-            "name": "ARTS + ACCOUNTANCY",
-            "code": "artsbm",
-            "sub1": "ECO",
-            "sub2": "COM",
-            "sub3": "ACC",
-            "sub4": "BM",
-        },
-        {
-            "name": "ARTS + CA",
+            "name": "ARTS + COMPUTER APPLICATION",
             "code": "artsca",
             "sub1": "ECO",
             "sub2": "COM",
             "sub3": "ACC",
             "sub4": "CA",
+        },
+        {
+            "name": "ARTS + BUSINESS MATHEMATICS",
+            "code": "artsbm",
+            "sub1": "ECO",
+            "sub2": "COM",
+            "sub3": "ACC",
+            "sub4": "BM",
         },
         {
             "name": "BASIC MECHANICAL ENGINEERING",
@@ -184,7 +184,7 @@ def hscgrpwisemarks():
     datas = []
     for group in groups:
         datas.extend(
-            get_data_from_backend(f"/hsc/groupwise?group_name={group['code']}")
+            get_data_from_backend(f"/hsc/groupwise?group_name={group['code']}")["datas"]
         )
     header = header_div()
     groups = hscgroups()
