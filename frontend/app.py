@@ -180,7 +180,12 @@ def sslcmark():
 
 @app.route("/HSC_2026/Marks/Group")
 def hscgrpwisemarks():
-    datas = get_data_from_backend("/hsc/toppers?limit=50")
+    groups = hscgroups()
+    datas = []
+    for group in groups:
+        datas.extend(
+            get_data_from_backend(f"/hsc/groupwise?group_name={group['code']}")
+        )
     header = header_div()
     groups = hscgroups()
     return render_template(
