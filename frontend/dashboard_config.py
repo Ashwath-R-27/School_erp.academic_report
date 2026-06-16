@@ -2,7 +2,7 @@ DASHBOARD_CONFIGS = {
     "main": {
         "title": "Quick Navigation",
         "type": "cards",
-        "notice": "Examination Results Portal will be opened shortly. Please share the forms to students and ask them to fill it.",
+        "notice": "<ul><li>Examination Results Portal will be opened shortly.</li> <li>Please share the forms to students and ask them to fill it.</li></ul>",
         "cards": [
             {"href": "/home", "icon": "🎓", "title": "Examination Results 2026", "desc": "Examination result portal."},
             {"href": "/dashboard/HSC/StudentForm", "icon": "👨‍🎓", "title": "HSC Student Form", "desc": "Collect HSC student roll nos."},

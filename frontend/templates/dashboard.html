@@ -21,7 +21,7 @@
             <h2 class="section-title">{{ config.title }}</h2>
             {% if config.notice is defined and config.notice %}
             <div class="notice">
-                <p>{{ config.notice }}</p>
+                {{ config.notice | safe }}
             </div>
             {% endif %}
 
