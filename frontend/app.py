@@ -282,8 +282,8 @@ def proxy_submit_hsc():
             data=request.form
         )
         return jsonify(response.json()), response.status_code
-    except Exception as e:
-        return jsonify({"detail": f"Backend unreachable: {str(e)}"}), 502
+    except Exception:
+        return jsonify({"detail": "Service is currently unavailable. Please try again later."}), 502
 
 
 @app.route("/submit/sslc", methods=["POST"])
@@ -294,8 +294,8 @@ def proxy_submit_sslc():
             data=request.form
         )
         return jsonify(response.json()), response.status_code
-    except Exception as e:
-        return jsonify({"detail": f"Backend unreachable: {str(e)}"}), 502
+    except Exception:
+        return jsonify({"detail": "Service is currently unavailable. Please try again later."}), 502
 
 if __name__ == "__main__":
     if debug_mode:
