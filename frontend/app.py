@@ -151,7 +151,13 @@ def home():
 @app.route("/HSC_2026")
 def hscmark():
     header = header_div()
-    datas = get_data_from_backend("/hsc/toppers?limit=5")
+    datas=[]
+    data = get_data_from_backend("/hsc/toppers?limit=15")
+    for i in data:
+        if i['rank']<6:
+            datas.append(i)
+        else:
+            break
     sub_first_marks = get_data_from_backend("/hsc/subject-first-marks")
     return render_template(
         "hscmarkpg.html",
@@ -166,7 +172,13 @@ def hscmark():
 @app.route("/SSLC_2026")
 def sslcmark():
     header = header_div()
-    datas = get_data_from_backend("/sslc/toppers?limit=5")
+    datas = []
+    data = get_data_from_backend("/sslc/toppers?limit=15")
+    for i in data:
+        if i['rank']<6:
+            datas.append(i)
+        else:
+            break
     sub_first_marks = get_data_from_backend("/sslc/subject-first-marks")
     return render_template(
         "sslcmarkpg.html",
