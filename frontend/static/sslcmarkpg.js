@@ -1,46 +1,78 @@
-document.addEventListener("DOMContentLoaded", () => {
+form = `<div id="content-header">SSLC EXAMINATION MARCH 2026 <br> STUDENT DETAILS FORM</div>
+        <div class="form-container">
+            <form id="student-form">
+                <div id="box-header">STUDENT DETAILS</div>
+                <hr>
+                <div class="input-box">
+                    <input type="text" name='name' id="name" required placeholder=" " />
+                    <label for="name">Name</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" name='reg_no' id="regno" required placeholder=" " />
+                    <label for="regno">SSLC Register Number</label>
+                </div>
+                <div class="input-box">
+                    <input type="date" name='dob' id="dob" required placeholder=" " />
+                    <label for="dob">Select DOB</label>
+                </div>
+                <div class="input-box">
+                    <div class="field-wrap">
+                        <select name='sec' required>
+                            <option value="" disabled selected hidden></option>
+                            <option value="A">X - A</option>
+                            <option value="B">X - B</option>
+                            <option value="C">X - C</option>
+                            <option value="D">X - D</option>
+                            <option value="E">X - E</option>
+                        </select>
+                        <label>Select Class</label>
+                    </div>
+                </div>
+                <div class="btn">
+                    <button type="submit" id="login-btn">SUBMIT</button>
+                </div>
+            </form>
+        </div>`;
 
-    const SUBJECTS = [
-        ["TAMIL",   "tamil"],
-        ["ENGLISH", "english"],
-        ["MATHS",   "maths"],
-        ["SCIENCE", "science"],
-        ["SOCIAL",  "social"],
-    ];
+document.getElementById('form').innerHTML = form;
 
-    const dialogHtml = `
-    <dialog id="marksDialog">
-        <h3 id="studentName"></h3>
-        <table border="1">
-            <thead>
-                <tr><th>SUBJECT</th><th>MARK</th></tr>
-            </thead>
-            <tbody id="marksTableBody"></tbody>
-        </table>
-        <br>
-        <form method="dialog">
-            <button>OK</button>
-        </form>
-    </dialog>`;
+document.getElementById('student-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-    document.getElementById("dias").innerHTML = dialogHtml;
+    const formData = new FormData(this);
+    const submitBtn = document.getElementById('login-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
 
-    const marksDialog = document.getElementById("marksDialog");
-    const studentName = document.getElementById("studentName");
-    const marksTableBody = document.getElementById("marksTableBody");
-
-    document.querySelectorAll(".view-btn").forEach(button => {
-        button.addEventListener("click", () => {
-            const data = button.dataset;
-
-            marksTableBody.innerHTML = [
-                ...SUBJECTS.map(([label, key]) => `<tr><td>${label}</td><td>${data[key]}</td></tr>`),
-                `<tr><td><strong>TOTAL</strong></td><td><strong>${data.total}</strong></td></tr>`
-            ].join("");
-
-            studentName.textContent = `${data.name} (${data.regNo})`;
-            marksDialog.showModal();
+    try {
+        const response = await fetch('/submit/sslc', {
+            method: 'POST',
+            body: formData
         });
-    });
 
+        const result = await response.json();
+
+        if (response.ok) {
+            // Replace form with success message
+            document.getElementById('form').innerHTML = `
+                <div id="content-header">SSLC EXAMINATION MARCH 2026 <br> STUDENT DETAILS FORM</div>
+                <div class="form-container">
+                    <div id="box-header">✅ Submitted Successfully</div>
+                    <hr>
+                    <p style="text-align:center; padding: 20px;">
+                        Your details have been recorded.<br><br>
+                        <strong>${result.name}</strong><br>
+                        Register No: ${result.reg_no}
+                    </p>
+                </div>`;
+        } else {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'SUBMIT';
+            alert(result.detail || 'Submission failed. Please try again.');
+        }
+    } catch (err) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'SUBMIT';
+        alert('Network error. Please try again.');
+    }
 });
