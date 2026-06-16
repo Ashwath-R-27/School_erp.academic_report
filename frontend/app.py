@@ -199,8 +199,10 @@ def hscgrpwisemarks():
 
 @app.route("/HSC_2026/Marks/Class")
 def hscclasswisemarks():
-    classes = ["A1", "A", "B", "C", "D", "E", "F", "G1", "G2"]
+    classes=[]
     cls = get_data_from_backend("/hsc/sections")
+    for sec in cls:
+        classes.append(sec['sec'])
     datas = []
     for _class in classes:
         datas.extend(get_data_from_backend(f"/hsc/classwise?class_name={_class}"))
