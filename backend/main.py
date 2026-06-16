@@ -75,7 +75,7 @@ def submit_sslc(
 
     return StudentSubmitResponse(
         message="success",
-        name=form_data.name,
+        name=form_data.name.upper(),
         reg_no=form_data.reg_no,
     )
 
@@ -108,7 +108,7 @@ def submit_hsc(
 
     return StudentSubmitResponse(
         message="success",
-        name=form_data.name,
+        name=form_data.name.upper(),
         reg_no=form_data.reg_no,
     )
 
