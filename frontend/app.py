@@ -4,6 +4,7 @@ import os
 import requests
 from flask import Flask, jsonify, redirect, render_template, url_for
 from requests.models import HTTPError
+from dashboard_config import DASHBOARD_CONFIGS
 
 app = Flask(__name__)
 parser = argparse.ArgumentParser(description="A simple CLI tool.")
@@ -124,40 +125,6 @@ def hscgroups():
 @app.route("/")
 def first():
     return redirect(url_for("dashboard"))
-
-DASHBOARD_CONFIGS = {
-    "main": {
-        "title": "Quick Navigation",
-        "type": "cards",
-        "cards": [
-            {"href": "/home", "icon": "🎓", "title": "Examination Results 2026", "desc": "Examination result portal."},
-            {"href": "/dashboard/HSC/StudentForm", "icon": "👨‍🎓", "title": "HSC Student Form", "desc": "Collect HSC student roll nos."},
-            {"href": "/dashboard/SSLC/StudentForm", "icon": "👩‍🎓", "title": "SSLC Student Form", "desc": "Collect SSLC student roll nos."},
-            {"href": "/dashboard/Services", "icon": "⚙️", "title": "Services", "desc": "Ask for Services."},
-        ]
-    },
-    "HSC/StudentForm": {
-        "title": "HSC STUDENT FORM",
-        "type": "cards",
-        "cards": [
-            {"href": "/HSC_2026/StudForm/Responses", "icon": "📑", "title": "Form Responses", "desc": "Student roll nos. and details"},
-            {"href": "/HSC_2026/StudForm", "icon": "📝", "title": "Student Form", "desc": "Share the link to students."}
-        ]
-    },
-    "SSLC/StudentForm": {
-        "title": "SSLC STUDENT FORM",
-        "type": "cards",
-        "cards": [
-            {"href": "/SSLC_2026/StudForm/Responses", "icon": "📑", "title": "Form Responses", "desc": "Student roll nos. and details"},
-            {"href": "/SSLC_2026/StudForm", "icon": "📝", "title": "Student Form", "desc": "Share the link to students."}
-        ]
-    },
-    "Services":{
-        "title": "Services",
-        "type": "custom_div",
-        "content": "<div class='notice'>No Services at this moment."
-    }
-}
 
 @app.route("/dashboard")
 @app.route("/dashboard/<path:page>")

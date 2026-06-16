@@ -19,6 +19,11 @@
 
             <!-- DASHBOARD -->
             <h2 class="section-title">{{ config.title }}</h2>
+            {% if config.notice is defined and config.notice %}
+            <div class="notice">
+                <p>{{ config.notice }}</p>
+            </div>
+            {% endif %}
 
             {% if config.type == "cards" %}
             <div class="dashboard">
@@ -29,14 +34,11 @@
                 </a>
                 {% endfor %}
             </div>
-
             {% elif config.type == "custom_div" %}
-            <div class="custom-section">
+            <div class="custom-content">
                 {{ config.content | safe }}
             </div>
-
             {% endif %}
-
             <div class="footer">
                 © 2026 SVGV Matriculation Higher Secondary School, Examination Results
             </div>
