@@ -29,3 +29,19 @@ CREATE TABLE hsc (
     total integer GENERATED ALWAYS AS (lang + eng + sm1 + sm2 + sm3 + sm4) STORED,
     cut_off real
 );
+
+CREATE TABLE hsc_student_data (
+    reg_no integer PRIMARY KEY,
+    name varchar(30),
+    class varchar(1),
+    dob date,
+    group_code varchar(6),
+
+);
+
+CREATE TABLE sslc_student_data (
+    reg_no integer PRIMARY KEY,
+    name varchar(30),
+    class varchar(1),
+    dob date
+);

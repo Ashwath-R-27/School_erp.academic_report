@@ -1,19 +1,23 @@
 import csv
 from contextlib import asynccontextmanager
+from datetime import date
 from typing import List, Optional
 
 from DTOs import (
     GroupDTO,
     GroupwiseResponseDTO,
+    HSCStudentForm,
     SectionDTO,
     SSLCClasswiseResponseDTO,
+    SSLCStudentForm,
     SSLCTopperResponse,
     StudentGroupwiseDTO,
+    StudentSubmitResponse,
     SubjectFirstMarkResponse,
     TopperResponse,
 )
-from fastapi import Depends, FastAPI, HTTPException, Query, status
-from models import HSC, SSLC
+from fastapi import Depends, FastAPI, Form, HTTPException, Query, status
+from models import HSC, HSCStudentData, SSLC, SSLCStudentData
 from sqlmodel import Session, SQLModel, desc, func, select, text
 
 from database import engine, get_session
@@ -39,6 +43,66 @@ def login():
 # register user and generate otp
 @app.get("/auth/verify_otp")
 # verify the otp and send the JWT
+
+
+# --- STUDENT DATA SUBMISSION (FORM POSTS) ---
+@app.post("/submit/sslc", response_model=StudentSubmitResponse)
+def submit_sslc(form_data: SSLCStudentForm = Depends(SSLCStudentForm.as_form), session: Session = Depends(get_session)):
+    """Accept SSLC student registration details from the student details form.
+    Validates input via SSLCStudentForm DTO + saves to sslc_student_data table.
+    """
+    student = SSLCStudentData(
+        reg_no=form_data.reg_no,
+        name=form_data.name,
+        class_=form_data.sec,
+        dob=form_data.dob,
+    )
+
+    session.add(student)
+    try:
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        raise HTTPException(
+            status_code=400,
+            detail=f"Failed to save SSLC student data (possible duplicate reg_no?): {str(e)}",
+        )
+
+    return StudentSubmitResponse(
+        message="success",
+        name=form_data.name,
+        reg_no=form_data.reg_no,
+    )
+
+
+@app.post("/submit/hsc", response_model=StudentSubmitResponse)
+def submit_hsc(form_data: HSCStudentForm = Depends(HSCStudentForm.as_form), session: Session = Depends(get_session)):
+    """Accept HSC student registration details from the student details form.
+    Validates input via HSCStudentForm DTO + saves to hsc_student_data table.
+    """
+    student = HSCStudentData(
+        reg_no=form_data.reg_no,
+        name=form_data.name,
+        class_=form_data.sec,
+        dob=form_data.dob,
+        group_code=form_data.grp,
+    )
+
+    session.add(student)
+    try:
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        raise HTTPException(
+            status_code=400,
+            detail=f"Failed to save HSC student data (possible duplicate reg_no?): {str(e)}",
+        )
+
+    return StudentSubmitResponse(
+        message="success",
+        name=form_data.name,
+        reg_no=form_data.reg_no,
+    )
 
 
 # --- SSLC ENDPOINTS ---
