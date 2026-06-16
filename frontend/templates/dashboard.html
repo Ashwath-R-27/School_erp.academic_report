@@ -1,26 +1,16 @@
-<!-- templates/dashboard.html -->
-
 <!doctype html>
-
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>SVGV Dashboard</title>
-
-        <link rel="stylesheet" href="{{ url_for('static',filename='dashboard.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
     </head>
-
     <body>
         <div class="container">
             <!-- HEADER -->
-
             <div class="topbar">
-                <img
-                    src="{{ url_for('static', filename='logo.avif') }}"
-                    class="logo"
-                />
-
+                <img src="{{ url_for('static', filename='logo.avif') }}" class="logo" />
                 <div>
                     <h1>SVGV Matriculation Higher Secondary School</h1>
                     <p>Academic Results Management Portal - 2026</p>
@@ -28,34 +18,27 @@
             </div>
 
             <!-- DASHBOARD -->
+            <h2 class="section-title">{{ config.title }}</h2>
 
-            <h2 class="section-title">Quick Navigation</h2>
-
+            {% if config.type == "cards" %}
             <div class="dashboard">
-                <a href="/home" class="card">
-                    <h2>🎓 Examination Results 2026</h2>
-                    <p>Examination result portal.</p>
+                {% for card in config.cards %}
+                <a href="{{ card.href }}" class="card">
+                    <h2>{{ card.icon }} {{ card.title }}</h2>
+                    <p>{{ card.desc }}</p>
                 </a>
-
-                <a href="/HSC_2026/StudForm" class="card">
-                    <h2>👨‍🎓 HSC Student Form</h2>
-                    <p>Collect HSC student roll nos.</p>
-                </a>
-
-                <a href="/SSLC_2026/StudForm" class="card">
-                    <h2>👩‍🎓 SSLC Student Form</h2>
-                    <p>Collect SSLC student roll nos.</p>
-                </a>
-
-                <a href="/Services" class="card">
-                    <h2>⚙️ Services</h2>
-                    <p>Ask for Services.</p>
-                </a>
+                {% endfor %}
             </div>
 
+            {% elif config.type == "custom_div" %}
+            <div class="custom-section">
+                {{ config.content | safe }}
+            </div>
+
+            {% endif %}
+
             <div class="footer">
-                © 2026 SVGV Matriculation Higher Secondary School, Examination
-                Results
+                © 2026 SVGV Matriculation Higher Secondary School, Examination Results
             </div>
         </div>
     </body>

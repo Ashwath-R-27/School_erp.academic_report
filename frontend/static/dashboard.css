@@ -132,6 +132,16 @@ body {
     padding: 20px;
 }
 
+.notice{
+    padding: 20px 10px;
+    margin: 10px;
+    border: 1px solid rgb(204, 23, 23);
+    color: red;
+    text-align: center;
+    font-weight: 600;
+    background-color: rgb(255, 205, 205);
+}
+
 @media (max-width: 768px) {
     .topbar {
         flex-direction: column;
