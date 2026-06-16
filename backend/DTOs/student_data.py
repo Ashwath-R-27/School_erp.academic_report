@@ -53,3 +53,27 @@ class StudentSubmitResponse(BaseModel):
     reg_no: int
 
     model_config = {"from_attributes": True}
+
+
+# --- Response DTOs for listing student data (GET all) ---
+class SSLCStudentDataResponse(BaseModel):
+    """Response model for a single row in sslc_student_data."""
+
+    reg_no: int
+    name: Optional[str] = None
+    class_: Optional[str] = Field(default=None, alias="class")
+    dob: Optional[date] = None
+
+    model_config = {"populate_by_name": True, "from_attributes": True}
+
+
+class HSCStudentDataResponse(BaseModel):
+    """Response model for a single row in hsc_student_data."""
+
+    reg_no: int
+    name: Optional[str] = None
+    class_: Optional[str] = Field(default=None, alias="class")
+    dob: Optional[date] = None
+    group_code: Optional[str] = Field(default=None, alias="group_code")
+
+    model_config = {"populate_by_name": True, "from_attributes": True}

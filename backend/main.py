@@ -6,9 +6,11 @@ from typing import List, Optional
 from DTOs import (
     GroupDTO,
     GroupwiseResponseDTO,
+    HSCStudentDataResponse,
     HSCStudentForm,
     SectionDTO,
     SSLCClasswiseResponseDTO,
+    SSLCStudentDataResponse,
     SSLCStudentForm,
     SSLCTopperResponse,
     StudentGroupwiseDTO,
@@ -17,7 +19,7 @@ from DTOs import (
     TopperResponse,
 )
 from fastapi import Depends, FastAPI, Form, HTTPException, Query, status
-from models import HSC, HSCStudentData, SSLC, SSLCStudentData
+from models import HSC, SSLC, HSCStudentData, SSLCStudentData
 from sqlmodel import Session, SQLModel, desc, func, select, text
 
 from database import engine, get_session
@@ -47,13 +49,16 @@ def login():
 
 # --- STUDENT DATA SUBMISSION (FORM POSTS) ---
 @app.post("/submit/sslc", response_model=StudentSubmitResponse)
-def submit_sslc(form_data: SSLCStudentForm = Depends(SSLCStudentForm.as_form), session: Session = Depends(get_session)):
+def submit_sslc(
+    form_data: SSLCStudentForm = Depends(SSLCStudentForm.as_form),
+    session: Session = Depends(get_session),
+):
     """Accept SSLC student registration details from the student details form.
     Validates input via SSLCStudentForm DTO + saves to sslc_student_data table.
     """
     student = SSLCStudentData(
         reg_no=form_data.reg_no,
-        name=form_data.name,
+        name=form_data.name.upper(),
         class_=form_data.sec,
         dob=form_data.dob,
     )
@@ -76,13 +81,16 @@ def submit_sslc(form_data: SSLCStudentForm = Depends(SSLCStudentForm.as_form), s
 
 
 @app.post("/submit/hsc", response_model=StudentSubmitResponse)
-def submit_hsc(form_data: HSCStudentForm = Depends(HSCStudentForm.as_form), session: Session = Depends(get_session)):
+def submit_hsc(
+    form_data: HSCStudentForm = Depends(HSCStudentForm.as_form),
+    session: Session = Depends(get_session),
+):
     """Accept HSC student registration details from the student details form.
     Validates input via HSCStudentForm DTO + saves to hsc_student_data table.
     """
     student = HSCStudentData(
         reg_no=form_data.reg_no,
-        name=form_data.name,
+        name=form_data.name.upper(),
         class_=form_data.sec,
         dob=form_data.dob,
         group_code=form_data.grp,
@@ -103,6 +111,38 @@ def submit_hsc(form_data: HSCStudentForm = Depends(HSCStudentForm.as_form), sess
         name=form_data.name,
         reg_no=form_data.reg_no,
     )
+
+
+# --- STUDENT DATA GET (all rows) ---
+@app.get("/sslc/student-data", response_model=List[SSLCStudentDataResponse])
+def get_all_sslc_student_data(session: Session = Depends(get_session)):
+    """Return all rows from sslc_student_data table (registration / student details form data)."""
+    results = session.exec(select(SSLCStudentData)).all()
+    return [
+        SSLCStudentDataResponse(
+            reg_no=row.reg_no,
+            name=row.name,
+            class_=row.class_,
+            dob=row.dob,
+        )
+        for row in results
+    ]
+
+
+@app.get("/hsc/student-data", response_model=List[HSCStudentDataResponse])
+def get_all_hsc_student_data(session: Session = Depends(get_session)):
+    """Return all rows from hsc_student_data table (registration / student details form data)."""
+    results = session.exec(select(HSCStudentData)).all()
+    return [
+        HSCStudentDataResponse(
+            reg_no=row.reg_no,
+            name=row.name,
+            class_=row.class_,
+            dob=row.dob,
+            group_code=row.group_code,
+        )
+        for row in results
+    ]
 
 
 # --- SSLC ENDPOINTS ---

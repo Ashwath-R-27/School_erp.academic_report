@@ -11,7 +11,9 @@ from .sslc_response import (
     SSLCTopperResponse,
 )
 from .student_data import (
+    HSCStudentDataResponse,
     HSCStudentForm,
+    SSLCStudentDataResponse,
     SSLCStudentForm,
     StudentSubmitResponse,
 )
@@ -28,4 +30,6 @@ __all__ = [
     "SSLCStudentForm",
     "HSCStudentForm",
     "StudentSubmitResponse",
+    "SSLCStudentDataResponse",
+    "HSCStudentDataResponse",
 ]
