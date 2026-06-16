@@ -187,7 +187,6 @@ def hscgrpwisemarks():
             get_data_from_backend(f"/hsc/groupwise?group_name={group['code']}")["datas"]
         )
     header = header_div()
-    groups = hscgroups()
     return render_template(
         "hscgrpmark.html",
         header_div=header,
