@@ -10,6 +10,11 @@ from .sslc_response import (
     SSLCClasswiseResponseDTO,
     SSLCTopperResponse,
 )
+from .student_data import (
+    HSCStudentForm,
+    SSLCStudentForm,
+    StudentSubmitResponse,
+)
 
 __all__ = [
     "TopperResponse",
@@ -20,4 +25,7 @@ __all__ = [
     "SSLCClasswiseResponseDTO",
     "SectionDTO",
     "GroupDTO",
+    "SSLCStudentForm",
+    "HSCStudentForm",
+    "StudentSubmitResponse",
 ]
