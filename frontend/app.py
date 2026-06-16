@@ -194,8 +194,11 @@ def hscgrpwisemarks():
 
 @app.route("/HSC_2026/Marks/Class")
 def hscclasswisemarks():
+    classes = ["A1", "A", "B", "C", "D", "E", "F", "G1", "G2"]
     cls = get_data_from_backend("/hsc/sections")
-    datas = get_data_from_backend("/hsc/toppers?limit=50")
+    datas = []
+    for _class in classes:
+        datas.extend(get_data_from_backend(f"/hsc/classwise?class_name={_class}"))
     header = header_div()
     return render_template(
         "hscclsmarkpg.html",
