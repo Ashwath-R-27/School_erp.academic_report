@@ -218,9 +218,9 @@ GROUP_DISPLAY_NAMES: dict[str, str] = {
     "csc": "COMPUTER SCIENCE + MATHS",
     "biomat": "BIOLOGY + MATHS",
     "biocs": "BIOLOGY + COMPUTER SCIENCE",
-    "artsbm": "COMMERCE + BUSINESS MATHEMATICS",
-    "artsca": "COMMERCE + COMPUTER APPLICATIONS",
-    "bme": "BIOMEDICAL ENGINEERING (BME)",
+    "artsbm": "ARTS + BUSINESS MATHEMATICS",
+    "artsca": "ARTS + COMPUTER APPLICATIONS",
+    "bme": "BASIC MECHANICAL ENGINEERING (BME)",
 }
 
 
@@ -235,14 +235,14 @@ def abbreviate_subject(subject: Optional[str]) -> str:
         "computer science": "COMP",
         "mathematics": "MATHS",
         "biology": "BIO",
-        "economics": "ECON",
-        "commerce": "COMM",
+        "economics": "ECO",
+        "commerce": "COM",
         "accountancy": "ACC",
-        "business mathematics": "B.MATHS",
-        "computer applications": "C.APP",
-        "bme (theory)": "BME-TH",
-        "bme (practical)": "BME-PR",
-        "employability skills": "EMP",
+        "business mathematics": "BM",
+        "computer applications": "CA",
+        "bme (theory)": "BME(THY)",
+        "bme (practical)": "BME(PRT)",
+        "employability skills": "ES",
     }
     if s in abbrev_map:
         return abbrev_map[s]
