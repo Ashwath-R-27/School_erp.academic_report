@@ -28,6 +28,7 @@ form = `<div id="content-header">SSLC EXAMINATION MARCH 2026 <br> STUDENT DETAIL
                         <label>Select Class</label>
                     </div>
                 </div>
+                <div id="error-msg" style="display:none; color:red; text-align:center; padding: 8px; margin: 8px 0; border: 1px solid red; border-radius: 4px; font-size: 0.9em;"></div>
                 <div class="btn">
                     <button type="submit" id="login-btn">SUBMIT</button>
                 </div>
@@ -41,6 +42,10 @@ document.getElementById('student-form').addEventListener('submit', async functio
 
     const formData = new FormData(this);
     const submitBtn = document.getElementById('login-btn');
+    const errorMsg = document.getElementById('error-msg');
+
+    errorMsg.style.display = 'none';
+    errorMsg.textContent = '';
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting...';
 
@@ -53,7 +58,6 @@ document.getElementById('student-form').addEventListener('submit', async functio
         const result = await response.json();
 
         if (response.ok) {
-            // Replace form with success message
             document.getElementById('form').innerHTML = `
                 <div id="content-header">SSLC EXAMINATION MARCH 2026 <br> STUDENT DETAILS FORM</div>
                 <div class="form-container">
@@ -66,13 +70,18 @@ document.getElementById('student-form').addEventListener('submit', async functio
                     </p>
                 </div>`;
         } else {
+            const isDuplicate = result.detail && result.detail.includes('already exists');
+            errorMsg.textContent = isDuplicate
+                ? '⚠️ This Register Number has already been submitted.'
+                : (result.detail || 'Submission failed. Please try again.');
+            errorMsg.style.display = 'block';
             submitBtn.disabled = false;
             submitBtn.textContent = 'SUBMIT';
-            alert(result.detail || 'Submission failed. Please try again.');
         }
     } catch (err) {
+        errorMsg.textContent = 'Network error. Please check your connection.';
+        errorMsg.style.display = 'block';
         submitBtn.disabled = false;
         submitBtn.textContent = 'SUBMIT';
-        alert('Network error. Please try again.');
     }
 });

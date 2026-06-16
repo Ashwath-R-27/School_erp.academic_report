@@ -3,7 +3,7 @@ import os
 
 import requests
 from dashboard_config import DASHBOARD_CONFIGS
-from flask import Flask, jsonify, redirect, render_template, url_for
+from flask import Flask, jsonify, redirect, request, render_template, url_for
 from requests.models import HTTPError
 
 app = Flask(__name__)
@@ -274,6 +274,28 @@ def sslcreportfetch():
         "sslcreportpg.html", header_div=header, footer_div=footer_div()
     )
 
+@app.route("/submit/hsc", methods=["POST"])
+def proxy_submit_hsc():
+    try:
+        response = requests.post(
+            BACKEND_URL + "/submit/hsc",
+            data=request.form
+        )
+        return jsonify(response.json()), response.status_code
+    except Exception as e:
+        return jsonify({"detail": f"Backend unreachable: {str(e)}"}), 502
+
+
+@app.route("/submit/sslc", methods=["POST"])
+def proxy_submit_sslc():
+    try:
+        response = requests.post(
+            BACKEND_URL + "/submit/sslc",
+            data=request.form
+        )
+        return jsonify(response.json()), response.status_code
+    except Exception as e:
+        return jsonify({"detail": f"Backend unreachable: {str(e)}"}), 502
 
 if __name__ == "__main__":
     if debug_mode:

@@ -46,6 +46,7 @@ form = `<div id="content-header">HSE(+2) EXAMINATION MARCH 2026 <br> STUDENT DET
                         <label>Select Group</label>
                     </div>
                 </div>
+                <div id="error-msg" style="display:none; color:red; text-align:center; padding: 8px; margin: 8px 0; border: 1px solid red; border-radius: 4px; font-size: 0.9em;"></div>
                 <div class="btn">
                     <button type="submit" id="login-btn">SUBMIT</button>
                 </div>
@@ -59,6 +60,10 @@ document.getElementById('student-form').addEventListener('submit', async functio
 
     const formData = new FormData(this);
     const submitBtn = document.getElementById('login-btn');
+    const errorMsg = document.getElementById('error-msg');
+
+    errorMsg.style.display = 'none';
+    errorMsg.textContent = '';
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting...';
 
@@ -83,13 +88,19 @@ document.getElementById('student-form').addEventListener('submit', async functio
                     </p>
                 </div>`;
         } else {
+            // Show friendly message for duplicate reg_no
+            const isDuplicate = result.detail && result.detail.includes('already exists');
+            errorMsg.textContent = isDuplicate
+                ? '⚠️ This Register Number has already been submitted.'
+                : (result.detail || 'Submission failed. Please try again.');
+            errorMsg.style.display = 'block';
             submitBtn.disabled = false;
             submitBtn.textContent = 'SUBMIT';
-            alert(result.detail || 'Submission failed. Please try again.');
         }
     } catch (err) {
+        errorMsg.textContent = 'Network error. Please check your connection.';
+        errorMsg.style.display = 'block';
         submitBtn.disabled = false;
         submitBtn.textContent = 'SUBMIT';
-        alert('Network error. Please try again.');
     }
 });
