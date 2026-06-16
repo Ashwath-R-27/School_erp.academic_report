@@ -127,6 +127,14 @@ a:focus{
     transform: translateY(-3px) scale(1.01);
     box-shadow: 0px 0px 10px 8px rgba(10, 255, 173, 0.281);
 }
+.footer {
+    margin-top: 10px;
+
+    word-spacing: 3px;
+    text-align: center;
+    color: #666;
+    padding: 20px;
+}
 @media screen and (max-width: 700px){
 
     .logo{
