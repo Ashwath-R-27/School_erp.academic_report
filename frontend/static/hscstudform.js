@@ -1,4 +1,5 @@
 form = `<div id="content-header">HSE(+2) EXAMINATION MARCH 2026 <br> STUDENT DETAILS FORM</div>
+<div class="warning-bar"><span>WARNING:</span>Students are requested to fill the below form carefully without committing any mistakes. If any mistakes are committed the details cannot be changed.</div>
         <div class="form-container">
             <form id="student-form">
                 <div id="box-header">STUDENT DETAILS</div>
