@@ -297,6 +297,27 @@ def proxy_submit_sslc():
     except Exception:
         return jsonify({"detail": "Service is currently unavailable. Please try again later."}), 502
 
+def reponse_page(cls):
+    datas = get_data_from_backend(f'/{cls}/student-data')
+    count = {}
+    for student in datas:
+        cls = student["class"]
+        count[cls] = count.get(cls, 0) + 1
+    count = dict(sorted(count.items()))
+    count['TOTAL']=sum(count.values())
+    return count
+
+@app.route('/HSC_2026/StudForm/Responses')
+def hsc_response():
+    notice=""
+    return render_template('formresponses.html',title="HSC Student Details",notice=notice,response=reponse_page('hsc'))
+
+
+@app.route('/SSLC_2026/StudForm/Responses')
+def sslc_response():
+    notice=""
+    return render_template('formresponses.html',title="HSC Student Details",notice=notice,response=reponse_page('sslc'))
+
 if __name__ == "__main__":
     if debug_mode:
         app.run(host="0.0.0.0", port=5001, debug=True)

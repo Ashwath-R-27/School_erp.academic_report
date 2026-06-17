@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Form Responses</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <!-- HEADER -->
+            <div class="topbar">
+                <img src="{{ url_for('static', filename='logo.avif') }}" class="logo" />
+                <div>
+                    <h1>SVGV Matriculation Higher Secondary School</h1>
+                    <p>Academic Results Management Portal - 2026</p>
+                </div>
+            </div>
+
+            <!-- DASHBOARD -->
+            <h2 class="section-title">{{ title }}</h2>
+            {% if notice is defined and notice %}
+            <div class="notice">
+                {{ notice | safe }}
+            </div>
+            {% endif %}
+
+            {% if response is defined and response %}
+            <div class="custom-content">
+                <div class="no-of-studs-tbl">
+                    <table>
+                        <thead>
+                            <tr><th colspan="2">NO OF STUDENTS SUBMITTED THE FORM</th></tr>
+                            <tr><th>CLASS</th><th>No. of Students</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for key,value in response.items() %}
+                            <tr><td>{{ key }}</td><td>{{ value }}</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="view-response-btn"><button>DOWNLOAD RESPONSE</button></div>
+            {% endif %}
+            <div class="footer">
+                © 2026 SVGV Matriculation Higher Secondary School, Examination Results
+            </div>
+        </div>
+    </body>
+</html>

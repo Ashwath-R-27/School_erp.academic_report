@@ -14,7 +14,7 @@ DASHBOARD_CONFIGS = {
         "title": "HSC Student Form",
         "type": "cards",
         "cards": [
-            {"href": "/dashboard/HSC_2026/StudForm/Responses", "icon": "📑", "title": "Form Responses", "desc": "Student roll nos. and details"},
+            {"href": "/HSC_2026/StudForm/Responses", "icon": "📑", "title": "Form Responses", "desc": "Student roll nos. and details"},
             {"href": "/HSC_2026/StudForm", "icon": "📝", "title": "Student Form", "desc": "Share the link to students."}
         ]
     },
@@ -22,7 +22,7 @@ DASHBOARD_CONFIGS = {
         "title": "SSLC Student Form",
         "type": "cards",
         "cards": [
-            {"href": "/dashboard/SSLC_2026/StudForm/Responses", "icon": "📑", "title": "Form Responses", "desc": "Student roll nos. and details"},
+            {"href": "/SSLC_2026/StudForm/Responses", "icon": "📑", "title": "Form Responses", "desc": "Student roll nos. and details"},
             {"href": "/SSLC_2026/StudForm", "icon": "📝", "title": "Student Form", "desc": "Share the link to students."}
         ]
     },
@@ -30,17 +30,5 @@ DASHBOARD_CONFIGS = {
         "title": "Services",
         "type": "custom_div",
         "content": "<div class='error-notice'>No Services at this moment.</div>"
-    },
-    "HSC_2026/StudForm/Responses":{
-        "title": "HSC Student Details",
-        "notice": "This page is still being devloped by the team.",
-        "type": "custom_div",
-        "content": ""
-    },
-    "SSLC_2026/StudForm/Responses":{
-        "title": "SSLC Student Details",
-        "notice": "This page is still being devloped by the team.",
-        "type": "custom_div",
-        "content": ""
     }
 }

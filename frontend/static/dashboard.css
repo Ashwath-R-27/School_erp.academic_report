@@ -155,6 +155,69 @@ body {
     background-color: rgb(255, 222, 222);
 }
 
+.no-of-studs-tbl{
+    padding: 2%;
+    display: grid;
+    place-items: center;
+    margin-bottom: 15px;
+}
+
+.no-of-studs-tbl table{
+    border-collapse: collapse;
+    width: 80%;
+    border:  2px solid rgb(30, 58, 138);
+}
+
+.no-of-studs-tbl table tbody td{
+    border: 1px solid rgb(199, 199, 199);
+    height: 40px;
+    font-weight: 600;
+    font-size: clamp(13px,4vw,18px);
+    text-align: center;
+}
+
+.no-of-studs-tbl table tbody tr:nth-child(even){
+    background-color: rgb(233, 233, 233);
+}
+
+.no-of-studs-tbl table tbody tr:hover{
+    background-color: #e0eefa;
+}
+
+.no-of-studs-tbl table thead th{
+    height: 40px;
+    font-weight: 600;
+    color: white;
+    border: 1px solid rgb(18, 35, 83);
+    background-color: rgb(30, 58, 138);
+    text-align: center;
+}
+
+.no-of-studs-tbl table thead th:first-child {
+    width: 50%;
+}
+
+.view-response-btn{
+    display: grid;
+    place-items: center;
+}
+
+.view-response-btn button{
+    padding: 10px;
+    border: 1px solid #92400e;
+    border-radius: 10px;
+    font-weight: 600;
+    color: white;
+    background-color: #d97706;
+    transition: 0.3s transform ease;
+    cursor: pointer;
+}
+
+.view-response-btn button:hover{
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0px 0px 10px 5px rgb(255, 237, 137);
+}
+
 @media (max-width: 768px) {
     .topbar {
         flex-direction: column;
@@ -163,5 +226,9 @@ body {
 
     .dashboard {
         grid-template-columns: 1fr;
+    }
+
+    .no-of-studs-tbl table{
+        width: 100%;
     }
 }
