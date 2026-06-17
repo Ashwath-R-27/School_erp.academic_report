@@ -19,7 +19,8 @@ from DTOs import (
     TopperResponse,
 )
 from fastapi import Depends, FastAPI, Form, HTTPException, Query, status
-from models import HSC, SSLC, HSCStudentData, SSLCStudentData
+from models import Group, HSC, SSLC, HSCStudentData, SSLCStudentData
+from sqlalchemy import or_
 from sqlmodel import Session, SQLModel, desc, func, select, text
 
 from database import engine, get_session
@@ -318,43 +319,85 @@ def get_sslc_subject_toppers(
 
 
 # --- HSC sections/groups helpers (used by /hsc/sections) ---
-GROUP_DISPLAY_NAMES: dict[str, str] = {
-    "csc": "COMPUTER SCIENCE + MATHS",
-    "biomat": "BIOLOGY + MATHS",
-    "biocs": "BIOLOGY + COMPUTER SCIENCE",
-    "artsbm": "ARTS + BUSINESS MATHEMATICS",
-    "artsca": "ARTS + COMPUTER APPLICATIONS",
-    "bme": "BASIC MECHANICAL ENGINEERING (BME)",
-}
+def lookup_group_by_code(session: Session, code: Optional[str]) -> Optional[Group]:
+    if not code:
+        return None
+    return session.exec(
+        select(Group).where(func.lower(Group.code) == code.strip().lower())
+    ).first()
 
 
-def abbreviate_subject(subject: Optional[str]) -> str:
-    """Convert full subject name from DB (e.g. 'Computer Science') to short code used by frontend (e.g. 'COMP')."""
+def hsc_group_join():
+    return or_(
+        HSC.group_id == Group.group_id,
+        func.lower(HSC.group_code) == func.lower(Group.code),
+    )
+
+
+def row_to_student_groupwise_dto(row) -> StudentGroupwiseDTO:
+    return StudentGroupwiseDTO(
+        rank=row.rank,
+        reg_no=row.reg_no,
+        class_=row.class_name,
+        group=row.group,
+        name=row.name,
+        lang_name=row.lang_name,
+        lang=row.lang or 0,
+        eng=row.eng or 0,
+        sub1=row.sub1 or 0,
+        sub2=row.sub2 or 0,
+        sub3=row.sub3 or 0,
+        sub4=row.sub4,
+        total=row.total,
+        cutoff=row.cutoff,
+    )
+
+
+def hsc_to_topper(rank: int, student: HSC) -> TopperResponse:
+    return TopperResponse(
+        rank=rank,
+        reg_no=student.reg_no,
+        class_=student.class_,
+        group=student.group_code,
+        name=student.name,
+        lang_name=student.lang_name,
+        lang=student.lang or 0,
+        eng=student.eng or 0,
+        sub1=student.mark_1 or 0,
+        sub2=student.mark_2 or 0,
+        sub3=student.mark_3 or 0,
+        sub4=student.mark_4,
+        total=student.total if student.total is not None else 0,
+        cutoff=student.cut_off,
+    )
+
+
+def subject_label(subject: Optional[str]) -> str:
+    """Format a subject name loaded from the groups table for API responses."""
     if not subject:
         return ""
-    s = subject.strip().lower()
-    abbrev_map = {
-        "physics": "PHY",
-        "chemistry": "CHEM",
-        "computer science": "COMP",
-        "mathematics": "MATHS",
-        "biology": "BIO",
-        "economics": "ECO",
-        "commerce": "COM",
-        "accountancy": "ACC",
-        "business mathematics": "BM",
-        "computer applications": "CA",
-        "bme (theory)": "BME(THY)",
-        "bme (practical)": "BME(PRT)",
-        "employability skills": "ES",
+    return subject.strip().upper()
+
+
+def group_dto_from_db_row(row) -> GroupDTO:
+    """Build a GroupDTO from a groups (+ section) query row."""
+    code = (row.code or "").strip().lower()
+    return GroupDTO(
+        name=row.group_name or code.upper(),
+        code=code,
+        sub1=subject_label(row.subject1),
+        sub2=subject_label(row.subject2),
+        sub3=subject_label(row.subject3),
+        sub4=subject_label(row.subject4) if row.subject4 else None,
+    )
+
+
+def get_groups_by_code(session: Session) -> dict[str, Group]:
+    """Load all groups from the database keyed by lowercase code."""
+    return {
+        group.code.lower(): group
+        for group in session.exec(select(Group).order_by(Group.group_id)).all()
     }
-    if s in abbrev_map:
-        return abbrev_map[s]
-    # Fallback for unknown/new subjects
-    words = [w for w in s.split() if w]
-    if len(words) >= 2:
-        return "".join(w[0].upper() for w in words)[:6]
-    return s.upper()[:6] or "SUB"
 
 
 def section_sort_key(sec: str) -> tuple:
@@ -382,43 +425,25 @@ def get_hsc_groupwise(
             func.dense_rank().over(order_by=desc(HSC.total)).label("rank"),
             HSC.reg_no,
             HSC.class_.label("class_name"),
-            HSC.group_name.label("group"),
+            HSC.group_code.label("group"),
             HSC.name,
             HSC.lang_name,
             HSC.lang,
             HSC.eng,
-            HSC.sm1.label("sub1"),
-            HSC.sm2.label("sub2"),
-            HSC.sm3.label("sub3"),
-            HSC.sm4.label("sub4"),
+            HSC.mark_1.label("sub1"),
+            HSC.mark_2.label("sub2"),
+            HSC.mark_3.label("sub3"),
+            HSC.mark_4.label("sub4"),
             HSC.total,
             HSC.cut_off.label("cutoff"),
         )
-        .where(HSC.group_name == group_name)
+        .where(func.lower(HSC.group_code) == group_name.lower())
         .order_by(desc(HSC.total))
     )
 
     results = session.exec(statement).all()
 
-    students = [
-        StudentGroupwiseDTO(
-            rank=row.rank,
-            reg_no=row.reg_no,
-            class_=row.class_name,
-            group=row.group,
-            name=row.name,
-            lang_name=row.lang_name,
-            lang=row.lang,
-            eng=row.eng,
-            sub1=row.sub1,
-            sub2=row.sub2,
-            sub3=row.sub3,
-            sub4=row.sub4,
-            total=row.total,
-            cutoff=row.cutoff,
-        )
-        for row in results
-    ]
+    students = [row_to_student_groupwise_dto(row) for row in results]
 
     return GroupwiseResponseDTO(datas=students)
 
@@ -431,15 +456,15 @@ def get_hsc_classwise(class_name: str, session: Session = Depends(get_session)):
             func.dense_rank().over(order_by=desc(HSC.total)).label("rank"),
             HSC.reg_no,
             HSC.class_.label("class_name"),
-            HSC.group_name.label("group"),
+            HSC.group_code.label("group"),
             HSC.name,
             HSC.lang_name,
             HSC.lang,
             HSC.eng,
-            HSC.sm1.label("sub1"),
-            HSC.sm2.label("sub2"),
-            HSC.sm3.label("sub3"),
-            HSC.sm4.label("sub4"),
+            HSC.mark_1.label("sub1"),
+            HSC.mark_2.label("sub2"),
+            HSC.mark_3.label("sub3"),
+            HSC.mark_4.label("sub4"),
             HSC.total,
             HSC.cut_off.label("cutoff"),
         )
@@ -449,25 +474,7 @@ def get_hsc_classwise(class_name: str, session: Session = Depends(get_session)):
 
     results = session.exec(statement).all()
 
-    return [
-        StudentGroupwiseDTO(
-            rank=row.rank,
-            reg_no=row.reg_no,
-            class_=row.class_name,
-            group=row.group,
-            name=row.name,
-            lang_name=row.lang_name,
-            lang=row.lang,
-            eng=row.eng,
-            sub1=row.sub1,
-            sub2=row.sub2,
-            sub3=row.sub3,
-            sub4=row.sub4,
-            total=row.total,
-            cutoff=row.cutoff,
-        )
-        for row in results
-    ]
+    return [row_to_student_groupwise_dto(row) for row in results]
 
 
 @app.get("/hsc/sections", response_model=List[SectionDTO])
@@ -476,20 +483,22 @@ def get_hsc_sections(session: Session = Depends(get_session)):
     Return all available class sections (sec) together with the groups/streams (grp)
     that exist for students in that section.
 
-    Data is derived from the HSC table (distinct class + group_name).
+    Data is derived from HSC rows joined to the groups table (distinct class + group).
     Uses display names and short subject codes for frontend use.
     """
     statement = (
         select(
             HSC.class_.label("sec"),
-            HSC.group_name.label("code"),
-            HSC.sn1,
-            HSC.sn2,
-            HSC.sn3,
-            HSC.sn4,
+            Group.code,
+            Group.name.label("group_name"),
+            Group.subject1,
+            Group.subject2,
+            Group.subject3,
+            Group.subject4,
         )
+        .join(Group, hsc_group_join())
         .distinct()
-        .order_by(HSC.class_, HSC.group_name)
+        .order_by(HSC.class_, Group.code)
     )
 
     rows = session.exec(statement).all()
@@ -510,16 +519,7 @@ def get_hsc_sections(session: Session = Depends(get_session)):
             continue
         seen.add(key)
 
-        display_name = GROUP_DISPLAY_NAMES.get(code, code.upper())
-
-        g = GroupDTO(
-            name=display_name,
-            code=code,
-            sub1=abbreviate_subject(row.sn1),
-            sub2=abbreviate_subject(row.sn2),
-            sub3=abbreviate_subject(row.sn3),
-            sub4=abbreviate_subject(row.sn4) if row.sn4 else None,
-        )
+        g = group_dto_from_db_row(row)
         sec_to_groups[sec].append(g)
 
     # Build final ordered list
@@ -555,24 +555,7 @@ def get_hsc_toppers(limit: int = 10, session: Session = Depends(get_session)):
         if previous_total is not None and student_total < previous_total:
             current_rank += 1
 
-        toppers.append(
-            TopperResponse(
-                rank=current_rank,
-                reg_no=student.reg_no,
-                class_=student.class_,
-                group=student.group_name,
-                name=student.name,
-                lang_name=student.lang_name,
-                lang=student.lang,
-                eng=student.eng,
-                sub1=student.sm1,
-                sub2=student.sm2,
-                sub3=student.sm3,
-                sub4=student.sm4,
-                total=student_total,
-                cutoff=student.cut_off,
-            )
-        )
+        toppers.append(hsc_to_topper(current_rank, student))
         # Update previous total for the next iteration
         previous_total = student_total
 
@@ -584,13 +567,37 @@ def get_subject_first_marks(session: Session = Depends(get_session)):
     # Raw SQL query to unpivot the subject columns, find max marks, and count achievers
     query = text("""
         WITH unpivoted_subjects AS (
-            SELECT sn1 AS subject_name, sm1 AS mark FROM hsc WHERE sn1 IS NOT NULL
+            SELECT g.subject1 AS subject_name, h.mark_1 AS mark
+            FROM hsc h
+            JOIN groups g ON (
+                h.group_id = g.group_id
+                OR (h.group_id IS NULL AND LOWER(h.group_code) = LOWER(g.code))
+            )
+            WHERE g.subject1 IS NOT NULL AND h.mark_1 IS NOT NULL
             UNION ALL
-            SELECT sn2 AS subject_name, sm2 AS mark FROM hsc WHERE sn2 IS NOT NULL
+            SELECT g.subject2, h.mark_2
+            FROM hsc h
+            JOIN groups g ON (
+                h.group_id = g.group_id
+                OR (h.group_id IS NULL AND LOWER(h.group_code) = LOWER(g.code))
+            )
+            WHERE g.subject2 IS NOT NULL AND h.mark_2 IS NOT NULL
             UNION ALL
-            SELECT sn3 AS subject_name, sm3 AS mark FROM hsc WHERE sn3 IS NOT NULL
+            SELECT g.subject3, h.mark_3
+            FROM hsc h
+            JOIN groups g ON (
+                h.group_id = g.group_id
+                OR (h.group_id IS NULL AND LOWER(h.group_code) = LOWER(g.code))
+            )
+            WHERE g.subject3 IS NOT NULL AND h.mark_3 IS NOT NULL
             UNION ALL
-            SELECT sn4 AS subject_name, sm4 AS mark FROM hsc WHERE sn4 IS NOT NULL AND sm4 IS NOT NULL
+            SELECT g.subject4, h.mark_4
+            FROM hsc h
+            JOIN groups g ON (
+                h.group_id = g.group_id
+                OR (h.group_id IS NULL AND LOWER(h.group_code) = LOWER(g.code))
+            )
+            WHERE g.subject4 IS NOT NULL AND h.mark_4 IS NOT NULL
         ),
         max_marks_per_subject AS (
             SELECT
@@ -625,14 +632,30 @@ def get_hsc_subject_toppers(
     subject: str, limit: int = 5, session: Session = Depends(get_session)
 ):
     """Get top students for a specific HSC subject."""
-    # Map frontend subject names to model columns
+    # Map API subject names to model columns (sm* aliases kept for compatibility)
     subject_map = {
         "lang": HSC.lang,
         "eng": HSC.eng,
-        "sm1": HSC.sm1,
-        "sm2": HSC.sm2,
-        "sm3": HSC.sm3,
-        "sm4": HSC.sm4,
+        "sm1": HSC.mark_1,
+        "sm2": HSC.mark_2,
+        "sm3": HSC.mark_3,
+        "sm4": HSC.mark_4,
+        "mark_1": HSC.mark_1,
+        "mark_2": HSC.mark_2,
+        "mark_3": HSC.mark_3,
+        "mark_4": HSC.mark_4,
+    }
+    mark_attr_map = {
+        "lang": "lang",
+        "eng": "eng",
+        "sm1": "mark_1",
+        "sm2": "mark_2",
+        "sm3": "mark_3",
+        "sm4": "mark_4",
+        "mark_1": "mark_1",
+        "mark_2": "mark_2",
+        "mark_3": "mark_3",
+        "mark_4": "mark_4",
     }
     subject_lower = subject.lower()
 
@@ -658,33 +681,12 @@ def get_hsc_subject_toppers(
     previous_mark = None
 
     for student in results:
-        student_mark = (
-            getattr(student, subject_lower)
-            if hasattr(student, subject_lower)
-            else (getattr(student, subject_lower, 0))
-        )
+        student_mark = getattr(student, mark_attr_map[subject_lower]) or 0
 
         if previous_mark is not None and student_mark < previous_mark:
             current_rank += 1
 
-        toppers.append(
-            TopperResponse(
-                rank=current_rank,
-                reg_no=student.reg_no,
-                class_=student.class_,
-                group=student.group_name,
-                name=student.name,
-                lang_name=student.lang_name,
-                lang=student.lang,
-                eng=student.eng,
-                sub1=student.sm1,
-                sub2=student.sm2,
-                sub3=student.sm3,
-                sub4=student.sm4,
-                total=student.total if student.total is not None else 0,
-                cutoff=student.cut_off,
-            )
-        )
+        toppers.append(hsc_to_topper(current_rank, student))
         previous_mark = student_mark
 
     return toppers
@@ -700,7 +702,8 @@ def import_hsc_csv(
 ):
     """
     GET endpoint to read the CSV file, parse the data,
-    calculate the engineering cut-off, and insert rows into PostgreSQL.
+    and insert rows into PostgreSQL.
+    cut_off is computed automatically by the database using GENERATED ALWAYS AS.
     """
     try:
         with open(file_path, mode="r", encoding="utf-8-sig") as file:
@@ -713,33 +716,30 @@ def import_hsc_csv(
                 else []
             )
 
+            group = lookup_group_by_code(db, group_name)
+            normalized_group_code = group_name.strip().lower()
             records_to_insert = []
 
             for row in reader:
                 # Parse numeric marks safely
                 physics = int(row["PHYSICS"])
                 chemistry = int(row["CHEMISTRY"])
+                comp_or_third = int(row["COMP"])
                 maths = int(row["MATHS"])
-
-                # Calculate Cut-off: Maths + (Physics / 2) + (Chemistry / 2)
-                calculated_cutoff = float(maths + (physics / 2.0) + (chemistry / 2.0))
 
                 hsc_record = HSC(
                     reg_no=int(row["REGNO"]),
                     class_=class_name,
                     name=row["NAME"].strip(),
-                    group_name=group_name,
+                    group_id=group.group_id if group else None,
+                    group_code=normalized_group_code,
                     lang=int(row["TAMIL"]),
                     eng=int(row["ENGLISH"]),
-                    sn1="PHYSICS",
-                    sn2="CHEMISTRY",
-                    sn3="COMPUTER SCIENCE",
-                    sn4="MATHS",
-                    sm1=physics,
-                    sm2=chemistry,
-                    sm3=int(row["COMP"]),
-                    sm4=maths,
-                    cut_off=calculated_cutoff,
+                    mark_1=physics,
+                    mark_2=chemistry,
+                    mark_3=comp_or_third,
+                    mark_4=maths,
+                    # cut_off is DB-generated (do not set it here)
                 )
                 records_to_insert.append(hsc_record)
 
@@ -857,9 +857,10 @@ def import_mock_hsc_csv(
     db: Session = Depends(get_session),
 ):
     """
-    GET endpoint to read the new CSV file, parse the data,
-    and insert rows into PostgreSQL using SQLModel.
-    Omits 'total' and 'cut_off' to let DB auto-generation handle them.
+    GET endpoint to read the HSC mock CSV and insert rows into PostgreSQL.
+    CSV columns: reg_no, class, name, group_code, lang_name, lang, eng,
+    mark_1, mark_2, mark_3, mark_4.
+    total and cut_off are computed by the database (GENERATED ALWAYS AS).
     """
     try:
         with open(file_path, mode="r", encoding="utf-8-sig") as file:
@@ -872,18 +873,47 @@ def import_mock_hsc_csv(
                 else []
             )
 
+            required_columns = {
+                "reg_no",
+                "class",
+                "name",
+                "group_code",
+                "lang_name",
+                "lang",
+                "eng",
+                "mark_1",
+                "mark_2",
+                "mark_3",
+                "mark_4",
+            }
+            missing_columns = required_columns - set(reader.fieldnames or [])
+            if missing_columns:
+                raise HTTPException(
+                    status_code=422,
+                    detail=(
+                        "CSV is missing required columns: "
+                        f"{', '.join(sorted(missing_columns))}"
+                    ),
+                )
+
+            groups_by_code = get_groups_by_code(db)
             records_to_insert = []
 
             for row in reader:
-                # Helper function to clear out empty string optional fields safely
-                def get_optional_str(key: str) -> Optional[str]:
-                    val = row.get(key)
-                    if val is None:
-                        return None
-                    val = val.strip()
-                    return val if val != "" else None
+                group_code = (row.get("group_code") or "").strip().lower()
+                if not group_code:
+                    raise HTTPException(
+                        status_code=422,
+                        detail=f"Missing group_code for reg_no {row.get('reg_no')}",
+                    )
 
-                # Helper function to parse optional int fields safely
+                group = groups_by_code.get(group_code)
+                if group is None:
+                    raise HTTPException(
+                        status_code=422,
+                        detail=f"Unknown group_code '{group_code}' for reg_no {row.get('reg_no')}",
+                    )
+
                 def get_optional_int(key: str) -> Optional[int]:
                     val = row.get(key)
                     if val is None:
@@ -891,24 +921,19 @@ def import_mock_hsc_csv(
                     val = val.strip()
                     return int(val) if val != "" else None
 
-                # Constructing the model instance directly using values from the CSV row
                 hsc_record = HSC(
                     reg_no=int(row["reg_no"]),
                     class_=row["class"].strip(),
                     name=row["name"].strip(),
-                    group_name=get_optional_str("group_name"),
+                    group_id=group.group_id,
+                    group_code=group_code,
                     lang_name=row["lang_name"].strip(),
                     lang=int(row["lang"]),
                     eng=int(row["eng"]),
-                    sn1=row["sn1"].strip(),
-                    sn2=row["sn2"].strip(),
-                    sn3=row["sn3"].strip(),
-                    sn4=get_optional_str("sn4"),
-                    sm1=int(row["sm1"]),
-                    sm2=int(row["sm2"]),
-                    sm3=int(row["sm3"]),
-                    sm4=get_optional_int("sm4"),
-                    # 'total' and 'cut_off' are intentionally omitted here
+                    mark_1=get_optional_int("mark_1"),
+                    mark_2=get_optional_int("mark_2"),
+                    mark_3=get_optional_int("mark_3"),
+                    mark_4=get_optional_int("mark_4"),
                 )
                 records_to_insert.append(hsc_record)
 

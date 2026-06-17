@@ -11,7 +11,7 @@ class HSCStudentData(SQLModel, table=True):
     reg_no: int = Field(primary_key=True)
     name: Optional[str] = Field(default=None, max_length=30)
     class_: Optional[str] = Field(
-        default=None, sa_column=Column("class", String)
+        default=None, sa_column=Column("class", String(1))
     )
     dob: Optional[date] = None
     group_code: Optional[str] = Field(
