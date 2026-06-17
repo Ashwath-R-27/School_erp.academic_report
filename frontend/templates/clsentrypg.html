@@ -198,6 +198,7 @@
             <button onclick="handleSubmit()">Final Submit</button>
         </div>
     </div>
+    {{ footer_div | safe }}
     <script src="{{ url_for('static',filename='hscclsscript.js') }}"></script>
 </body>
 </html>

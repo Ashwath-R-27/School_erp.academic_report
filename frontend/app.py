@@ -320,7 +320,7 @@ def sslc_response():
 
 @app.route("/HSC/ClassDetails")
 def classentry():
-    return render_template("clsentrypg.html",header_div=header_div())
+    return render_template("clsentrypg.html",header_div=header_div(),footer_div=footer_div())
 
 if __name__ == "__main__":
     if debug_mode:

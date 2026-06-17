@@ -8,6 +8,7 @@ DASHBOARD_CONFIGS = {
             {"href": "/dashboard/HSC/StudentForm", "icon": "👨‍🎓", "title": "HSC Student Form", "desc": "Collect HSC student roll nos."},
             {"href": "/dashboard/SSLC/StudentForm", "icon": "👩‍🎓", "title": "SSLC Student Form", "desc": "Collect SSLC student roll nos."},
             {"href": "/dashboard/Services", "icon": "⚙️", "title": "Services", "desc": "Ask for Services."},
+            {"href": "/HSC/ClassDetails", "icon": "🏫", "title": "Class Entry Page", "desc": "Enter Class Details."},
         ]
     },
     "HSC/StudentForm": {
