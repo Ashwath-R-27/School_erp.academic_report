@@ -27,7 +27,14 @@ CREATE TABLE hsc (
     sm3 integer NOT NULL,
     sm4 integer,
     total integer GENERATED ALWAYS AS (lang + eng + sm1 + sm2 + sm3 + sm4) STORED,
-    cut_off real
+    cut_off real GENERATED ALWAYS AS (
+        CASE
+            WHEN LOWER(group_name) IN ('csc', 'biomat', 'bme')
+            THEN ((sm2 + sm3) / 2.0) + sm1
+            ELSE NULL
+        END
+    ) STORED
+
 );
 
 CREATE TABLE hsc_student_data (

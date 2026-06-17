@@ -700,7 +700,8 @@ def import_hsc_csv(
 ):
     """
     GET endpoint to read the CSV file, parse the data,
-    calculate the engineering cut-off, and insert rows into PostgreSQL.
+    and insert rows into PostgreSQL.
+    cut_off is computed automatically by the database using GENERATED ALWAYS AS.
     """
     try:
         with open(file_path, mode="r", encoding="utf-8-sig") as file:
@@ -719,10 +720,8 @@ def import_hsc_csv(
                 # Parse numeric marks safely
                 physics = int(row["PHYSICS"])
                 chemistry = int(row["CHEMISTRY"])
+                comp_or_third = int(row["COMP"])
                 maths = int(row["MATHS"])
-
-                # Calculate Cut-off: Maths + (Physics / 2) + (Chemistry / 2)
-                calculated_cutoff = float(maths + (physics / 2.0) + (chemistry / 2.0))
 
                 hsc_record = HSC(
                     reg_no=int(row["REGNO"]),
@@ -737,9 +736,9 @@ def import_hsc_csv(
                     sn4="MATHS",
                     sm1=physics,
                     sm2=chemistry,
-                    sm3=int(row["COMP"]),
+                    sm3=comp_or_third,
                     sm4=maths,
-                    cut_off=calculated_cutoff,
+                    # cut_off is DB-generated (do not set it here)
                 )
                 records_to_insert.append(hsc_record)
 
@@ -859,7 +858,7 @@ def import_mock_hsc_csv(
     """
     GET endpoint to read the new CSV file, parse the data,
     and insert rows into PostgreSQL using SQLModel.
-    Omits 'total' and 'cut_off' to let DB auto-generation handle them.
+    'total' and 'cut_off' are omitted so the database computes them via GENERATED ALWAYS AS.
     """
     try:
         with open(file_path, mode="r", encoding="utf-8-sig") as file:
@@ -908,7 +907,7 @@ def import_mock_hsc_csv(
                     sm2=int(row["sm2"]),
                     sm3=int(row["sm3"]),
                     sm4=get_optional_int("sm4"),
-                    # 'total' and 'cut_off' are intentionally omitted here
+                    # cut_off (and total) are DB-generated via GENERATED ALWAYS AS — do not pass them
                 )
                 records_to_insert.append(hsc_record)
 
