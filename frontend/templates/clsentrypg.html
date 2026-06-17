@@ -55,7 +55,7 @@
         }
 
         .class-dtls-tbl table th:first-child{
-            width: 30%;
+            width: 28%;
         }
 
         .class-dtls-tbl table tbody tr:nth-child(even) {
@@ -85,88 +85,177 @@
             padding: 0 10px;
         }
 
-        .class-dtls-tbl table td select {
-            padding: 6px 10px;
-            border: 1px solid #9aa5b0;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 500;
-            background-color: #f4f6f8;
+        /* --- group checkboxes (3 per row) --- */
+        .group-checks {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            gap: clamp(8px, 3vw, 22px);
+            flex-wrap: wrap;
+        }
+
+        .group-check-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: clamp(8px,3vw,13px);
+            font-weight: 600;
             color: #2c3e50;
             cursor: pointer;
-            width: 95%;
-            outline: none;
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%232c3e50' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            padding-right: 28px;
+            white-space: nowrap;
         }
 
-        .class-dtls-tbl table td select:hover {
-            border-color: #d4a017;
-            background-color: #ffffff;
-        }
-
-        .class-dtls-tbl table td select:focus {
-            border-color: #d4a017;
-            box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.2);
-            background-color: #ffffff;
-        }
-
-        .class-dtls-tbl table td button {
-            padding: 7px;
-            background: #d4a017;
-            border: 1px solid #b08010;
-            border-radius: 10px;
-            color: white;
+        .group-check-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #005f5f;
             cursor: pointer;
-            width: 95%;
-            font-size: 13px;
-            font-weight: 500;
-            transition: background 0.15s;
         }
 
-        .class-dtls-tbl table td button:hover {
-            background: #b08010;
-            border-color: #8a6508;
+        .remove-row-btn {
+            background: none;
+            border: 1px solid #c0392b;
+            color: #c0392b;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 90%;
+            transition: background 0.15s, color 0.15s;
         }
 
-        .class-dtls-tbl table td button:active {
-            background: #8a6508;
+        .remove-row-btn:hover {
+            background: #c0392b;
+            color: #fff;
         }
 
-        .input_field{
-            font-size: 17px;
-            margin-bottom: 10px;
-        }
-        .input_field input{
-            margin: 0 5px;
-            border: 1px solid #005f5f;
-            font-weight: 500;
-            padding: 5px;
-            border-radius: 5px;
-            font-size: 17px;
-            padding-left: 12px;
+        /* --- add row button --- */
+        .action-row {
+            margin: 18px 0;
+            display: flex;
+            justify-content: center;
         }
 
-        .input_field input:focus{
-            outline: 0;
-            box-shadow: 0px 0px 9px 0px rgba(48,186,178,0.75);
+        .action-row button {
+            padding: 9px 24px;
+            background: #ffffff;
+            color: #005f5f;
+            border: 2px solid #005f5f;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .action-row button:hover {
+            background: #005f5f;
+            color: #fff;
         }
 
         .submit-wrap{
-            margin-top: 20px;
+            margin-top: 4px;
         }
 
         .submit-wrap button{
-            padding: 10px;
+            padding: 10px 24px;
             background-color: #d4a017;
             color: white;
-            border: none;
+            border: 1px solid #b08010;
             border-radius: 10px;
             cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.15s;
+        }
+
+        .submit-wrap button:hover {
+            background: #b08010;
+        }
+
+        /* --- preview / review section --- */
+        .preview-section {
+            width: 95%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+
+        #pghead2 {
+            width: 100%;
+            padding: 9px 0;
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+            border-radius: 6px;
+            font-size: clamp(13px,4vw,17px);
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 4px;
+        }
+
+        .btn-secondary {
+            padding: 10px 24px;
+            background: #ffffff;
+            color: #005f5f;
+            border: 2px solid #005f5f;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .btn-secondary:hover {
+            background: #005f5f;
+            color: #fff;
+        }
+
+        .btn-primary {
+            padding: 10px 24px;
+            background-color: #d4a017;
+            color: white;
+            border: 1px solid #b08010;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .btn-primary:hover {
+            background: #b08010;
+        }
+
+        .btn-secondary:disabled,
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .section-input {
+            width: 40%;
+            padding: 5px 8px;
+            border: 1px solid #9aa5b0;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            background: #f4f6f8;
+            outline: none;
+        }
+
+        .section-input:focus {
+            outline: 0;
+            box-shadow: 0px 0px 9px 0px rgba(48,186,178,0.5);
+            border-color: #005f5f;
         }
     </style>
 </head>
@@ -174,29 +263,40 @@
     {{ header_div | safe }}
     <div id="pghead">HSC CLASS DETAILS</div>
     <div class="content">
-        <div class="input_field">
-            <label for="">Enter no. of classes(sections):</label>
-            <input type="number" min="1" id="cls_nos" required/>
-        </div>
+
         <div class="class-dtls-tbl" id="cls_dtls">
             <table>
                 <thead>
-                    <tr><th>CLASS (Section)</th><th>No. of Groups</th><th>Group Details</th></tr>
+                    <tr><th>CLASS (Section)</th><th>Groups</th><th>Action</th></tr>
                 </thead>
                 <tbody id="cls_tbody"></tbody>
             </table>
-            <datalist id="group-options">
-                <option value="COMPUTER SCIENCE/MATHS">
-                <option value="BIOLOGY/MATHS">
-                <option value="BIOLOGY/COMPUTER SCIENCE">
-                <option value="ARTS/COMPUTER APPLICATION">
-                <option value="ARTS/BUSINESS MATHS">
-                <option value="BASIC MECHANICAL ENGINEERING/MATHS">
-            </datalist>
         </div>
-        <div class="submit-wrap" id="submit_wrap" style="display:none;">
-            <button onclick="handleSubmit()">Final Submit</button>
+
+        <div class="action-row" id="add_row_wrap">
+            <button type="button" onclick="addRow()">+ Add Class</button>
         </div>
+
+        <div class="submit-wrap" id="submit_wrap">
+            <button type="button" onclick="handleSubmit()">Submit</button>
+        </div>
+
+        <div class="preview-section" id="preview_section" style="display:none;">
+            <div id="pghead2">REVIEW DETAILS</div>
+            <div class="class-dtls-tbl" id="preview_table_wrap">
+                <table>
+                    <thead>
+                        <tr><th>CLASS (Section)</th><th>Groups Selected</th></tr>
+                    </thead>
+                    <tbody id="preview_tbody"></tbody>
+                </table>
+            </div>
+            <div class="preview-actions">
+                <button type="button" class="btn-secondary" onclick="handleEdit()">Edit</button>
+                <button type="button" class="btn-primary" onclick="handleFinalSubmit()">Final Submit</button>
+            </div>
+        </div>
+
     </div>
     {{ footer_div | safe }}
     <script src="{{ url_for('static',filename='hscclsscript.js') }}"></script>

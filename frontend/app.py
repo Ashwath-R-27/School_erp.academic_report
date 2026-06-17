@@ -246,8 +246,9 @@ def sslcclassmark():
 @app.route("/HSC_2026/StudForm")
 def hscstudformpg():
     header = header_div()
+    cls_data=[{'class': 'A1', 'groups': ['csc', 'biomat']}, {'class': 'A', 'groups': ['csc', 'biomat']}, {'class': 'B', 'groups': ['biomat', 'biocs']}, {'class': 'C', 'groups': ['csc']}, {'class': 'D', 'groups': ['csc']}, {'class': 'E', 'groups': ['artsca', 'artsbm']}, {'class': 'F', 'groups': ['artsca']}, {'class': 'G1', 'groups': ['bme']}, {'class': 'G2', 'groups': ['bme']}]
     return render_template(
-        "studform.html", header_div=header, key="hsc", footer_div=footer_div()
+        "studform.html", header_div=header,class_data=cls_data, key="hsc", footer_div=footer_div()
     )
 
 
@@ -274,7 +275,7 @@ def sslcreportfetch():
         "sslcreportpg.html", header_div=header, footer_div=footer_div()
     )
 
-@app.route("/submit/hsc", methods=["POST"])
+@app.route("/HSC/form/submit", methods=["POST"])
 def proxy_submit_hsc():
     try:
         response = requests.post(
@@ -321,6 +322,18 @@ def sslc_response():
 @app.route("/HSC/ClassDetails")
 def classentry():
     return render_template("clsentrypg.html",header_div=header_div(),footer_div=footer_div())
+
+@app.route('/hsc-class-details/submit', methods=['POST'])
+def proxy_class_details():
+    try:
+        resp = requests.post(
+            BACKEND_URL + '/hsc-class-details/submit',
+            json=request.get_json(),
+            timeout=10
+        )
+        return jsonify(resp.json()), resp.status_code
+    except requests.RequestException:
+        return jsonify({'detail': 'Backend unreachable'}), 502
 
 if __name__ == "__main__":
     if debug_mode:

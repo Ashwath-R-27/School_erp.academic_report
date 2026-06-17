@@ -15,6 +15,7 @@
 <body>
     {{ header_div | safe }}
     <div class="content" id="form"></div>{% if key=='hsc' %}
+    <script>const CLASS_DATA = {{ class_data | tojson }};</script>
     <script src="{{ url_for('static',filename='hscstudform.js') }}"></script>{% elif key=='sslc' %}
     <script src="{{ url_for('static',filename='sslcstudform.js') }}"></script>{% else %}
     <div id="content-header">This form is not yet opened</div>{% endif %}
