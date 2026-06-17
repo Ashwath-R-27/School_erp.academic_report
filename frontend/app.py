@@ -318,6 +318,10 @@ def sslc_response():
     notice=""
     return render_template('formresponses.html',title="HSC Student Details",notice=notice,response=reponse_page('sslc'))
 
+@app.route("/HSC/ClassDetails")
+def classentry():
+    return render_template("clsentrypg.html",header_div=header_div())
+
 if __name__ == "__main__":
     if debug_mode:
         app.run(host="0.0.0.0", port=5001, debug=True)
