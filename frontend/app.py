@@ -3,7 +3,8 @@ import os
 
 import requests
 from dashboard_config import DASHBOARD_CONFIGS
-from flask import Flask, jsonify, redirect, request, render_template, url_for
+from flask import Flask, jsonify, redirect, request, render_template,send_file, url_for
+from form_response_generator import build_student_pdf, build_sslc_student_pdf
 from requests.models import HTTPError
 
 app = Flask(__name__)
@@ -317,7 +318,7 @@ def hsc_response():
 @app.route('/SSLC_2026/StudForm/Responses')
 def sslc_response():
     notice=""
-    return render_template('formresponses.html',title="HSC Student Details",notice=notice,response=reponse_page('sslc'))
+    return render_template('formresponses.html',title="SSLC Student Details",notice=notice,response=reponse_page('sslc'))
 
 @app.route("/HSC/ClassDetails")
 def classentry():
@@ -334,6 +335,66 @@ def proxy_class_details():
         return jsonify(resp.json()), resp.status_code
     except requests.RequestException:
         return jsonify({'detail': 'Backend unreachable'}), 502
+
+@app.route("/HSC_2026/StudDetails/PDF")
+def hsc_student_details_pdf():
+    """
+    Fetches student data and class counts from the backend,
+    generates a PDF, and sends it as a download.
+    """
+    try:
+        students = get_data_from_backend("/hsc/student-data")
+        if not students:
+            return jsonify({"detail": "No student data found."}), 404
+
+        # Build class counts from backend or derive from student list
+        raw_counts = get_data_from_backend("/hsc/class-counts")  # expects [{"class":"A","count":6}, ...]
+        if isinstance(raw_counts, list) and raw_counts:
+            class_counts = {item["class"]: item["count"] for item in raw_counts}
+        else:
+            # Fallback: derive counts from the student list itself
+            from collections import Counter
+            class_counts = dict(Counter(s["class"] for s in students))
+
+        pdf_buffer = build_student_pdf(students, class_counts)
+        return send_file(
+            pdf_buffer,
+            mimetype="application/pdf",
+            as_attachment=True,
+            download_name="HSC_Student_Details.pdf",
+        )
+    except Exception as e:
+        app.logger.error(f"PDF generation failed: {e}", exc_info=True)
+        return jsonify({"detail": "PDF generation failed."}), 500
+
+@app.route("/SSLC_2026/StudDetails/PDF")
+def sslc_student_details_pdf():
+    """
+    Fetches SSLC student data and class counts from the backend,
+    generates a PDF, and sends it as a download.
+    """
+    try:
+        students = get_data_from_backend("/sslc/student-data")
+        if not students:
+            return jsonify({"detail": "No student data found."}), 404
+
+        raw_counts = get_data_from_backend("/sslc/class-counts")  # expects [{"class":"A","count":40}, ...]
+        if isinstance(raw_counts, list) and raw_counts:
+            class_counts = {item["class"]: item["count"] for item in raw_counts}
+        else:
+            from collections import Counter
+            class_counts = dict(Counter(s["class"] for s in students))
+
+        pdf_buffer = build_sslc_student_pdf(students, class_counts)
+        return send_file(
+            pdf_buffer,
+            mimetype="application/pdf",
+            as_attachment=True,
+            download_name="SSLC_Student_Details.pdf",
+        )
+    except Exception as e:
+        app.logger.error(f"PDF generation failed: {e}", exc_info=True)
+        return jsonify({"detail": "PDF generation failed."}), 500
 
 if __name__ == "__main__":
     if debug_mode:
