@@ -4,7 +4,7 @@
 
 CREATE TABLE sslc (
     reg_no  integer PRIMARY KEY,
-    class   varchar(1),
+    class   varchar(2),
     name    varchar(30),
     tamil   integer,
     english integer,
