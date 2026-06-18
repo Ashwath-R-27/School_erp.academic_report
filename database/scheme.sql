@@ -84,14 +84,14 @@ CREATE TABLE users (
 CREATE TABLE sslc_student_data (
     reg_no integer PRIMARY KEY,
     name   varchar(30),
-    class  varchar(1),
+    class  varchar(2),
     dob    date
 );
 
 CREATE TABLE hsc_student_data (
     reg_no     integer PRIMARY KEY,
     name       varchar(30),
-    class      varchar(1),
+    class      varchar(2),
     dob        date,
     group_code varchar(6)
 );
@@ -102,12 +102,12 @@ CREATE TABLE hsc_student_data (
 
 INSERT INTO groups (group_id, code, name, subject1, subject2, subject3, subject4)
 VALUES
-    (1, 'csc',   'COMPUTER SCIENCE + MATHS',     'PHYSICS', 'CHEMISTRY', 'CSC', 'MATHEMATICS'),
-    (2, 'biomat','BIOLOGY + MATHS',              'PHYSICS', 'CHEMISTRY', 'BIO', 'MATHEMATICS'),
-    (3, 'biocs', 'BIOLOGY + COMPUTER SCIENCE',   'BIOLOGY', 'CHEMISTRY', 'PHYSICS', 'CSC'),
-    (4, 'artsca','ARTS + COMPUTER APPLICATION',  'ECONOMICS', 'COMMERCE', 'ACCOUNTING', 'COMPUTER APPLICATION'),
-    (5, 'artsbm','ARTS + BUSINESS MATHEMATICS',  'ECONOMICS', 'COMMERCE', 'ACCOUNTING', 'BUSINESS MATHEMATICS'),
-    (6, 'bme',   'BASIC MECHANICAL ENGINEERING', 'MATHEMATICS', 'BME (THY)', 'BME (PRT)', 'EMPLOYABILITY SKILLS')
+    (1, 'csc',   'COMPUTER SCIENCE + MATHS',     'PHY', 'CHEM', 'CSC', 'MATHS'),
+    (2, 'biomat','BIOLOGY + MATHS',              'PHY', 'CHEM', 'BIO', 'MATHS'),
+    (3, 'biocs', 'BIOLOGY + COMPUTER SCIENCE',   'BIO', 'CHEM', 'PHY', 'CSC'),
+    (4, 'artsca','ARTS + COMPUTER APPLICATION',  'ECO', 'COM', 'ACC', 'CA'),
+    (5, 'artsbm','ARTS + BUSINESS MATHEMATICS',  'ECO', 'COM', 'ACC', 'BM'),
+    (6, 'bme',   'BASIC MECHANICAL ENGINEERING', 'MATHS', 'BME (THY)', 'BME (PRT)', 'ES')
 ON CONFLICT (group_id) DO UPDATE SET
     code = EXCLUDED.code,
     name = EXCLUDED.name,
