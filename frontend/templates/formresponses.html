@@ -40,9 +40,9 @@
                         </tbody>
                     </table>
                 </div>
-            </div>{% if title[:3]=="HSC" %}
+            </div>{% if response.TOTAL>0 %}{% if title[:3]=="HSC" %}
             <div class="view-response-btn"><button onclick="window.open('/HSC_2026/StudDetails/PDF')">DOWNLOAD RESPONSE</button></div>{% elif title[:4]=="SSLC" %}
-            <div class="view-response-btn"><button onclick="window.open('/SSLC_2026/StudDetails/PDF')">DOWNLOAD RESPONSE</button></div>{% endif %}
+            <div class="view-response-btn"><button onclick="window.open('/SSLC_2026/StudDetails/PDF')">DOWNLOAD RESPONSE</button></div>{% endif %}{% endif %}
             {% endif %}
             <div class="footer">
                 © 2026 SVGV Matriculation Higher Secondary School, Examination Results
