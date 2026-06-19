@@ -34,5 +34,6 @@ class HSC(SQLModel, table=True):
     cut_off: Optional[float] = Field(
         default=None, sa_column_kwargs={"server_default": FetchedValue()}
     )
+    result: Optional[str] = Field(default=None, max_length=4)
 
     group: Optional["Group"] = Relationship(back_populates="hsc_students")

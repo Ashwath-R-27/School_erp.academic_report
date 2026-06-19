@@ -20,3 +20,4 @@ class SSLC(SQLModel, table=True):
     total: Optional[int] = Field(
         default=None, sa_column_kwargs={"server_default": FetchedValue()}
     )
+    result: Optional[str] = Field(default=None, max_length=4)

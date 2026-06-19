@@ -13,7 +13,8 @@ CREATE TABLE sslc (
     social  integer,
     total   integer GENERATED ALWAYS AS (
                 tamil + english + maths + science + social
-            ) STORED
+            ) STORED,
+    result varchar(4)
 );
 
 -- Groups / Streams (CSC, BIOMAT, BIOCS, etc.)
@@ -61,7 +62,8 @@ CREATE TABLE hsc (
                        THEN ((mark_2 + mark_3) / 2.0) + mark_1
                        ELSE NULL
                    END
-               ) STORED
+               ) STORED,
+               result varchar(4)
 );
 
 -- Application users (new in the diagram)

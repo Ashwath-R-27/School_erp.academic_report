@@ -146,6 +146,35 @@ def get_all_hsc_student_data(session: Session = Depends(get_session)):
     ]
 
 
+def section_sort_key(sec: str) -> tuple:
+    """Custom sort so that 'A1' comes before 'A', 'G2' before 'G', etc.
+    Plain letter sections (no trailing number) sort after their numbered variants.
+    """
+    sec = (sec or "").strip()
+    i = len(sec) - 1
+    while i >= 0 and sec[i].isdigit():
+        i -= 1
+    letter_part = sec[: i + 1].upper()
+    num_part = sec[i + 1 :]
+    num = int(num_part) if num_part else 9999
+    return (letter_part, num)
+
+
+def row_to_sslc_topper_response(row) -> SSLCTopperResponse:
+    return SSLCTopperResponse(
+        rank=row.rank,
+        reg_no=row.reg_no,
+        class_=row.class_name,
+        name=row.name,
+        tamil=row.tamil,
+        english=row.english,
+        maths=row.maths,
+        science=row.science,
+        social=row.social,
+        total=row.total if row.total is not None else 0,
+    )
+
+
 # --- SSLC ENDPOINTS ---
 @app.get("/sslc/classwise", response_model=List[SSLCTopperResponse])
 def get_sslc_classwise(class_name: str, session: Session = Depends(get_session)):
@@ -169,21 +198,16 @@ def get_sslc_classwise(class_name: str, session: Session = Depends(get_session))
 
     results = session.exec(statement).all()
 
-    return [
-        SSLCTopperResponse(
-            rank=row.rank,
-            reg_no=row.reg_no,
-            class_=row.class_name,
-            name=row.name,
-            tamil=row.tamil,
-            english=row.english,
-            maths=row.maths,
-            science=row.science,
-            social=row.social,
-            total=row.total,
-        )
-        for row in results
-    ]
+    return [row_to_sslc_topper_response(row) for row in results]
+
+
+@app.get("/sslc/sections", response_model=List[SectionDTO])
+def get_sslc_sections(session: Session = Depends(get_session)):
+    """Return all SSLC class sections (no groups — SSLC has no streams)."""
+    statement = select(SSLC.class_).distinct()
+    rows = session.exec(statement).all()
+    classes = sorted({row for row in rows if row}, key=section_sort_key)
+    return [SectionDTO(sec=sec, grp=[]) for sec in classes]
 
 
 @app.get("/sslc/toppers", response_model=List[SSLCTopperResponse])
@@ -254,15 +278,26 @@ def get_sslc_subject_first_marks(session: Session = Depends(get_session)):
         JOIN max_marks_per_subject m
           ON u.subject_name = m.subject_name AND u.mark = m.max_mark
         GROUP BY u.subject_name, u.mark
-        ORDER BY count DESC;
+        ORDER BY CASE u.subject_name
+            WHEN 'TAMIL' THEN 1
+            WHEN 'ENGLISH' THEN 2
+            WHEN 'MATHS' THEN 3
+            WHEN 'SCIENCE' THEN 4
+            WHEN 'SOCIAL' THEN 5
+            ELSE 6
+        END;
     """)
 
     result = session.execute(query).mappings().all()
 
-    return [
-        SubjectFirstMarkResponse(name=row["name"], mark=row["mark"], count=row["count"])
-        for row in result
-    ]
+    subject_order = {"TAMIL": 0, "ENGLISH": 1, "MATHS": 2, "SCIENCE": 3, "SOCIAL": 4}
+    return sorted(
+        [
+            SubjectFirstMarkResponse(name=row["name"], mark=row["mark"], count=row["count"])
+            for row in result
+        ],
+        key=lambda item: subject_order.get(item.name.upper(), 99),
+    )
 
 
 @app.get("/sslc/subject/toppers", response_model=List[SSLCTopperResponse])
@@ -301,21 +336,7 @@ def get_sslc_subject_toppers(
 
     results = session.exec(statement).all()
 
-    return [
-        SSLCTopperResponse(
-            rank=row.rank,
-            reg_no=row.reg_no,
-            class_=row.class_name,
-            name=row.name,
-            tamil=row.tamil,
-            english=row.english,
-            maths=row.maths,
-            science=row.science,
-            social=row.social,
-            total=row.total,
-        )
-        for row in results
-    ]
+    return [row_to_sslc_topper_response(row) for row in results]
 
 
 # --- HSC sections/groups helpers (used by /hsc/sections) ---
@@ -398,21 +419,6 @@ def get_groups_by_code(session: Session) -> dict[str, Group]:
         group.code.lower(): group
         for group in session.exec(select(Group).order_by(Group.group_id)).all()
     }
-
-
-def section_sort_key(sec: str) -> tuple:
-    """Custom sort so that 'A1' comes before 'A', 'G2' before 'G', etc.
-    Plain letter sections (no trailing number) sort after their numbered variants.
-    """
-    sec = (sec or "").strip()
-    # Walk backwards to separate trailing digits
-    i = len(sec) - 1
-    while i >= 0 and sec[i].isdigit():
-        i -= 1
-    letter_part = sec[: i + 1].upper()
-    num_part = sec[i + 1 :]
-    num = int(num_part) if num_part else 9999
-    return (letter_part, num)
 
 
 # --- HSC ENDPOINTS ---
@@ -739,6 +745,7 @@ def import_hsc_csv(
                     mark_2=chemistry,
                     mark_3=comp_or_third,
                     mark_4=maths,
+                    result=(row.get("RESULT") or "").strip() or None,
                     # cut_off is DB-generated (do not set it here)
                 )
                 records_to_insert.append(hsc_record)
@@ -814,6 +821,7 @@ def import_sslc_csv(
                     maths=int(row["MATHS"]) if row.get("MATHS") else None,
                     science=int(row["SCIENCE"]) if row.get("SCIENCE") else None,
                     social=int(row["SOCIAL"]) if row.get("SOCIAL") else None,
+                    result=(row.get("RESULT") or "").strip() or None,
                 )
                 records_to_insert.append(sslc_record)
 
@@ -934,6 +942,7 @@ def import_mock_hsc_csv(
                     mark_2=get_optional_int("mark_2"),
                     mark_3=get_optional_int("mark_3"),
                     mark_4=get_optional_int("mark_4"),
+                    result=(row.get("result") or "").strip() or None,
                 )
                 records_to_insert.append(hsc_record)
 
