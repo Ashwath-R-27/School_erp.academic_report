@@ -61,7 +61,7 @@
                 <div class="failures_table">
                     <table>
                         <thead>
-                            <tr><th>RANK</th><th>CLASS</th><th>NAME</th><th>TOTAL</th><th>VIEW MARKS</th></tr>
+                            <tr><th>S NO</th><th>CLASS</th><th>NAME</th><th>TOTAL</th><th>VIEW MARKS</th></tr>
                         </thead>
                         <tbody>{% for i in range(len1) %}
                             <tr><td>{{ top_scorers[i].rank }}</td><td>{{ top_scorers[i].class }}</td><td>{{ top_scorers[i].name }}</td><td>{{ top_scorers[i].total }}</td><td><button class="view-btn" data-name="{{ top_scorers[i].name }}" data-reg-no="{{ top_scorers[i].reg_no }}" data-tamil="{{ top_scorers[i].tamil }}" data-english="{{ top_scorers[i].english }}" data-maths="{{ top_scorers[i].maths }}" data-science="{{ top_scorers[i].science }}" data-social="{{ top_scorers[i].social }}" data-total="{{ top_scorers[i].total }}">View Marks</button></td></tr>{% endfor %}
