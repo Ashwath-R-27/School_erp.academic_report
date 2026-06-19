@@ -104,7 +104,7 @@ INSERT INTO groups (group_id, code, name, subject1, subject2, subject3, subject4
 VALUES
     (1, 'csc',   'COMPUTER SCIENCE + MATHS',     'PHY', 'CHEM', 'CSC', 'MATHS'),
     (2, 'biomat','BIOLOGY + MATHS',              'PHY', 'CHEM', 'BIO', 'MATHS'),
-    (3, 'biocs', 'BIOLOGY + COMPUTER SCIENCE',   'BIO', 'CHEM', 'PHY', 'CSC'),
+    (3, 'biocs', 'BIOLOGY + COMPUTER SCIENCE',   'PHY', 'CHEM', 'BIO', 'CSC'),
     (4, 'artsca','ARTS + COMPUTER APPLICATION',  'ECO', 'COM', 'ACC', 'CA'),
     (5, 'artsbm','ARTS + BUSINESS MATHEMATICS',  'ECO', 'COM', 'ACC', 'BM'),
     (6, 'bme',   'BASIC MECHANICAL ENGINEERING', 'MATHS', 'BME (THY)', 'BME (PRT)', 'ES')
