@@ -56,6 +56,7 @@
                     </table>
                 </div>
             </div>
+            {% if failures is defined and failures!=[] %}
             <div class="failures">
                 <div id="failures_header">FAILURES</div>
                 <div class="failures_table">
@@ -63,12 +64,13 @@
                         <thead>
                             <tr><th>S NO</th><th>CLASS</th><th>NAME</th><th>GROUP</th><th>TOTAL</th><th>VIEW MARKS</th></tr>
                         </thead>
-                        <tbody>{% for i in range(len1) %}
-                            <tr><td>{{ top_scorers[i].rank }}</td><td>{{ top_scorers[i].class }}</td><td>{{ top_scorers[i].name }}</td><td>{{ top_scorers[i].group | upper }}</td><td>{{ top_scorers[i].total }}</td><td><button class="view-btn" data-name="{{ top_scorers[i].name }}" data-reg-no="{{ top_scorers[i].reg_no }}" data-group="{{ top_scorers[i].group }}" data-lang="{{ top_scorers[i].lang }}" data-eng="{{ top_scorers[i].eng }}" data-sub1="{{ top_scorers[i].sub1 }}" data-sub2="{{ top_scorers[i].sub2 }}" data-sub3="{{ top_scorers[i].sub3 }}" data-sub4="{{ top_scorers[i].sub4 }}" data-total="{{ top_scorers[i].total }}" data-cutoff="{{ top_scorers[i].cutoff }}" data-lang-name="{{ top_scorers[i].lang_name | upper }}">View Marks</button></td></tr>{% endfor %}
+                        <tbody>{% for i in range(failures_len) %}
+                            <tr><td>{{ i+1 }}</td><td>{{ failures[i].class }}</td><td>{{ failures[i].name }}</td><td>{{ failures[i].group | upper }}</td><td>{{ failures[i].total }}</td><td><button class="view-btn" data-name="{{ failures[i].name }}" data-reg-no="{{ failures[i].reg_no }}" data-group="{{ failures[i].group }}" data-lang="{{ failures[i].lang }}" data-eng="{{ failures[i].eng }}" data-sub1="{{ failures[i].sub1 }}" data-sub2="{{ failures[i].sub2 }}" data-sub3="{{ failures[i].sub3 }}" data-sub4="{{ failures[i].sub4 }}" data-total="{{ failures[i].total }}" data-cutoff="{{ failures[i].cutoff }}" data-lang-name="{{ failures[i].lang_name | upper }}">View Marks</button></td></tr>{% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
+            {% endif %}
             <div class="comp_container">
                 <div id="comp_header">VIEW RESULTS</div>
                 <div class="comp_container_body">

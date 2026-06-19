@@ -160,6 +160,8 @@ def hscmark():
         else:
             break
     sub_first_marks = get_data_from_backend("/hsc/subject-first-marks")
+    failures_data = get_data_from_backend("/hsc/failures")
+    result_summary = get_data_from_backend("/results")
     return render_template(
         "hscmarkpg.html",
         header_div=header,
@@ -167,8 +169,10 @@ def hscmark():
         len1=len(datas),
         sub_marks=sub_first_marks,
         footer_div=footer_div(),
-        students_appeared=234,
-        students_passed=234,
+        failures=failures_data,
+        failures_len=len(failures_data),
+        students_appeared=result_summary['hsc']['appeared'],
+        students_passed=result_summary['hsc']['passed'],
     )
 
 
@@ -183,6 +187,8 @@ def sslcmark():
         else:
             break
     sub_first_marks = get_data_from_backend("/sslc/subject-first-marks")
+    failures_data = get_data_from_backend("/sslc/failures")
+    result_summary = get_data_from_backend("/results")
     return render_template(
         "sslcmarkpg.html",
         header_div=header,
@@ -190,8 +196,10 @@ def sslcmark():
         len1=len(datas),
         sub_marks=sub_first_marks,
         footer_div=footer_div(),
-        students_appeared=234,
-        students_passed=234,
+        failures=failures_data,
+        failures_len=len(failures_data),
+        students_appeared=result_summary['sslc']['appeared'],
+        students_passed=result_summary['sslc']['passed'],
     )
 
 

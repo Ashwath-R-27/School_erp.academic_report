@@ -165,7 +165,7 @@ def get_all_sslc_student_data(session: Session = Depends(get_session)):
             reg_no=row.reg_no,
             name=row.name,
             class_=row.class_,
-            dob=row.dob.strftime("%d/%m/%Y"),
+            dob=row.dob.strftime("%d-%m-%Y"),
         )
         for row in results
     ]
@@ -180,7 +180,7 @@ def get_all_hsc_student_data(session: Session = Depends(get_session)):
             reg_no=row.reg_no,
             name=row.name,
             class_=row.class_,
-            dob=row.dob.strftime("%d/%m/%Y"),
+            dob=row.dob.strftime("%d-%m-%Y"),
             group_code=row.group_code,
         )
         for row in results
