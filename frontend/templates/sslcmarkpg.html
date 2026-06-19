@@ -14,8 +14,20 @@
             <div id="result_container_head">SSLC EXAMINATION RESULTS MARCH 2026</div>
             <div class="stud_appeared">
                 <div class="stud_appeared_body">
-                    <div id="stud_appeared_text1">NUMBER OF STUDENTS APPEARED: 150</div>
-                    <div id="stud_appeared_text2">NUMBER OF STUDENTS PASSED : 150</div>
+                    <div id="stud_appeared_text1">NUMBER OF STUDENTS APPEARED: {{ students_appeared }}</div>
+                    <div id="stud_appeared_text2">NUMBER OF STUDENTS PASSED : {{ students_passed }}</div>
+                </div>
+                <div class="pass_percent_container">
+                    <div class="pass_percent_circle" data-appeared="{{ students_appeared }}" data-passed="{{ students_passed }}">
+                        <svg viewBox="0 0 120 120" class="circle_svg">
+                            <circle class="circle_bg" cx="60" cy="60" r="52"/>
+                            <circle class="circle_fill" cx="60" cy="60" r="52" id="progressCircle"/>
+                        </svg>
+                        <div class="circle_text">
+                            <span id="percentValue">0%</span>
+                            <span class="circle_label">Pass Rate</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="top_scorers">
@@ -40,6 +52,19 @@
                         </thead>
                         <tbody>{% for i in sub_marks %}
                             <tr><td>{{ i.name }}</td><td>{{ i.mark }}</td><td>{{ i.count }}</td></tr>{% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="failures">
+                <div id="failures_header">FAILURES</div>
+                <div class="failures_table">
+                    <table>
+                        <thead>
+                            <tr><th>RANK</th><th>CLASS</th><th>NAME</th><th>TOTAL</th><th>VIEW MARKS</th></tr>
+                        </thead>
+                        <tbody>{% for i in range(len1) %}
+                            <tr><td>{{ top_scorers[i].rank }}</td><td>{{ top_scorers[i].class }}</td><td>{{ top_scorers[i].name }}</td><td>{{ top_scorers[i].total }}</td><td><button class="view-btn" data-name="{{ top_scorers[i].name }}" data-reg-no="{{ top_scorers[i].reg_no }}" data-tamil="{{ top_scorers[i].tamil }}" data-english="{{ top_scorers[i].english }}" data-maths="{{ top_scorers[i].maths }}" data-science="{{ top_scorers[i].science }}" data-social="{{ top_scorers[i].social }}" data-total="{{ top_scorers[i].total }}">View Marks</button></td></tr>{% endfor %}
                         </tbody>
                     </table>
                 </div>

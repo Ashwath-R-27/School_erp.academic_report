@@ -167,6 +167,8 @@ def hscmark():
         len1=len(datas),
         sub_marks=sub_first_marks,
         footer_div=footer_div(),
+        students_appeared=234,
+        students_passed=234
     )
 
 
@@ -188,6 +190,8 @@ def sslcmark():
         len1=len(datas),
         sub_marks=sub_first_marks,
         footer_div=footer_div(),
+        students_appeared=234,
+        students_passed=234
     )
 
 
