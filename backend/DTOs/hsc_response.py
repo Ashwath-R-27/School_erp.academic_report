@@ -29,6 +29,24 @@ class SubjectFirstMarkResponse(BaseModel):
     count: int
 
 
+class HSCFailureResponse(BaseModel):
+    reg_no: int
+    class_: str = Field(..., alias="class")
+    group: Optional[str] = None
+    name: str
+    lang_name: Optional[str] = None
+    lang: int
+    eng: int
+    sub1: int
+    sub2: int
+    sub3: int
+    sub4: Optional[int] = None
+    total: int
+    cutoff: Optional[float] = Field(None, alias="cutoff")
+
+    model_config = {"populate_by_name": True, "from_attributes": True}
+
+
 class StudentGroupwiseDTO(BaseModel):
     rank: int
     reg_no: int

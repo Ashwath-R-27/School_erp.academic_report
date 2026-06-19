@@ -77,6 +77,12 @@ CREATE TABLE users (
     subject  varchar[]
 );
 
+-- Generic JSON storage (keyed blobs for config / form payloads)
+CREATE TABLE json_dumps (
+    key  varchar(100) PRIMARY KEY,
+    data jsonb        NOT NULL
+);
+
 -- ============================================
 -- Student Registration Data (form submissions)
 -- These tables store basic student details collected via forms

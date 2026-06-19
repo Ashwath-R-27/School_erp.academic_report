@@ -3,8 +3,8 @@ import os
 
 import requests
 from dashboard_config import DASHBOARD_CONFIGS
-from flask import Flask, jsonify, redirect, request, render_template,send_file, url_for
-from form_response_generator import build_student_pdf, build_sslc_student_pdf
+from flask import Flask, jsonify, redirect, render_template, request, send_file, url_for
+from form_response_generator import build_sslc_student_pdf, build_student_pdf
 from requests.models import HTTPError
 
 app = Flask(__name__)
@@ -46,7 +46,7 @@ def initialize_mock_db():
     hsc_res = get_data_from_backend("/import_hsc_mock")
     print("HSC Import Results:", hsc_res)
 
-    sslc_res = get_data_from_backend("/import_sslc?class_char=A")
+    sslc_res = get_data_from_backend("/import_sslc_mock")
     print("SSLC Import Results:", sslc_res)
 
     return jsonify({"hsc_initialization": hsc_res, "sslc_initialization": sslc_res})
@@ -152,10 +152,10 @@ def home():
 @app.route("/HSC_2026")
 def hscmark():
     header = header_div()
-    datas=[]
+    datas = []
     data = get_data_from_backend("/hsc/toppers?limit=15")
     for i in data:
-        if i['rank']<6:
+        if i["rank"] < 6:
             datas.append(i)
         else:
             break
@@ -168,7 +168,7 @@ def hscmark():
         sub_marks=sub_first_marks,
         footer_div=footer_div(),
         students_appeared=234,
-        students_passed=234
+        students_passed=234,
     )
 
 
@@ -178,7 +178,7 @@ def sslcmark():
     datas = []
     data = get_data_from_backend("/sslc/toppers?limit=15")
     for i in data:
-        if i['rank']<6:
+        if i["rank"] < 6:
             datas.append(i)
         else:
             break
@@ -191,7 +191,7 @@ def sslcmark():
         sub_marks=sub_first_marks,
         footer_div=footer_div(),
         students_appeared=234,
-        students_passed=234
+        students_passed=234,
     )
 
 
@@ -215,10 +215,10 @@ def hscgrpwisemarks():
 
 @app.route("/HSC_2026/Marks/Class")
 def hscclasswisemarks():
-    classes=[]
+    classes = []
     cls = get_data_from_backend("/hsc/sections")
     for sec in cls:
-        classes.append(sec['sec'])
+        classes.append(sec["sec"])
     datas = []
     for _class in classes:
         datas.extend(get_data_from_backend(f"/hsc/classwise?class_name={_class}"))
@@ -236,7 +236,9 @@ def hscclasswisemarks():
 def sslcclassmark():
     header = header_div()
     cls = ["A", "B", "C", "D", "E"]
-    datas = get_data_from_backend("/sslc/toppers?limit=100")
+    datas = []
+    for _class in cls:
+        datas.extend(get_data_from_backend(f"/sslc/classwise?class_name={_class}"))
     return render_template(
         "sslcclassmarkpg.html",
         header_div=header,
@@ -251,9 +253,23 @@ def sslcclassmark():
 @app.route("/HSC_2026/StudForm")
 def hscstudformpg():
     header = header_div()
-    cls_data=[{'class': 'A1', 'groups': ['csc', 'biomat']}, {'class': 'A', 'groups': ['csc', 'biomat']}, {'class': 'B', 'groups': ['biomat', 'biocs']}, {'class': 'C', 'groups': ['csc']}, {'class': 'D', 'groups': ['csc']}, {'class': 'E', 'groups': ['artsca', 'artsbm']}, {'class': 'F', 'groups': ['artsca']}, {'class': 'G1', 'groups': ['bme']}, {'class': 'G2', 'groups': ['bme']}]
+    cls_data = [
+        {"class": "A1", "groups": ["csc", "biomat"]},
+        {"class": "A", "groups": ["csc", "biomat"]},
+        {"class": "B", "groups": ["biomat", "biocs"]},
+        {"class": "C", "groups": ["csc"]},
+        {"class": "D", "groups": ["csc"]},
+        {"class": "E", "groups": ["artsca", "artsbm"]},
+        {"class": "F", "groups": ["artsca"]},
+        {"class": "G1", "groups": ["bme"]},
+        {"class": "G2", "groups": ["bme"]},
+    ]
     return render_template(
-        "studform.html", header_div=header,class_data=cls_data, key="hsc", footer_div=footer_div()
+        "studform.html",
+        header_div=header,
+        class_data=cls_data,
+        key="hsc",
+        footer_div=footer_div(),
     )
 
 
@@ -280,65 +296,81 @@ def sslcreportfetch():
         "sslcreportpg.html", header_div=header, footer_div=footer_div()
     )
 
+
 @app.route("/HSC/form/submit", methods=["POST"])
 def proxy_submit_hsc():
     try:
-        response = requests.post(
-            BACKEND_URL + "/submit/hsc",
-            data=request.form
-        )
+        response = requests.post(BACKEND_URL + "/submit/hsc", data=request.form)
         return jsonify(response.json()), response.status_code
     except Exception:
-        return jsonify({"detail": "Service is currently unavailable. Please try again later."}), 502
+        return jsonify(
+            {"detail": "Service is currently unavailable. Please try again later."}
+        ), 502
 
 
 @app.route("/submit/sslc", methods=["POST"])
 def proxy_submit_sslc():
     try:
-        response = requests.post(
-            BACKEND_URL + "/submit/sslc",
-            data=request.form
-        )
+        response = requests.post(BACKEND_URL + "/submit/sslc", data=request.form)
         return jsonify(response.json()), response.status_code
     except Exception:
-        return jsonify({"detail": "Service is currently unavailable. Please try again later."}), 502
+        return jsonify(
+            {"detail": "Service is currently unavailable. Please try again later."}
+        ), 502
+
 
 def reponse_page(cls):
-    datas = get_data_from_backend(f'/{cls}/student-data')
+    datas = get_data_from_backend(f"/{cls}/student-data")
     count = {}
     for student in datas:
         cls = student["class"]
         count[cls] = count.get(cls, 0) + 1
     count = dict(sorted(count.items()))
-    count['TOTAL']=sum(count.values())
+    count["TOTAL"] = sum(count.values())
     return count
 
-@app.route('/HSC_2026/StudForm/Responses')
+
+@app.route("/HSC_2026/StudForm/Responses")
 def hsc_response():
-    notice=""
-    return render_template('formresponses.html',title="HSC Student Details",notice=notice,response=reponse_page('hsc'))
+    notice = ""
+    return render_template(
+        "formresponses.html",
+        title="HSC Student Details",
+        notice=notice,
+        response=reponse_page("hsc"),
+    )
 
 
-@app.route('/SSLC_2026/StudForm/Responses')
+@app.route("/SSLC_2026/StudForm/Responses")
 def sslc_response():
-    notice=""
-    return render_template('formresponses.html',title="SSLC Student Details",notice=notice,response=reponse_page('sslc'))
+    notice = ""
+    return render_template(
+        "formresponses.html",
+        title="SSLC Student Details",
+        notice=notice,
+        response=reponse_page("sslc"),
+    )
+
 
 @app.route("/HSC/ClassDetails")
 def classentry():
-    return render_template("clsentrypg.html",header_div=header_div(),footer_div=footer_div())
+    return render_template(
+        "clsentrypg.html", header_div=header_div(), footer_div=footer_div()
+    )
 
-@app.route('/hsc-class-details/submit', methods=['POST'])
+
+@app.route("/hsc-class-details/submit", methods=["POST"])
 def proxy_class_details():
     try:
         resp = requests.post(
-            BACKEND_URL + '/hsc-class-details/submit',
+            BACKEND_URL + "/hsc-class-details/submit",
             json=request.get_json(),
-            timeout=10
+            timeout=10,
         )
         return jsonify(resp.json()), resp.status_code
     except requests.RequestException:
-        return jsonify({'detail': 'Backend unreachable'}), 502
+        return jsonify({"detail": "Backend unreachable"}), 502
+
 
 @app.route("/HSC_2026/StudDetails/PDF")
 def hsc_student_details_pdf():
@@ -352,12 +384,15 @@ def hsc_student_details_pdf():
             return jsonify({"detail": "No student data found."}), 404
 
         # Build class counts from backend or derive from student list
-        raw_counts = get_data_from_backend("/hsc/class-counts")  # expects [{"class":"A","count":6}, ...]
+        raw_counts = get_data_from_backend(
+            "/hsc/class-counts"
+        )  # expects [{"class":"A","count":6}, ...]
         if isinstance(raw_counts, list) and raw_counts:
             class_counts = {item["class"]: item["count"] for item in raw_counts}
         else:
             # Fallback: derive counts from the student list itself
             from collections import Counter
+
             class_counts = dict(Counter(s["class"] for s in students))
 
         pdf_buffer = build_student_pdf(students, class_counts)
@@ -371,6 +406,7 @@ def hsc_student_details_pdf():
         app.logger.error(f"PDF generation failed: {e}", exc_info=True)
         return jsonify({"detail": "PDF generation failed."}), 500
 
+
 @app.route("/SSLC_2026/StudDetails/PDF")
 def sslc_student_details_pdf():
     """
@@ -382,11 +418,14 @@ def sslc_student_details_pdf():
         if not students:
             return jsonify({"detail": "No student data found."}), 404
 
-        raw_counts = get_data_from_backend("/sslc/class-counts")  # expects [{"class":"A","count":40}, ...]
+        raw_counts = get_data_from_backend(
+            "/sslc/class-counts"
+        )  # expects [{"class":"A","count":40}, ...]
         if isinstance(raw_counts, list) and raw_counts:
             class_counts = {item["class"]: item["count"] for item in raw_counts}
         else:
             from collections import Counter
+
             class_counts = dict(Counter(s["class"] for s in students))
 
         pdf_buffer = build_sslc_student_pdf(students, class_counts)
@@ -399,6 +438,7 @@ def sslc_student_details_pdf():
     except Exception as e:
         app.logger.error(f"PDF generation failed: {e}", exc_info=True)
         return jsonify({"detail": "PDF generation failed."}), 500
+
 
 if __name__ == "__main__":
     if debug_mode:

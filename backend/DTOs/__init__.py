@@ -1,6 +1,7 @@
 from .hsc_response import (
     GroupDTO,
     GroupwiseResponseDTO,
+    HSCFailureResponse,
     SectionDTO,
     StudentGroupwiseDTO,
     SubjectFirstMarkResponse,
@@ -8,8 +9,10 @@ from .hsc_response import (
 )
 from .sslc_response import (
     SSLCClasswiseResponseDTO,
+    SSLCFailureResponse,
     SSLCTopperResponse,
 )
+from .results_response import ExamResultSummaryDTO, ResultsSummaryDTO
 from .student_data import (
     HSCStudentDataResponse,
     HSCStudentForm,
@@ -19,11 +22,15 @@ from .student_data import (
 )
 
 __all__ = [
+    "ExamResultSummaryDTO",
+    "ResultsSummaryDTO",
     "TopperResponse",
+    "HSCFailureResponse",
     "SubjectFirstMarkResponse",
     "StudentGroupwiseDTO",
     "GroupwiseResponseDTO",
     "SSLCTopperResponse",
+    "SSLCFailureResponse",
     "SSLCClasswiseResponseDTO",
     "SectionDTO",
     "GroupDTO",

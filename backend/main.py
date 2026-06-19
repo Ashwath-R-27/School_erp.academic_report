@@ -1,25 +1,29 @@
 import csv
 from contextlib import asynccontextmanager
-from datetime import date
-from typing import List, Optional
+from datetime import date, datetime
+from typing import Any, List, Optional
 
 from DTOs import (
     GroupDTO,
     GroupwiseResponseDTO,
+    HSCFailureResponse,
     HSCStudentDataResponse,
     HSCStudentForm,
     SectionDTO,
     SSLCClasswiseResponseDTO,
+    SSLCFailureResponse,
     SSLCStudentDataResponse,
     SSLCStudentForm,
     SSLCTopperResponse,
     StudentGroupwiseDTO,
+    ExamResultSummaryDTO,
+    ResultsSummaryDTO,
     StudentSubmitResponse,
     SubjectFirstMarkResponse,
     TopperResponse,
 )
 from fastapi import Depends, FastAPI, Form, HTTPException, Query, status
-from models import Group, HSC, SSLC, HSCStudentData, SSLCStudentData
+from models import HSC, SSLC, Group, HSCStudentData, JsonDump, SSLCStudentData
 from sqlalchemy import or_
 from sqlmodel import Session, SQLModel, desc, func, select, text
 
@@ -114,6 +118,43 @@ def submit_hsc(
     )
 
 
+def build_exam_result_summary(session: Session, model) -> ExamResultSummaryDTO:
+    appeared = session.scalar(select(func.count()).select_from(model)) or 0
+    passed = (
+        session.scalar(
+            select(func.count())
+            .select_from(model)
+            .where(func.upper(model.result) == "PASS")
+        )
+        or 0
+    )
+    failed = (
+        session.scalar(
+            select(func.count())
+            .select_from(model)
+            .where(func.upper(model.result) == "FAIL")
+        )
+        or 0
+    )
+    pass_percentage = round((passed / appeared) * 100, 2) if appeared else 0.0
+
+    return ExamResultSummaryDTO(
+        appeared=appeared,
+        passed=passed,
+        failed=failed,
+        pass_percentage=pass_percentage,
+    )
+
+
+@app.get("/results", response_model=ResultsSummaryDTO)
+def get_exam_results_summary(session: Session = Depends(get_session)):
+    """Return appeared, passed, failed counts and pass percentage for HSC and SSLC."""
+    return ResultsSummaryDTO(
+        hsc=build_exam_result_summary(session, HSC),
+        sslc=build_exam_result_summary(session, SSLC),
+    )
+
+
 # --- STUDENT DATA GET (all rows) ---
 @app.get("/sslc/student-data", response_model=List[SSLCStudentDataResponse])
 def get_all_sslc_student_data(session: Session = Depends(get_session)):
@@ -124,7 +165,7 @@ def get_all_sslc_student_data(session: Session = Depends(get_session)):
             reg_no=row.reg_no,
             name=row.name,
             class_=row.class_,
-            dob=row.dob,
+            dob=row.dob.strftime("%d/%m/%Y"),
         )
         for row in results
     ]
@@ -139,7 +180,7 @@ def get_all_hsc_student_data(session: Session = Depends(get_session)):
             reg_no=row.reg_no,
             name=row.name,
             class_=row.class_,
-            dob=row.dob,
+            dob=row.dob.strftime("%d/%m/%Y"),
             group_code=row.group_code,
         )
         for row in results
@@ -163,6 +204,20 @@ def section_sort_key(sec: str) -> tuple:
 def row_to_sslc_topper_response(row) -> SSLCTopperResponse:
     return SSLCTopperResponse(
         rank=row.rank,
+        reg_no=row.reg_no,
+        class_=row.class_name,
+        name=row.name,
+        tamil=row.tamil,
+        english=row.english,
+        maths=row.maths,
+        science=row.science,
+        social=row.social,
+        total=row.total if row.total is not None else 0,
+    )
+
+
+def row_to_sslc_failure_response(row) -> SSLCFailureResponse:
+    return SSLCFailureResponse(
         reg_no=row.reg_no,
         class_=row.class_name,
         name=row.name,
@@ -208,6 +263,30 @@ def get_sslc_sections(session: Session = Depends(get_session)):
     rows = session.exec(statement).all()
     classes = sorted({row for row in rows if row}, key=section_sort_key)
     return [SectionDTO(sec=sec, grp=[]) for sec in classes]
+
+
+@app.get("/sslc/failures", response_model=List[SSLCFailureResponse])
+def get_sslc_failures(session: Session = Depends(get_session)):
+    """Return all SSLC students with result FAIL, ordered by total marks descending."""
+    statement = (
+        select(
+            SSLC.reg_no,
+            SSLC.class_.label("class_name"),
+            SSLC.name,
+            SSLC.tamil,
+            SSLC.english,
+            SSLC.maths,
+            SSLC.science,
+            SSLC.social,
+            SSLC.total,
+        )
+        .where(func.upper(SSLC.result) == "FAIL")
+        .order_by(desc(SSLC.total))
+    )
+
+    results = session.exec(statement).all()
+
+    return [row_to_sslc_failure_response(row) for row in results]
 
 
 @app.get("/sslc/toppers", response_model=List[SSLCTopperResponse])
@@ -293,7 +372,9 @@ def get_sslc_subject_first_marks(session: Session = Depends(get_session)):
     subject_order = {"TAMIL": 0, "ENGLISH": 1, "MATHS": 2, "SCIENCE": 3, "SOCIAL": 4}
     return sorted(
         [
-            SubjectFirstMarkResponse(name=row["name"], mark=row["mark"], count=row["count"])
+            SubjectFirstMarkResponse(
+                name=row["name"], mark=row["mark"], count=row["count"]
+            )
             for row in result
         ],
         key=lambda item: subject_order.get(item.name.upper(), 99),
@@ -374,6 +455,24 @@ def row_to_student_groupwise_dto(row) -> StudentGroupwiseDTO:
     )
 
 
+def row_to_hsc_failure_response(row) -> HSCFailureResponse:
+    return HSCFailureResponse(
+        reg_no=row.reg_no,
+        class_=row.class_name,
+        group=row.group,
+        name=row.name,
+        lang_name=row.lang_name,
+        lang=row.lang or 0,
+        eng=row.eng or 0,
+        sub1=row.sub1 or 0,
+        sub2=row.sub2 or 0,
+        sub3=row.sub3 or 0,
+        sub4=row.sub4,
+        total=row.total if row.total is not None else 0,
+        cutoff=row.cutoff,
+    )
+
+
 def hsc_to_topper(rank: int, student: HSC) -> TopperResponse:
     return TopperResponse(
         rank=rank,
@@ -393,11 +492,37 @@ def hsc_to_topper(rank: int, student: HSC) -> TopperResponse:
     )
 
 
+HSC_SUBJECT_NAME_MAP = {
+    "CHEM": "CHEMISTRY",
+    "PHY": "PHYSICS",
+    "MATHS": "MATHEMATICS",
+    "COMP": "COMPUTER SCIENCE",
+    "CSC": "COMPUTER SCIENCE",
+    "BIO": "BIOLOGY",
+    "ACC": "ACCOUNTANCY",
+    "ECO": "ECONOMICS",
+    "COM": "COMMERCE",
+    "CA": "COMPUTER APPLICATION",
+    "BM": "BUSINESS MATHEMATICS",
+    "BME (THY)": "BASIC MECHANICAL ENGINEERING (THEORY)",
+    "BME (PRT)": "BASIC MECHANICAL ENGINEERING (PRACTICAL)",
+    "ES": "EMPLOYABILITY SKILLS",
+}
+
+
 def subject_label(subject: Optional[str]) -> str:
     """Format a subject name loaded from the groups table for API responses."""
     if not subject:
         return ""
     return subject.strip().upper()
+
+
+def hsc_subject_display_name(subject: Optional[str]) -> str:
+    """Map HSC subject short codes to full display names."""
+    if not subject:
+        return ""
+    key = subject.strip().upper()
+    return HSC_SUBJECT_NAME_MAP.get(key, key)
 
 
 def group_dto_from_db_row(row) -> GroupDTO:
@@ -419,6 +544,46 @@ def get_groups_by_code(session: Session) -> dict[str, Group]:
         group.code.lower(): group
         for group in session.exec(select(Group).order_by(Group.group_id)).all()
     }
+
+
+def parse_result_value(raw: Optional[str], reg_no: Optional[str] = None) -> str:
+    """Normalize and validate a PASS/FAIL result from CSV import."""
+    value = (raw or "").strip().upper()
+    if value not in {"PASS", "FAIL"}:
+        raise HTTPException(
+            status_code=422,
+            detail=(
+                f"Invalid result '{raw}' for reg_no {reg_no}. Expected PASS or FAIL."
+            ),
+        )
+    return value
+
+
+HSC_CLASS_DETAILS_KEY = "hsc-class-details"
+
+
+@app.get("/hsc-class-details/submit")
+def get_hsc_class_details(session: Session = Depends(get_session)):
+    record = session.get(JsonDump, HSC_CLASS_DETAILS_KEY)
+    if record is None:
+        return []
+    return record.data
+
+
+@app.post("/hsc-class-details/submit")
+def submit_hsc_class_details(
+    payload: Any,
+    session: Session = Depends(get_session),
+):
+    record = session.get(JsonDump, HSC_CLASS_DETAILS_KEY)
+    if record is None:
+        record = JsonDump(key=HSC_CLASS_DETAILS_KEY, data=payload)
+    else:
+        record.data = payload
+    session.add(record)
+    session.commit()
+    session.refresh(record)
+    return record.data
 
 
 # --- HSC ENDPOINTS ---
@@ -481,6 +646,34 @@ def get_hsc_classwise(class_name: str, session: Session = Depends(get_session)):
     results = session.exec(statement).all()
 
     return [row_to_student_groupwise_dto(row) for row in results]
+
+
+@app.get("/hsc/failures", response_model=List[HSCFailureResponse])
+def get_hsc_failures(session: Session = Depends(get_session)):
+    """Return all HSC students with result FAIL, ordered by total marks descending."""
+    statement = (
+        select(
+            HSC.reg_no,
+            HSC.class_.label("class_name"),
+            HSC.group_code.label("group"),
+            HSC.name,
+            HSC.lang_name,
+            HSC.lang,
+            HSC.eng,
+            HSC.mark_1.label("sub1"),
+            HSC.mark_2.label("sub2"),
+            HSC.mark_3.label("sub3"),
+            HSC.mark_4.label("sub4"),
+            HSC.total,
+            HSC.cut_off.label("cutoff"),
+        )
+        .where(func.upper(HSC.result) == "FAIL")
+        .order_by(desc(HSC.total))
+    )
+
+    results = session.exec(statement).all()
+
+    return [row_to_hsc_failure_response(row) for row in results]
 
 
 @app.get("/hsc/sections", response_model=List[SectionDTO])
@@ -626,9 +819,12 @@ def get_subject_first_marks(session: Session = Depends(get_session)):
     # Execute query
     result = session.execute(query).mappings().all()
 
-    # Map raw SQL results directly to the Pydantic schema
     return [
-        SubjectFirstMarkResponse(name=row["name"], mark=row["mark"], count=row["count"])
+        SubjectFirstMarkResponse(
+            name=hsc_subject_display_name(row["name"]),
+            mark=row["mark"],
+            count=row["count"],
+        )
         for row in result
     ]
 
@@ -745,7 +941,7 @@ def import_hsc_csv(
                     mark_2=chemistry,
                     mark_3=comp_or_third,
                     mark_4=maths,
-                    result=(row.get("RESULT") or "").strip() or None,
+                    result=parse_result_value(row.get("RESULT"), row.get("REGNO")),
                     # cut_off is DB-generated (do not set it here)
                 )
                 records_to_insert.append(hsc_record)
@@ -821,7 +1017,7 @@ def import_sslc_csv(
                     maths=int(row["MATHS"]) if row.get("MATHS") else None,
                     science=int(row["SCIENCE"]) if row.get("SCIENCE") else None,
                     social=int(row["SOCIAL"]) if row.get("SOCIAL") else None,
-                    result=(row.get("RESULT") or "").strip() or None,
+                    result=parse_result_value(row.get("RESULT"), row.get("REGNO")),
                 )
                 records_to_insert.append(sslc_record)
 
@@ -867,7 +1063,7 @@ def import_mock_hsc_csv(
     """
     GET endpoint to read the HSC mock CSV and insert rows into PostgreSQL.
     CSV columns: reg_no, class, name, group_code, lang_name, lang, eng,
-    mark_1, mark_2, mark_3, mark_4.
+    mark_1, mark_2, mark_3, mark_4, result.
     total and cut_off are computed by the database (GENERATED ALWAYS AS).
     """
     try:
@@ -893,6 +1089,7 @@ def import_mock_hsc_csv(
                 "mark_2",
                 "mark_3",
                 "mark_4",
+                "result",
             }
             missing_columns = required_columns - set(reader.fieldnames or [])
             if missing_columns:
@@ -906,6 +1103,8 @@ def import_mock_hsc_csv(
 
             groups_by_code = get_groups_by_code(db)
             records_to_insert = []
+            pass_count = 0
+            fail_count = 0
 
             for row in reader:
                 group_code = (row.get("group_code") or "").strip().lower()
@@ -929,6 +1128,12 @@ def import_mock_hsc_csv(
                     val = val.strip()
                     return int(val) if val != "" else None
 
+                result = parse_result_value(row.get("result"), row.get("reg_no"))
+                if result == "PASS":
+                    pass_count += 1
+                else:
+                    fail_count += 1
+
                 hsc_record = HSC(
                     reg_no=int(row["reg_no"]),
                     class_=row["class"].strip(),
@@ -942,7 +1147,7 @@ def import_mock_hsc_csv(
                     mark_2=get_optional_int("mark_2"),
                     mark_3=get_optional_int("mark_3"),
                     mark_4=get_optional_int("mark_4"),
-                    result=(row.get("result") or "").strip() or None,
+                    result=result,
                 )
                 records_to_insert.append(hsc_record)
 
@@ -959,7 +1164,12 @@ def import_mock_hsc_csv(
             return {
                 "status": "success",
                 "inserted_records": len(records_to_insert),
-                "message": f"Successfully loaded {len(records_to_insert)} student records into the hsc table.",
+                "passed": pass_count,
+                "failed": fail_count,
+                "message": (
+                    f"Successfully loaded {len(records_to_insert)} student records "
+                    f"into the hsc table ({pass_count} passed, {fail_count} failed)."
+                ),
             }
 
     except FileNotFoundError:
@@ -972,6 +1182,128 @@ def import_mock_hsc_csv(
             status_code=422,
             detail=f"Missing expected column in CSV file: {str(e)}",
         )
+    except HTTPException:
+        db.rollback()
+        raise
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(
+            status_code=500,
+            detail=f"An error occurred while writing to the database: {str(e)}",
+        )
+
+
+@app.get("/import_sslc_mock")
+def import_mock_sslc_csv(
+    file_path: str = "mock_data/tn_sslc_exam_data.csv",
+    db: Session = Depends(get_session),
+):
+    """
+    GET endpoint to read the SSLC mock CSV and insert rows into PostgreSQL.
+    CSV columns: reg_no, class, name, tamil, english, maths, science, social, result.
+    total is computed by the database (GENERATED ALWAYS AS).
+    """
+    try:
+        with open(file_path, mode="r", encoding="utf-8-sig") as file:
+            reader = csv.DictReader(file)
+
+            reader.fieldnames = (
+                [
+                    "reg_no"
+                    if field.strip().lower() == "regno"
+                    else field.strip().lower()
+                    for field in reader.fieldnames
+                ]
+                if reader.fieldnames
+                else []
+            )
+
+            required_columns = {
+                "reg_no",
+                "class",
+                "name",
+                "tamil",
+                "english",
+                "maths",
+                "science",
+                "social",
+                "result",
+            }
+            missing_columns = required_columns - set(reader.fieldnames or [])
+            if missing_columns:
+                raise HTTPException(
+                    status_code=422,
+                    detail=(
+                        "CSV is missing required columns: "
+                        f"{', '.join(sorted(missing_columns))}"
+                    ),
+                )
+
+            records_to_insert = []
+            pass_count = 0
+            fail_count = 0
+
+            for row in reader:
+
+                def get_optional_int(key: str) -> Optional[int]:
+                    val = row.get(key)
+                    if val is None:
+                        return None
+                    val = val.strip()
+                    return int(val) if val != "" else None
+
+                result = parse_result_value(row.get("result"), row.get("reg_no"))
+                if result == "PASS":
+                    pass_count += 1
+                else:
+                    fail_count += 1
+
+                sslc_record = SSLC(
+                    reg_no=int(row["reg_no"]),
+                    class_=row["class"].strip(),
+                    name=row["name"].strip(),
+                    tamil=get_optional_int("tamil"),
+                    english=get_optional_int("english"),
+                    maths=get_optional_int("maths"),
+                    science=get_optional_int("science"),
+                    social=get_optional_int("social"),
+                    result=result,
+                )
+                records_to_insert.append(sslc_record)
+
+            if not records_to_insert:
+                raise HTTPException(
+                    status_code=400,
+                    detail="The provided CSV file contains no records.",
+                )
+
+            db.add_all(records_to_insert)
+            db.commit()
+
+            return {
+                "status": "success",
+                "inserted_records": len(records_to_insert),
+                "passed": pass_count,
+                "failed": fail_count,
+                "message": (
+                    f"Successfully loaded {len(records_to_insert)} student records "
+                    f"into the sslc table ({pass_count} passed, {fail_count} failed)."
+                ),
+            }
+
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=404,
+            detail=f"The CSV file could not be found at the path: '{file_path}'",
+        )
+    except KeyError as e:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Missing expected column in CSV file: {str(e)}",
+        )
+    except HTTPException:
+        db.rollback()
+        raise
     except Exception as e:
         db.rollback()
         raise HTTPException(

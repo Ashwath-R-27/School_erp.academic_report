@@ -62,7 +62,7 @@ class SSLCStudentDataResponse(BaseModel):
     reg_no: int
     name: Optional[str] = None
     class_: Optional[str] = Field(default=None, alias="class")
-    dob: Optional[date] = None
+    dob: Optional[str] = None
 
     model_config = {"populate_by_name": True, "from_attributes": True}
 
@@ -73,7 +73,7 @@ class HSCStudentDataResponse(BaseModel):
     reg_no: int
     name: Optional[str] = None
     class_: Optional[str] = Field(default=None, alias="class")
-    dob: Optional[date] = None
+    dob: Optional[str] = None
     group_code: Optional[str] = Field(default=None, alias="group_code")
 
     model_config = {"populate_by_name": True, "from_attributes": True}
